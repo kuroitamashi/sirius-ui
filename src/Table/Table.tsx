@@ -25,7 +25,9 @@ export interface SiriusTableProps<T = any> {
   data: T[];
   pagination?: SiriusTablePagination;
   emptyState?: React.ReactNode;
+  embedded?: boolean;
   className?: string;
+  style?: React.CSSProperties;
   onRowClick?: (row: T, index: number) => void;
 }
 
@@ -38,11 +40,22 @@ export function SiriusTable<T = any>({
   data,
   pagination,
   emptyState,
+  embedded = false,
   className = '',
+  style,
   onRowClick,
 }: SiriusTableProps<T>) {
   return (
-    <div className={['sirius-table-container', className].filter(Boolean).join(' ')}>
+    <div
+      className={[
+        'sirius-table-container',
+        embedded && 'sirius-table-container--embedded',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      style={style}
+    >
       <div className="sirius-table-scroll">
         <table className="sirius-table">
           <thead>

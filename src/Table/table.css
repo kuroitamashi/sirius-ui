@@ -14,6 +14,13 @@
   box-sizing: border-box;
 }
 
+/* Mode intégré sans double bordure */
+.sirius-table-container--embedded {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 .sirius-table-scroll {
   width: 100%;
   overflow-x: auto;
