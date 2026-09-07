@@ -1,0 +1,27 @@
+.sirius-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--sirius-border-subdued);
+  border-radius: var(--sirius-radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.sirius-progress-bar--small {
+  height: 4px;
+}
+
+.sirius-progress-bar--large {
+  height: 8px;
+}
+
+.sirius-progress-bar__indicator {
+  height: 100%;
+  background: var(--sirius-primary);
+  border-radius: var(--sirius-radius-full);
+  transition: width 0.4s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.sirius-progress-bar--success .sirius-progress-bar__indicator {
+  background: var(--sirius-success);
+}

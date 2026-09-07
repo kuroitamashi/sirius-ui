@@ -1,0 +1,38 @@
+/* ==========================================================================
+   Sirius List - Sirius UI 1:1 Recreation
+   Figma components: ❖ OrderedList & ❖ UnorderedList
+   ========================================================================== */
+
+.sirius-list {
+  margin: 0;
+  padding: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #202223;
+  box-sizing: border-box;
+}
+
+/* Liste non ordonnée (bullet) */
+.sirius-list--bullet {
+  list-style-type: disc;
+}
+
+/* Liste ordonnée (number) */
+.sirius-list--number {
+  list-style-type: decimal;
+}
+
+.sirius-list__item {
+  color: #202223;
+  padding-left: 4px;
+}
+
+.sirius-list__item::marker {
+  color: #202223;
+  font-weight: 500;
+}

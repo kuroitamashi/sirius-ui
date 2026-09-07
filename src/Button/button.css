@@ -1,0 +1,291 @@
+/* ==========================================================================
+   Sirius Button - Pure Sirius UI Recreation
+   Tactile bevel, depth gradient, inset top-highlight & crisp typography
+   ========================================================================== */
+
+.sirius-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+  border-radius: var(--sirius-radius-base);
+  font-family: inherit;
+  font-weight: 650;
+  font-size: 13px;
+  line-height: 1.25;
+  padding: 7px 14px;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  /* Transitions ciblées : JAMAIS de transition 'background' ou 'all' pour éviter le flash d'interpolation de gradient */
+  transition:
+    transform 0.05s ease,
+    box-shadow 0.1s ease,
+    border-color 0.1s ease,
+    background-color 0.1s ease,
+    color 0.1s ease;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.sirius-btn:focus {
+  outline: none;
+}
+
+.sirius-btn:focus-visible {
+  outline: 2px solid var(--sirius-primary, #202020);
+  outline-offset: 1px;
+}
+
+/* --------------------------------------------------------------------------
+   Sirius Primary (Le bouton noir tactile iconique de Sirius)
+   -------------------------------------------------------------------------- */
+.sirius-btn--primary {
+  background-color: #202020;
+  background-image: linear-gradient(180deg, #323232 0%, #202020 100%);
+  color: #ffffff;
+  border: 1px solid #141414;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
+    0 1px 2px 0 rgba(0, 0, 0, 0.18);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+}
+
+.sirius-btn--primary:hover:not(:disabled) {
+  background-color: #1a1a1a;
+  background-image: linear-gradient(180deg, #262626 0%, #151515 100%);
+  border-color: #0c0c0c;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.45),
+    0 1px 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.sirius-btn--primary:active:not(:disabled) {
+  background-color: #141414;
+  background-image: linear-gradient(180deg, #181818 0%, #101010 100%);
+  border-color: #050505;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+  transform: translateY(0.5px);
+}
+
+/* --------------------------------------------------------------------------
+   Sirius Success / Brand (Vert SKS avec le même relief tactile Sirius)
+   -------------------------------------------------------------------------- */
+.sirius-btn--success,
+.sirius-btn--brand {
+  background-color: #00703f;
+  background-image: linear-gradient(180deg, #00874e 0%, #00703f 100%);
+  color: #ffffff;
+  border: 1px solid #005431;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
+    0 1px 2px 0 rgba(0, 0, 0, 0.15);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.sirius-btn--success:hover:not(:disabled),
+.sirius-btn--brand:hover:not(:disabled) {
+  background-color: #006036;
+  background-image: linear-gradient(180deg, #007845 0%, #006036 100%);
+  border-color: #004527;
+}
+
+.sirius-btn--success:active:not(:disabled),
+.sirius-btn--brand:active:not(:disabled) {
+  background-color: #004d2c;
+  background-image: linear-gradient(180deg, #005f36 0%, #004829 100%);
+  border-color: #00371f;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+  transform: translateY(0.5px);
+}
+
+/* --------------------------------------------------------------------------
+   Sirius Secondary / Default (Blanc avec bordure biseautée subtile)
+   -------------------------------------------------------------------------- */
+.sirius-btn--secondary {
+  background-color: #ffffff;
+  background-image: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+  color: var(--sirius-text);
+  border: 1px solid #c9cccf;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
+    0 1px 0 0 rgba(0, 0, 0, 0.05);
+}
+
+.sirius-btn--secondary:hover:not(:disabled) {
+  background-color: #f6f7f8;
+  background-image: linear-gradient(180deg, #f9fafb 0%, #f1f2f4 100%);
+  border-color: #b5b8bb;
+}
+
+.sirius-btn--secondary:active:not(:disabled) {
+  background-color: #eceef0;
+  background-image: linear-gradient(180deg, #eceef0 0%, #e4e6e8 100%);
+  border-color: #a8abaf;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+  transform: translateY(0.5px);
+}
+
+/* --------------------------------------------------------------------------
+   Sirius Plain (Lien textuel discret)
+   -------------------------------------------------------------------------- */
+.sirius-btn--plain {
+  background-color: transparent;
+  background-image: none;
+  color: var(--sirius-text);
+  border-color: transparent;
+  box-shadow: none;
+  padding: 4px 6px;
+  font-weight: 550;
+}
+
+.sirius-btn--plain:hover:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--sirius-text);
+}
+
+.sirius-btn--plain:active:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+
+/* --------------------------------------------------------------------------
+   Sirius Destructive (Action critique rouge - Solide et Contour)
+   -------------------------------------------------------------------------- */
+.sirius-btn--destructive {
+  background-color: #bc2200;
+  background-image: linear-gradient(180deg, #d72c0d 0%, #bc2200 100%);
+  color: #ffffff;
+  border: 1px solid #991900;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.15);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.sirius-btn--destructive:hover:not(:disabled) {
+  background-color: #aa1b00;
+  background-image: linear-gradient(180deg, #c7240a 0%, #aa1b00 100%);
+}
+
+.sirius-btn--destructive:active:not(:disabled) {
+  background-color: #8a1500;
+  background-image: linear-gradient(180deg, #991900 0%, #7e1200 100%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+  transform: translateY(0.5px);
+}
+
+.sirius-btn--destructive-outline {
+  background-color: #ffffff;
+  background-image: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+  color: #d72c0d;
+  border: 1px solid #fed2cd;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
+    0 1px 0 0 rgba(0, 0, 0, 0.05);
+}
+
+.sirius-btn--destructive-outline:hover:not(:disabled) {
+  background-color: #fff4f2;
+  background-image: none;
+  border-color: #fca5a5;
+}
+
+.sirius-btn--destructive-outline:active:not(:disabled) {
+  background-color: #ffe8e5;
+  background-image: none;
+  border-color: #f87171;
+  transform: translateY(0.5px);
+}
+
+.sirius-btn--destructive-plain {
+  background-color: transparent;
+  background-image: none;
+  color: #d72c0d;
+  border-color: transparent;
+  box-shadow: none;
+  padding: 4px 6px;
+}
+
+.sirius-btn--destructive-plain:hover:not(:disabled) {
+  background-color: #fff4f2;
+}
+
+.sirius-btn--destructive-plain:active:not(:disabled) {
+  background-color: #ffe8e5;
+}
+
+/* --------------------------------------------------------------------------
+   Icon Only (Boutons carrés comme dans le Figma)
+   -------------------------------------------------------------------------- */
+.sirius-btn--icon-only {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.sirius-btn--icon-only.sirius-btn--slim {
+  width: 26px;
+  height: 26px;
+}
+
+.sirius-btn--icon-only.sirius-btn--large {
+  width: 38px;
+  height: 38px;
+}
+
+/* --------------------------------------------------------------------------
+   Tailles
+   -------------------------------------------------------------------------- */
+.sirius-btn--slim {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.sirius-btn--large {
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 9px;
+}
+
+.sirius-btn--full-width {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   États Disabled & Loading
+   -------------------------------------------------------------------------- */
+.sirius-btn:disabled,
+.sirius-btn--loading {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+.sirius-btn__spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: sirius-spin 0.6s linear infinite;
+}
+
+@keyframes sirius-spin {
+  to { transform: rotate(360deg); }
+}

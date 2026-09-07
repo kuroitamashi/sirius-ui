@@ -1,0 +1,265 @@
+/* ==========================================================================
+   Sirius Banner - Pure Sirius UI Recreation
+   Supports 3 Layouts as seen in Figma:
+   1. Header bar (Barre supérieure unie colorée + corps blanc)
+   2. Card (Carte blanche avec squircle badge coloré)
+   3. Subdued (Fond teinté doux avec ou sans titre)
+   ========================================================================== */
+
+.sirius-banner {
+  border-radius: var(--sirius-radius-base, 8px);
+  position: relative;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.45;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   Lien standard (Link text souligné comme dans Figma)
+   -------------------------------------------------------------------------- */
+.sirius-banner__link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 550;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.sirius-banner__link:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Actions sous le message */
+.sirius-banner__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   DISPOSITION 1 : HEADER BAR (Barre supérieure unie + corps blanc)
+   -------------------------------------------------------------------------- */
+.sirius-banner--layout-header {
+  border: 1px solid #d2d5d8;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.sirius-banner__header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  color: #ffffff;
+}
+
+.sirius-banner__header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sirius-banner__header-icon {
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.sirius-banner__header-title {
+  font-weight: 650;
+  font-size: 13.5px;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.sirius-banner__header-dismiss {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  transition: opacity 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.sirius-banner__header-dismiss:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Couleurs des barres d'en-tête selon la palette Figma */
+.sirius-banner--layout-header.sirius-banner--info .sirius-banner__header-bar {
+  background: #70bbfb;
+}
+
+.sirius-banner--layout-header.sirius-banner--success .sirius-banner__header-bar {
+  background: #007a5c;
+}
+
+.sirius-banner--layout-header.sirius-banner--warning .sirius-banner__header-bar {
+  background: #f5a623;
+}
+
+.sirius-banner--layout-header.sirius-banner--critical .sirius-banner__header-bar {
+  background: #c01025;
+}
+
+.sirius-banner__body-container {
+  background: #ffffff;
+  padding: 12px 14px;
+  color: #202223;
+}
+
+/* --------------------------------------------------------------------------
+   DISPOSITION 2 : CARD (Carte blanche avec squircle badge coloré)
+   -------------------------------------------------------------------------- */
+.sirius-banner--layout-card {
+  background: #ffffff;
+  border: 1px solid #e1e3e5;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sirius-banner__card-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.sirius-banner--layout-card.sirius-banner--info .sirius-banner__card-badge {
+  background: #70bbfb;
+}
+
+.sirius-banner--layout-card.sirius-banner--success .sirius-banner__card-badge {
+  background: #007a5c;
+}
+
+.sirius-banner--layout-card.sirius-banner--warning .sirius-banner__card-badge {
+  background: #f5a623;
+}
+
+.sirius-banner--layout-card.sirius-banner--critical .sirius-banner__card-badge {
+  background: #c01025;
+}
+
+/* --------------------------------------------------------------------------
+   DISPOSITION 3 : SUBDUED (Fond teinté doux Sirius)
+   -------------------------------------------------------------------------- */
+.sirius-banner--layout-subdued {
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid transparent;
+}
+
+.sirius-banner--layout-subdued.sirius-banner--compact {
+  align-items: center;
+  padding: 10px 14px;
+}
+
+.sirius-banner__icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  margin-top: 1px;
+}
+
+.sirius-banner--compact .sirius-banner__icon {
+  margin-top: 0;
+}
+
+.sirius-banner__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sirius-banner__title {
+  font-weight: 650;
+  font-size: 13.5px;
+  margin-bottom: 2px;
+  letter-spacing: -0.01em;
+}
+
+.sirius-banner__body {
+  color: #202223;
+}
+
+.sirius-banner__dismiss {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  transition: background 0.1s ease;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.sirius-banner__dismiss:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Couleurs Subdued par Tonalité */
+.sirius-banner--layout-subdued.sirius-banner--info {
+  background: #eaf4fe;
+  border-color: #cde4fe;
+}
+.sirius-banner--layout-subdued.sirius-banner--info .sirius-banner__icon,
+.sirius-banner--layout-subdued.sirius-banner--info .sirius-banner__title,
+.sirius-banner--layout-subdued.sirius-banner--info .sirius-banner__dismiss {
+  color: #0066cc;
+}
+
+.sirius-banner--layout-subdued.sirius-banner--success {
+  background: #e3f6ed;
+  border-color: #b7ecd2;
+}
+.sirius-banner--layout-subdued.sirius-banner--success .sirius-banner__icon,
+.sirius-banner--layout-subdued.sirius-banner--success .sirius-banner__title,
+.sirius-banner--layout-subdued.sirius-banner--success .sirius-banner__dismiss {
+  color: #007a5c;
+}
+
+.sirius-banner--layout-subdued.sirius-banner--warning {
+  background: #fff4df;
+  border-color: #fedfa7;
+}
+.sirius-banner--layout-subdued.sirius-banner--warning .sirius-banner__icon,
+.sirius-banner--layout-subdued.sirius-banner--warning .sirius-banner__title,
+.sirius-banner--layout-subdued.sirius-banner--warning .sirius-banner__dismiss {
+  color: #915900;
+}
+
+.sirius-banner--layout-subdued.sirius-banner--critical {
+  background: #fee8e7;
+  border-color: #fcc6c3;
+}
+.sirius-banner--layout-subdued.sirius-banner--critical .sirius-banner__icon,
+.sirius-banner--layout-subdued.sirius-banner--critical .sirius-banner__title,
+.sirius-banner--layout-subdued.sirius-banner--critical .sirius-banner__dismiss {
+  color: #c01025;
+}

@@ -1,0 +1,80 @@
+/**
+ * Design System Sirius - Tokens
+ * Inspiré du standard Sirius UI (Sirius-tokens)
+ * Adapté pour Sen-Kheweul Store
+ */
+
+:root {
+  /* --- Surfaces & Plans de fond --- */
+  --sirius-bg-app: #f6f6f7;          /* Fond neutre Sirius UI */
+  --sirius-surface: #ffffff;         /* Surface des cartes et panneaux */
+  --sirius-surface-hover: #f9fafb;   /* Survol de surface blanche */
+  --sirius-surface-subdued: #f7f7f8; /* Fond secondaire doux */
+  --sirius-surface-active: #f1f2f4;  /* Fond d'élément sélectionné */
+
+  /* --- Bordures & Séparateurs --- */
+  --sirius-border: #e1e3e5;          /* Bordure fine standard Sirius */
+  --sirius-border-subdued: #ebecee;  /* Bordure très légère */
+  --sirius-border-hover: #c9cccf;    /* Bordure au survol */
+  --sirius-border-focus: #00824c;    /* Focus ring */
+
+  /* --- Typographie & Textes --- */
+  --sirius-text: #202223;            /* Texte principal haute lisibilité Sirius */
+  --sirius-text-subdued: #6d7175;    /* Texte secondaire / libellés */
+  --sirius-text-faint: #8c9196;      /* Texte tertiaire / métadonnées */
+  --sirius-text-disabled: #b5b5b5;   /* Texte désactivé */
+
+  /* --- Couleurs de la Marque SKS & Accents --- */
+  --sirius-primary: #00824c;         /* Vert SKS Signature */
+  --sirius-primary-hover: #006b3e;   /* Vert foncé hover */
+  --sirius-primary-active: #005431;  /* Vert foncé active */
+  --sirius-primary-surface: #f0fdf4; /* Fond vert très pâle */
+  --sirius-primary-border: #bbf7d0;  /* Bordure verte douce */
+
+  /* --- Couleurs d'États Sirius --- */
+  --sirius-success: #108043;
+  --sirius-success-surface: #edf7ed;
+  --sirius-success-border: #c3e6cb;
+
+  --sirius-attention: #b98900;
+  --sirius-attention-surface: #fff8db;
+  --sirius-attention-border: #ffe885;
+
+  --sirius-critical: #d72c0d;
+  --sirius-critical-surface: #fff4f2;
+  --sirius-critical-border: #fed3d1;
+
+  --sirius-info: #0066cc;
+  --sirius-info-surface: #f0f7ff;
+  --sirius-info-border: #b8dbff;
+
+  /* --- Identité Paiements Locaux (Sénégal) --- */
+  --sirius-wave: #00b2fe;
+  --sirius-wave-surface: #e0f4fe;
+  --sirius-wave-text: #0284c7;
+  --sirius-wave-border: #bae6fd;
+
+  --sirius-om: #ff6600;
+  --sirius-om-surface: #fff3eb;
+  --sirius-om-text: #ea580c;
+  --sirius-om-border: #fed7aa;
+
+  --sirius-cod: #d97706;
+  --sirius-cod-surface: #fef8eb;
+  --sirius-cod-text: #b45309;
+  --sirius-cod-border: #fde68a;
+
+  /* --- Ombres Sirius --- */
+  --sirius-shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --sirius-shadow-popover: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.12);
+  --sirius-shadow-button: 0 1px 0 rgba(0, 0, 0, 0.05);
+
+  /* --- Rayons de courbure --- */
+  --sirius-radius-sm: 4px;
+  --sirius-radius-base: 8px;
+  --sirius-radius-lg: 12px;
+  --sirius-radius-full: 9999px;
+
+  /* --- Transitions --- */
+  --sirius-transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
+}

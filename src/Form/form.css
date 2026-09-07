@@ -1,0 +1,652 @@
+/* ==========================================================================
+   Sirius Forms - Pure Sirius UI Recreation
+   Crisp borders, tactile focus ring, soft error pink #fee8e7 & African CFA styling
+   ========================================================================== */
+
+/* --- Wrapper de champ général --- */
+.sirius-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.sirius-field--disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* --- Label & Détails --- */
+.sirius-field__label-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sirius-field__label {
+  font-size: 13px;
+  font-weight: 550;
+  color: var(--sirius-text, #202223);
+  line-height: 1.3;
+}
+
+.sirius-field__details {
+  font-size: 12px;
+  color: var(--sirius-text-subdued, #6d7175);
+  line-height: 1.4;
+  margin-top: 1px;
+}
+
+/* --- Boîte d'input conteneur --- */
+.sirius-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #8c9196;
+  border-radius: var(--sirius-radius-base, 8px);
+  box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.05);
+  transition: border-color 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 36px;
+}
+
+.sirius-input-box:hover:not(.sirius-input-box--disabled):not(.sirius-input-box--error) {
+  border-color: #5c5f62;
+}
+
+.sirius-input-box:focus-within:not(.sirius-input-box--disabled):not(.sirius-input-box--error) {
+  border-color: #202020;
+  box-shadow: 0 0 0 1px #202020;
+  outline: none;
+}
+
+/* État Désactivé */
+.sirius-input-box--disabled {
+  background: #f1f2f4;
+  border-color: #e1e3e5;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* État Erreur (Rose clair + bordure rouge comme dans Figma) */
+.sirius-input-box--error {
+  background: #fee8e7;
+  border-color: #c01025;
+}
+
+.sirius-input-box--error:focus-within {
+  border-color: #c01025;
+  box-shadow: 0 0 0 1px #c01025;
+}
+
+/* --- Éléments internes d'input --- */
+.sirius-input {
+  width: 100%;
+  height: 100%;
+  min-height: 34px;
+  padding: 7px 12px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13.5px;
+  color: #202223;
+  line-height: 1.3;
+  box-sizing: border-box;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sirius-input::placeholder {
+  color: #8c9196;
+}
+
+.sirius-input-box--disabled .sirius-input {
+  color: #8c9196;
+  cursor: not-allowed;
+}
+
+/* Préfixe / Suffixe / Icône */
+.sirius-input__prefix,
+.sirius-input__suffix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  color: #6d7175;
+  font-size: 13px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.sirius-input__icon {
+  display: grid;
+  place-items: center;
+  padding-left: 10px;
+  color: #5c5f62;
+  flex-shrink: 0;
+}
+
+/* Message d'erreur */
+.sirius-field__error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #c01025;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.sirius-field__error-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   CHECKBOX (Fidèle à Figma : Unchecked, Checked, Indeterminate, Error)
+   -------------------------------------------------------------------------- */
+.sirius-checkbox-wrap {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sirius-checkbox-wrap--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sirius-checkbox {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1px solid #8c9196;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: background-color 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease;
+  box-sizing: border-box;
+}
+
+.sirius-checkbox-wrap:hover:not(.sirius-checkbox-wrap--disabled) .sirius-checkbox {
+  border-color: #5c5f62;
+}
+
+.sirius-checkbox--checked,
+.sirius-checkbox--indeterminate {
+  background: #202020;
+  border-color: #202020;
+  color: #ffffff;
+}
+
+.sirius-checkbox--disabled {
+  background: #f1f2f4;
+  border-color: #c9cccf;
+}
+
+.sirius-checkbox--disabled.sirius-checkbox--checked,
+.sirius-checkbox--disabled.sirius-checkbox--indeterminate {
+  background: #e4e5e7;
+  border-color: #c9cccf;
+  color: #ffffff;
+}
+
+/* Checkbox Error */
+.sirius-checkbox--error {
+  border-color: #c01025;
+  background: #fee8e7;
+}
+
+.sirius-checkbox--error.sirius-checkbox--checked,
+.sirius-checkbox--error.sirius-checkbox--indeterminate {
+  background: #991900;
+  border-color: #991900;
+  color: #ffffff;
+}
+
+.sirius-checkbox__label-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.sirius-checkbox__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #202223;
+  line-height: 1.4;
+}
+
+.sirius-checkbox__details {
+  font-size: 12px;
+  color: #6d7175;
+}
+
+/* --------------------------------------------------------------------------
+   RADIO BUTTON (ChoiceList radio)
+   -------------------------------------------------------------------------- */
+.sirius-radio-wrap {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sirius-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #8c9196;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: border-color 0.1s ease, box-shadow 0.1s ease;
+  box-sizing: border-box;
+}
+
+.sirius-radio--checked {
+  border: 5px solid #202020;
+  background: #ffffff;
+}
+
+.sirius-radio-wrap:hover:not(.sirius-radio-wrap--disabled) .sirius-radio:not(.sirius-radio--checked) {
+  border-color: #5c5f62;
+}
+
+.sirius-radio--disabled {
+  background: #f1f2f4;
+  border-color: #c9cccf;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   SWITCH (Toggle Capsule Sirius)
+   -------------------------------------------------------------------------- */
+.sirius-switch-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sirius-switch-wrap--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sirius-switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: 12px;
+  background: #c9cccf;
+  transition: background-color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.sirius-switch--checked {
+  background: #202020;
+}
+
+.sirius-switch--disabled {
+  background: #e4e5e7;
+}
+
+.sirius-switch__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.sirius-switch--checked .sirius-switch__thumb {
+  transform: translateX(16px);
+}
+
+/* --------------------------------------------------------------------------
+   SELECT DROPDOWN
+   -------------------------------------------------------------------------- */
+.sirius-select-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.sirius-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-height: 36px;
+  padding: 7px 32px 7px 12px;
+  border: 1px solid #8c9196;
+  border-radius: 8px;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 13.5px;
+  color: #202223;
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+  box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.05);
+}
+
+.sirius-select:hover:not(:disabled) {
+  border-color: #5c5f62;
+}
+
+.sirius-select:focus:not(:disabled) {
+  border-color: #202020;
+  box-shadow: 0 0 0 1px #202020;
+}
+
+.sirius-select-chevron {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #6d7175;
+  display: grid;
+  place-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   NUMBER FIELD (Stepper verticaux ▲ / ▼)
+   -------------------------------------------------------------------------- */
+.sirius-stepper {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #e1e3e5;
+  height: 100%;
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.sirius-stepper__btn {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: none;
+  color: #6d7175;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.1s ease, color 0.1s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sirius-stepper__btn:hover {
+  background: #f1f2f4;
+  color: #202020;
+}
+
+.sirius-stepper__btn:first-child {
+  border-bottom: 1px solid #e1e3e5;
+}
+
+/* --------------------------------------------------------------------------
+   COLOR FIELD (Pastille swatch dans l'input)
+   -------------------------------------------------------------------------- */
+.sirius-color-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  margin-left: 8px;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   PASSWORD EYE TOGGLE
+   -------------------------------------------------------------------------- */
+.sirius-password-toggle {
+  background: none;
+  border: none;
+  padding: 0 10px;
+  cursor: pointer;
+  color: #6d7175;
+  display: grid;
+  place-items: center;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.1s ease;
+}
+
+.sirius-password-toggle:hover {
+  color: #202020;
+}
+
+/* --------------------------------------------------------------------------
+   DROP AREA (Drag & Drop téléversement de fichiers)
+   -------------------------------------------------------------------------- */
+.sirius-drop-area {
+  border: 1.5px dashed #c9cccf;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.sirius-drop-area:hover,
+.sirius-drop-area--dragover {
+  border-color: var(--sirius-primary, #00824c);
+  background: #fbfdfb;
+}
+
+.sirius-drop-area__subtext {
+  font-size: 12px;
+  color: #6d7175;
+}
+
+/* Version compacte carrée */
+.sirius-drop-area--compact {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   DATE PICKER CALENDAR (Vue mensuelle Figma : simple & plage de dates)
+   -------------------------------------------------------------------------- */
+.sirius-datepicker {
+  background: #ffffff;
+  border: 1px solid #e1e3e5;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  width: 280px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.sirius-datepicker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sirius-datepicker__nav-btn {
+  background: none;
+  border: none;
+  color: #5c5f62;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+}
+
+.sirius-datepicker__nav-btn:hover {
+  background: #f1f2f4;
+  color: #202020;
+}
+
+.sirius-datepicker__month-title {
+  font-size: 13.5px;
+  font-weight: 650;
+  color: #202223;
+}
+
+.sirius-datepicker__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+}
+
+.sirius-datepicker__day-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #8c9196;
+  padding: 6px 0;
+}
+
+.sirius-datepicker__day-cell {
+  position: relative;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-size: 12.5px;
+  color: #202223;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.1s ease;
+  user-select: none;
+}
+
+.sirius-datepicker__day-cell:hover:not(.sirius-datepicker__day-cell--selected):not(.sirius-datepicker__day-cell--empty) {
+  background: #f1f2f4;
+}
+
+.sirius-datepicker__day-cell--selected {
+  background: #202020 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+/* Plage de dates (Ruban connecté gris clair entre début et fin) */
+.sirius-datepicker__day-cell--in-range {
+  background: #f1f2f4;
+  border-radius: 0;
+}
+
+.sirius-datepicker__day-cell--range-start {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.sirius-datepicker__day-cell--range-end {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.sirius-datepicker__day-cell--empty {
+  cursor: default;
+}
+
+/* --------------------------------------------------------------------------
+   COLOR PICKER (2D Saturation/Value + Hue Slider + Alpha Slider)
+   -------------------------------------------------------------------------- */
+.sirius-colorpicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #e1e3e5;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  width: fit-content;
+}
+
+.sirius-colorpicker__canvas-box {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: 8px;
+  cursor: crosshair;
+  overflow: hidden;
+  user-select: none;
+}
+
+.sirius-colorpicker__canvas-thumb {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.sirius-colorpicker__slider {
+  position: relative;
+  width: 22px;
+  height: 180px;
+  border-radius: 11px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sirius-colorpicker__slider--hue {
+  background: linear-gradient(
+    to bottom,
+    #ff0000 0%,
+    #ffff00 17%,
+    #00ff00 33%,
+    #00ffff 50%,
+    #0000ff 67%,
+    #ff00ff 83%,
+    #ff0000 100%
+  );
+}
+
+.sirius-colorpicker__slider--alpha {
+  background: linear-gradient(to bottom, var(--current-hue-color, #ff0000) 0%, transparent 100%),
+    repeating-conic-gradient(#dcdcdc 0% 25%, #ffffff 0% 50%) 50% / 8px 8px;
+}
+
+.sirius-colorpicker__slider-thumb {
+  position: absolute;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}

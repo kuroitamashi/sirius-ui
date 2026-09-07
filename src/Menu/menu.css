@@ -1,0 +1,97 @@
+.sirius-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.sirius-menu__popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 50;
+  min-width: 200px;
+  background: var(--sirius-surface);
+  border: 1px solid var(--sirius-border);
+  border-radius: var(--sirius-radius-lg);
+  box-shadow: var(--sirius-shadow-popover);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: sirius-pop-in 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+@keyframes sirius-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.sirius-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sirius-text);
+  border-radius: var(--sirius-radius-base);
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  transition: all 0.12s ease;
+  box-sizing: border-box;
+}
+
+.sirius-menu__item:focus {
+  outline: none;
+}
+
+.sirius-menu__item:focus-visible {
+  outline: 2px solid var(--sirius-primary);
+  outline-offset: -2px;
+}
+
+.sirius-menu__item:hover {
+  background: var(--sirius-surface-active);
+}
+
+.sirius-menu__item-icon {
+  display: grid;
+  place-items: center;
+  color: var(--sirius-text-subdued);
+  flex-shrink: 0;
+}
+
+.sirius-menu__item:hover .sirius-menu__item-icon {
+  color: var(--sirius-text);
+}
+
+/* Destructive Menu Item (Rouge comme dans Figma) */
+.sirius-menu__item--destructive {
+  color: var(--sirius-critical);
+}
+
+.sirius-menu__item--destructive .sirius-menu__item-icon {
+  color: var(--sirius-critical);
+}
+
+.sirius-menu__item--destructive:hover {
+  background: var(--sirius-critical-surface);
+}
+
+.sirius-menu__separator {
+  height: 1px;
+  background: var(--sirius-border-subdued);
+  margin: 4px 0;
+}

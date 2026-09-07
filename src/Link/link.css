@@ -1,0 +1,27 @@
+.sirius-link {
+  color: var(--sirius-info);
+  font-weight: 550;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.sirius-link:hover {
+  text-decoration: underline;
+  color: #004c99;
+}
+
+.sirius-link--subdued {
+  color: var(--sirius-text-subdued);
+}
+
+.sirius-link--subdued:hover {
+  color: var(--sirius-text);
+}

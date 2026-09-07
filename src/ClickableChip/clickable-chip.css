@@ -1,0 +1,64 @@
+.sirius-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--sirius-radius-full);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 550;
+  line-height: 1.2;
+  cursor: pointer;
+  background: var(--sirius-surface-subdued);
+  border: 1px solid transparent;
+  color: var(--sirius-text);
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  user-select: none;
+  transition: all 0.12s cubic-bezier(0.2, 0, 0, 1);
+  box-sizing: border-box;
+}
+
+.sirius-chip:hover:not(:disabled) {
+  background: var(--sirius-surface-active);
+  border-color: var(--sirius-border);
+}
+
+.sirius-chip:focus {
+  outline: none;
+}
+
+.sirius-chip:focus-visible {
+  outline: 2px solid var(--sirius-primary);
+  outline-offset: 1px;
+}
+
+/* État Actif / Sélectionné (comme dans Figma) */
+.sirius-chip--selected {
+  background: #e4e5e7;
+  color: #202223;
+  font-weight: 650;
+  border-color: #c9cccf;
+}
+
+/* Variante Outline */
+.sirius-chip--outline {
+  background: transparent;
+  border-color: var(--sirius-border);
+}
+.sirius-chip--outline:hover:not(:disabled) {
+  background: var(--sirius-surface-subdued);
+  border-color: var(--sirius-border-hover);
+}
+.sirius-chip--outline.sirius-chip--selected {
+  border-color: var(--sirius-primary);
+  background: var(--sirius-primary-surface);
+  color: var(--sirius-primary);
+}
+
+/* Disabled */
+.sirius-chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}

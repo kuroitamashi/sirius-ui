@@ -1,0 +1,179 @@
+/* ==========================================================================
+   Sirius Badge - Complete Sirius UI Matrix Recreation
+   Tones: neutral, info, success, attention, warning, critical, wave, om
+   Styles: subdued (pastel), strong (solid), pips (filled, hollow, slash), icons
+   ========================================================================== */
+
+.sirius-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 550;
+  line-height: 1.35;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  user-select: none;
+  transition: all 0.12s ease;
+}
+
+/* --- Pip (Puces de statut) --- */
+.sirius-badge__pip {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sirius-badge__pip--filled {
+  background: currentColor;
+}
+
+.sirius-badge__pip--hollow {
+  border: 1.5px solid currentColor;
+  background: transparent;
+  width: 5px;
+  height: 5px;
+}
+
+.sirius-badge__pip--slashed {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.sirius-badge__pip--slashed::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: currentColor;
+  transform: rotate(-45deg);
+}
+
+.sirius-badge__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.sirius-badge__icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* ==========================================================================
+   TONES - Sirius Subdued (Pastel doux, haute lisibilité)
+   ========================================================================== */
+
+/* 1. Neutral / Default */
+.sirius-badge--neutral,
+.sirius-badge--subdued {
+  background: #e4e5e7;
+  color: #4a4d50;
+}
+
+/* 2. Info (Blue) */
+.sirius-badge--info {
+  background: #dbeafe;
+  color: #0b4c8c;
+}
+
+/* 3. Success (Mint / Green) */
+.sirius-badge--success {
+  background: #cbf5db;
+  color: #085e33;
+}
+
+/* 4. Attention (Amber / Orange) */
+.sirius-badge--attention {
+  background: #fde5c7;
+  color: #794a00;
+}
+
+/* 5. Warning (Yellow) */
+.sirius-badge--warning {
+  background: #fef08a;
+  color: #634700;
+}
+
+/* 6. Critical (Red / Rose) */
+.sirius-badge--critical {
+  background: #fdd4ce;
+  color: #8c1d18;
+}
+
+/* ==========================================================================
+   TONES - Sirius Strong (Couleurs vives pleines avec texte blanc)
+   ========================================================================== */
+.sirius-badge--strong.sirius-badge--neutral {
+  background: #4a4d50;
+  color: #ffffff;
+}
+
+.sirius-badge--strong.sirius-badge--info {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.sirius-badge--strong.sirius-badge--success {
+  background: #147d48;
+  color: #ffffff;
+}
+
+.sirius-badge--strong.sirius-badge--attention {
+  background: #f59e0b;
+  color: #ffffff;
+}
+
+.sirius-badge--strong.sirius-badge--warning {
+  background: #ffea00;
+  color: #202223;
+}
+
+.sirius-badge--strong.sirius-badge--critical {
+  background: #d72c0d;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Local Senegal Payment Tones (Wave, OM, Cash on Delivery)
+   ========================================================================== */
+.sirius-badge--wave {
+  background: #e0f4fe;
+  color: #0284c7;
+  font-weight: 600;
+}
+.sirius-badge--strong.sirius-badge--wave {
+  background: #00b2fe;
+  color: #ffffff;
+}
+
+.sirius-badge--orange_money {
+  background: #ffedd5;
+  color: #ea580c;
+  font-weight: 600;
+}
+.sirius-badge--strong.sirius-badge--orange_money {
+  background: #ff6600;
+  color: #ffffff;
+}
+
+.sirius-badge--especes,
+.sirius-badge--cash_on_delivery {
+  background: #fef3c7;
+  color: #b45309;
+  font-weight: 600;
+}

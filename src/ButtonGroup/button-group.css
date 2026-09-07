@@ -1,0 +1,37 @@
+.sirius-button-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Variante connectée / segmented (comme dans Figma) */
+.sirius-button-group--connected {
+  gap: 0;
+  border-radius: var(--sirius-radius-base);
+  box-shadow: var(--sirius-shadow-button);
+}
+
+.sirius-button-group--connected > .sirius-btn {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.sirius-button-group--connected > .sirius-btn:not(:first-child) {
+  margin-left: -1px;
+}
+
+.sirius-button-group--connected > .sirius-btn:first-child {
+  border-top-left-radius: var(--sirius-radius-base);
+  border-bottom-left-radius: var(--sirius-radius-base);
+}
+
+.sirius-button-group--connected > .sirius-btn:last-child {
+  border-top-right-radius: var(--sirius-radius-base);
+  border-bottom-right-radius: var(--sirius-radius-base);
+}
+
+.sirius-button-group--connected > .sirius-btn:hover,
+.sirius-button-group--connected > .sirius-btn:focus-visible,
+.sirius-button-group--connected > .sirius-btn.sirius-btn--primary {
+  z-index: 2;
+}

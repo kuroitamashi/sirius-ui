@@ -1,0 +1,95 @@
+/* ==========================================================================
+   Sirius Tooltip - Sirius UI 1:1 Recreation
+   Figma component: ❖ Tooltip
+   ========================================================================== */
+
+.sirius-tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+/* Bulle d'info-bulle blanche */
+.sirius-tooltip-bubble {
+  position: absolute;
+  z-index: 9999;
+  background-color: #ffffff;
+  color: #202223;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+  animation: siriusTooltipFade 0.15s ease-out forwards;
+}
+
+/* Mode statique pour la vitrine Figma */
+.sirius-tooltip-bubble--static {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: none;
+}
+
+/* Bec / Pointe triangulaire */
+.sirius-tooltip-beak {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff;
+  transform: rotate(45deg);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+}
+
+/* Position Above : L'info-bulle est au-dessus de la cible, le bec pointe vers le bas */
+.sirius-tooltip-bubble--above {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.sirius-tooltip-bubble--above .sirius-tooltip-beak {
+  bottom: -5px;
+  left: calc(50% - 5px);
+  border-top: none;
+  border-left: none;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* Position Below : L'info-bulle est en-dessous de la cible, le bec pointe vers le haut */
+.sirius-tooltip-bubble--below {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.sirius-tooltip-bubble--below .sirius-tooltip-beak {
+  top: -5px;
+  left: calc(50% - 5px);
+  border-bottom: none;
+  border-right: none;
+  box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.sirius-tooltip-content {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes siriusTooltipFade {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

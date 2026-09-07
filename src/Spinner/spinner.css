@@ -1,0 +1,74 @@
+/* ==========================================================================
+   Sirius Spinner - Pure Sirius UI Recreation
+   Exact 20px (small) & 44px (large) track + spinning arc as seen in Figma
+   ========================================================================== */
+
+.sirius-spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.sirius-spinner--small {
+  width: 20px;
+  height: 20px;
+}
+
+.sirius-spinner--large {
+  width: 44px;
+  height: 44px;
+}
+
+.sirius-spinner__svg {
+  animation: sirius-spinner-rotate 0.8s cubic-bezier(0.53, 0.21, 0.29, 0.67) infinite;
+  transform-origin: center;
+}
+
+.sirius-spinner__track {
+  stroke: #e4e5e7;
+}
+
+.sirius-spinner__arc {
+  stroke: #202223;
+}
+
+/* --- Tones --- */
+.sirius-spinner--primary .sirius-spinner__arc {
+  stroke: var(--sirius-primary, #00874e);
+}
+
+.sirius-spinner--subdued .sirius-spinner__arc {
+  stroke: #8c9196;
+}
+
+.sirius-spinner--inherit .sirius-spinner__arc {
+  stroke: currentColor;
+}
+
+.sirius-spinner--inherit .sirius-spinner__track {
+  stroke: rgba(0, 0, 0, 0.12);
+}
+
+@keyframes sirius-spinner-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sirius-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
