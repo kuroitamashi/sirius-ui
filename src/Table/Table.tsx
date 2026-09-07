@@ -27,6 +27,7 @@ export interface SiriusTableProps<T = any> {
   emptyState?: React.ReactNode;
   embedded?: boolean;
   className?: string;
+  rowClassName?: (row: T, index: number) => string | undefined;
   style?: React.CSSProperties;
   onRowClick?: (row: T, index: number) => void;
 }
@@ -42,6 +43,7 @@ export function SiriusTable<T = any>({
   emptyState,
   embedded = false,
   className = '',
+  rowClassName,
   style,
   onRowClick,
 }: SiriusTableProps<T>) {
@@ -93,6 +95,7 @@ export function SiriusTable<T = any>({
                   className={[
                     'sirius-table__row',
                     onRowClick && 'sirius-table__row--clickable',
+                    rowClassName?.(row, rowIdx),
                   ]
                     .filter(Boolean)
                     .join(' ')}

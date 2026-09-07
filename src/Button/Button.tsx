@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Icon, type IconName } from '../Icon/Icon';
 import './button.css';
 
 export interface SiriusButtonProps {
@@ -15,7 +16,7 @@ export interface SiriusButtonProps {
     | 'success'
     | 'brand';
   size?: 'slim' | 'medium' | 'large';
-  icon?: React.ReactNode;
+  icon?: IconName | React.ReactNode;
   iconOnly?: boolean;
   loading?: boolean;
   disabled?: boolean;
@@ -56,12 +57,21 @@ export function SiriusButton({
     .filter(Boolean)
     .join(' ');
 
+  const renderIcon = () => {
+    if (!icon) return null;
+    if (typeof icon === 'string') {
+      const iconSize = size === 'slim' ? 14 : 16;
+      return <Icon name={icon as IconName} size={iconSize} />;
+    }
+    return icon;
+  };
+
   const content = (
     <>
       {loading ? (
         <span className="sirius-btn__spinner" aria-hidden="true" />
       ) : (
-        icon && <span className="sirius-btn__icon">{icon}</span>
+        icon && <span className="sirius-btn__icon">{renderIcon()}</span>
       )}
       {!iconOnly && children && <span className="sirius-btn__text">{children}</span>}
     </>
