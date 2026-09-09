@@ -1,8 +1,13 @@
 import React from 'react';
 import { SIRIUS_ICONS, ICON_ALIASES } from './sirius-icons';
 
+/** Nom d'une icone du jeu Sirius, alias historiques compris.
+    SIRIUS_ICONS est un Record<string, ...>, donc tout nom est accepte a la
+    compilation et resolu a l'execution : un nom inconnu rend null. */
+export type IconName = string;
+
 export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
-  name: string;
+  name: IconName;
   size?: number;
   className?: string;
   style?: React.CSSProperties;

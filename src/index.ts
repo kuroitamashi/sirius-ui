@@ -62,5 +62,5 @@ export type { SiriusPageHeaderProps, SiriusBreadcrumbItem } from './PageHeader/P
 export * from './Form';
 
 export { Icon } from './Icon/Icon';
-export type { IconProps } from './Icon/Icon';
+export type { IconProps, IconName } from './Icon/Icon';
 export { SIRIUS_ICONS, ICON_ALIASES } from './Icon/sirius-icons';
