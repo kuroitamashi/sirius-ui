@@ -46,6 +46,10 @@ export type { SiriusCheckboxProps, SiriusCheckboxProps as CheckboxProps } from '
 export { SiriusChoiceList, SiriusChoiceList as ChoiceList } from './ChoiceList';
 export type { SiriusChoiceListProps, SiriusChoiceListProps as ChoiceListProps, SiriusChoiceOption, SiriusChoiceOption as ChoiceOption } from './ChoiceList';
 
+// Radio
+export { SiriusRadio, SiriusRadio as Radio } from './Radio';
+export type { SiriusRadioProps, SiriusRadioProps as RadioProps } from './Radio';
+
 // Switch
 export { SiriusSwitch, SiriusSwitch as Switch } from './Switch';
 export type { SiriusSwitchProps, SiriusSwitchProps as SwitchProps } from './Switch';
