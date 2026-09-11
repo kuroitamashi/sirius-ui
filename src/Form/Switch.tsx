@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useId } from 'react';
 import './form.css';
 
 export interface SiriusSwitchProps {
@@ -12,6 +12,7 @@ export interface SiriusSwitchProps {
   name?: string;
   className?: string;
   onChange?: (checked: boolean) => void;
+  'aria-label'?: string;
 }
 
 export function SiriusSwitch({
@@ -19,22 +20,25 @@ export function SiriusSwitch({
   details,
   checked = false,
   disabled = false,
-  id,
+  id: idProp,
   name,
   className = '',
   onChange,
+  'aria-label': ariaLabel,
 }: SiriusSwitchProps) {
-  const handleClick = () => {
+  const generatedId = useId();
+  const id = idProp || generatedId;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
-    onChange?.(!checked);
+    onChange?.(e.target.checked);
   };
 
   return (
-    <div className={`sirius-field ${disabled ? 'sirius-field--disabled' : ''} ${className}`}>
+    <div className={`sirius-switch-field ${disabled ? 'sirius-switch-field--disabled' : ''} ${className}`}>
       <label
         htmlFor={id}
         className={`sirius-switch-wrap ${disabled ? 'sirius-switch-wrap--disabled' : ''}`}
-        onClick={handleClick}
       >
         <span
           className={`sirius-switch ${checked ? 'sirius-switch--checked' : ''} ${
@@ -48,10 +52,13 @@ export function SiriusSwitch({
         <input
           id={id}
           type="checkbox"
+          role="switch"
           name={name}
           checked={checked}
           disabled={disabled}
-          readOnly
+          aria-label={ariaLabel}
+          aria-checked={checked}
+          onChange={handleChange}
           style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 0, height: 0 }}
         />
 

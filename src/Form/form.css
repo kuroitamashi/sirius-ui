@@ -276,6 +276,18 @@
 /* --------------------------------------------------------------------------
    SWITCH (Toggle Capsule Sirius)
    -------------------------------------------------------------------------- */
+.sirius-switch-field {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  box-sizing: border-box;
+}
+
+.sirius-switch-field--disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 .sirius-switch-wrap {
   display: inline-flex;
   align-items: center;
