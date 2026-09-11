@@ -69,7 +69,7 @@ export function SiriusPageHeader({
   const renderIconButton = () => {
     if (!icon) return null;
 
-    const iconContent = typeof icon === 'string' ? <Icon name={icon} size={18} /> : icon;
+    const iconContent = typeof icon === 'string' ? <Icon name={icon} size={16} /> : icon;
     const btnClass = [
       'sirius-page-header__icon-btn',
       iconHovered && 'sirius-page-header__icon-btn--hovered',
@@ -114,7 +114,7 @@ export function SiriusPageHeader({
               {breadcrumbs.map((crumb, idx) => (
                 <React.Fragment key={idx}>
                   <span className="sirius-page-header__separator">
-                    <Icon name="chevron-right" size={14} />
+                    <Icon name="chevron-right" size={12} />
                   </span>
                   {crumb.url || crumb.onClick ? (
                     <a
@@ -141,7 +141,7 @@ export function SiriusPageHeader({
 
           {/* Séparateur vers le titre */}
           <span className="sirius-page-header__separator">
-            <Icon name="chevron-right" size={14} />
+            <Icon name="chevron-right" size={12} />
           </span>
 
           {/* Titre de la page */}
