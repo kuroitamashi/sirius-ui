@@ -79,12 +79,5 @@ export const ICON_ALIASES: Record<string, string> = {
   outdent: 'outdent',
   'clear-format': 'eraser',
   code: 'code',
-
-  // Authentification & Sécurité
-  key: 'key',
-  'alert-circle': 'alert-circle',
-  view: 'view',
-  hide: 'hide',
-  eye: 'view',
-  'eye-off': 'hide',
+  return: 'enter',
 };
