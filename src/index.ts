@@ -59,6 +59,9 @@ export type { SiriusListProps, SiriusListItemProps } from './List/List';
 export { SiriusPageHeader } from './PageHeader/PageHeader';
 export type { SiriusPageHeaderProps, SiriusBreadcrumbItem } from './PageHeader/PageHeader';
 
+export { SiriusContextualSaveBar, ContextualSaveBar } from './ContextualSaveBar';
+export type { SiriusContextualSaveBarProps, SiriusContextualSaveBarAction } from './ContextualSaveBar';
+
 export * from './Form';
 
 export { Icon } from './Icon/Icon';
