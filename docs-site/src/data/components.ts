@@ -27,7 +27,7 @@ export const components: ComponentDoc[] = [
       "Naviguer vers une autre page : c'est un Link, pas un Button.",
       "Mettre une icone dans un bouton avec du texte. Regle SKS : jamais d'icone dedans.",
     ],
-    storybook: 'actions-button--variantes',
+    storybook: 'actions-button--toutes',
   },
   {
     slug: 'badge',
