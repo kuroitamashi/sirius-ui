@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { components } from '../data/components';
+---
+
+<Layout title="Accueil">
+  <p class="eyebrow">Design system</p>
+  <h1>Sirius UI</h1>
+  <p class="lede">
+    Les composants d'interface de Sen Kheweul Store. Une seule source pour le
+    dashboard marchand et la console interne, en React et TypeScript, sans
+    framework CSS.
+  </p>
+
+  <div class="cards">
+    {components.map((c) => (
+      <a class="card" href={`/composants/${c.slug}/`}>
+        <span class="card__cat">{c.category}</span>
+        <span class="card__name">{c.name}</span>
+        <span class="card__sum">{c.summary}</span>
+      </a>
+    ))}
+  </div>
+
+  <h2>Les deux niveaux de documentation</h2>
+  <p>
+    Cette vitrine dit <strong>quand</strong> se servir d'un composant et
+    pourquoi. Le <a href="/storybook/">Storybook</a> montre
+    <strong>toutes</strong> ses variantes et la liste complete de ses
+    proprietes, lue directement dans le TypeScript du composant.
+  </p>
+  <p class="note">
+    {components.length} composants documentes sur 39 exportes. Le reste arrive
+    apres validation de ce pilote.
+  </p>
+</Layout>
+
+<style>
+  .eyebrow {
+    margin: 0; font-size: 12px; font-weight: 600; letter-spacing: .05em;
+    text-transform: uppercase; color: var(--sirius-primary);
+  }
+  h1 { margin: 6px 0 12px; font-size: 32px; letter-spacing: -.02em; }
+  .lede { margin: 0 0 32px; font-size: 16px; color: var(--sirius-text-subdued); max-width: 60ch; }
+  h2 { margin: 48px 0 12px; font-size: 20px; }
+  .note { color: var(--sirius-text-faint); font-size: 13px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .card {
+    display: flex; flex-direction: column; gap: 4px;
+    padding: 16px; text-decoration: none; color: inherit;
+    border: 1px solid var(--sirius-border);
+    border-radius: var(--sirius-radius-base);
+    background: var(--sirius-surface);
+    transition: var(--sirius-transition);
+  }
+  .card:hover { border-color: var(--sirius-border-hover); box-shadow: var(--sirius-shadow-card); }
+  .card__cat { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--sirius-text-faint); }
+  .card__name { font-size: 15px; font-weight: 600; }
+  .card__sum { font-size: 13px; color: var(--sirius-text-subdued); }
+</style>

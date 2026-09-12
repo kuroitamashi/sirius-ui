@@ -50,6 +50,8 @@
   "homepage": "https://github.com/kuroitamashi/sirius-ui#readme",
   "scripts": {
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o storybook-static"
+    "build-storybook": "storybook build -o storybook-static",
+    "docs:dev": "npm --prefix docs-site run dev",
+    "docs:build": "npm run build-storybook && npm --prefix docs-site run build"
   }
 }

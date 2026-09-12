@@ -1,0 +1,118 @@
+---
+import '@sirius/styles.css';
+import { components } from '../data/components';
+
+interface Props { title: string; }
+const { title } = Astro.props;
+const path = Astro.url.pathname;
+const categories = [...new Set(components.map((c) => c.category))];
+---
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — Sirius UI</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand__mark"></span>
+        Sirius&nbsp;UI
+      </a>
+      <nav class="topbar__nav">
+        <a href="/storybook/" target="_blank" rel="noopener">Storybook</a>
+        <a href="https://github.com/kuroitamashi/sirius-ui" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar">
+        {categories.map((cat) => (
+          <div class="sidebar__group">
+            <h2 class="sidebar__title">{cat}</h2>
+            <ul>
+              {components.filter((c) => c.category === cat).map((c) => (
+                <li>
+                  <a
+                    href={`/composants/${c.slug}/`}
+                    aria-current={path.startsWith(`/composants/${c.slug}`) ? 'page' : undefined}
+                  >{c.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </aside>
+
+      <main class="content"><slot /></main>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--sirius-text);
+    background: var(--sirius-surface);
+  }
+  a { color: var(--sirius-primary); }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 0 24px; height: 56px;
+    background: var(--sirius-surface);
+    border-bottom: 1px solid var(--sirius-border);
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 600; font-size: 15px; color: var(--sirius-text); text-decoration: none;
+  }
+  .brand__mark {
+    width: 18px; height: 18px; border-radius: var(--sirius-radius-sm);
+    background: var(--sirius-primary);
+  }
+  .topbar__nav { display: flex; gap: 20px; font-size: 13px; }
+  .topbar__nav a { color: var(--sirius-text-subdued); text-decoration: none; }
+  .topbar__nav a:hover { color: var(--sirius-text); }
+
+  .shell { display: grid; grid-template-columns: 232px minmax(0, 1fr); }
+  @media (max-width: 800px) { .shell { grid-template-columns: 1fr; } }
+
+  .sidebar {
+    border-right: 1px solid var(--sirius-border);
+    padding: 24px 12px; min-height: calc(100vh - 56px);
+    background: var(--sirius-bg-app);
+  }
+  @media (max-width: 800px) { .sidebar { min-height: 0; border-right: 0; border-bottom: 1px solid var(--sirius-border); } }
+  .sidebar__group + .sidebar__group { margin-top: 20px; }
+  .sidebar__title {
+    margin: 0 0 6px; padding: 0 10px;
+    font-size: 11px; font-weight: 600; letter-spacing: .04em;
+    text-transform: uppercase; color: var(--sirius-text-faint);
+  }
+  .sidebar ul { list-style: none; margin: 0; padding: 0; }
+  .sidebar a {
+    display: block; padding: 6px 10px; border-radius: var(--sirius-radius-sm);
+    font-size: 13px; color: var(--sirius-text); text-decoration: none;
+  }
+  .sidebar a:hover { background: var(--sirius-surface-hover); }
+  .sidebar a[aria-current='page'] {
+    background: var(--sirius-primary-surface);
+    color: var(--sirius-primary);
+    font-weight: 500;
+  }
+
+  .content { padding: 40px 32px 96px; max-width: 860px; }
+  @media (max-width: 800px) { .content { padding: 28px 20px 64px; } }
+</style>

@@ -7,6 +7,7 @@ node_modules/
 dist/
 build/
 storybook-static/
+.astro/
 
 # Logs
 npm-debug.log*
