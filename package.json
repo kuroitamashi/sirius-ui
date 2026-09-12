@@ -21,9 +21,14 @@
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
+    "@storybook/react-vite": "^10.6.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "^5.0.0"
+    "@vitejs/plugin-react": "^6.1.1",
+    "react-docgen-typescript": "^2.4.0",
+    "storybook": "^10.6.0",
+    "typescript": "^5.0.0",
+    "vite": "^8.3.0"
   },
   "repository": {
     "type": "git",
@@ -42,5 +47,9 @@
   "bugs": {
     "url": "https://github.com/kuroitamashi/sirius-ui/issues"
   },
-  "homepage": "https://github.com/kuroitamashi/sirius-ui#readme"
+  "homepage": "https://github.com/kuroitamashi/sirius-ui#readme",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build -o storybook-static"
+  }
 }
