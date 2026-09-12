@@ -32,8 +32,19 @@ function Row({ variant }: { variant: SiriusButtonProps['variant'] }) {
     <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
       <SiriusButton variant={variant}>Label</SiriusButton>
       <SiriusButton variant={variant} disabled>Label</SiriusButton>
-      <SiriusButton variant={variant} iconOnly icon={<Icon name={icone} size={15} />} />
-      <SiriusButton variant={variant} iconOnly disabled icon={<Icon name={icone} size={15} />} />
+      <SiriusButton
+        variant={variant}
+        iconOnly
+        ariaLabel={isDestructive(variant!) ? 'Supprimer' : 'Voir la commande'}
+        icon={<Icon name={icone} size={15} />}
+      />
+      <SiriusButton
+        variant={variant}
+        iconOnly
+        disabled
+        ariaLabel={isDestructive(variant!) ? 'Supprimer' : 'Voir la commande'}
+        icon={<Icon name={icone} size={15} />}
+      />
       <SiriusButton variant={variant} loading>Label</SiriusButton>
     </div>
   );

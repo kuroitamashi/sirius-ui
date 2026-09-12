@@ -69,7 +69,8 @@ export const Vide: Story = {
 };
 
 export const LignesCliquables: Story = {
-  args: { onRowClick: (row: Commande) => alert(`Ouvrir ${row.numero}`) },
+  // Meta ne propage pas le generique aux args : la ligne arrive en unknown.
+  args: { onRowClick: (row) => alert(`Ouvrir ${(row as Commande).numero}`) },
 };
 
 /**
