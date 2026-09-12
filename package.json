@@ -42,5 +42,8 @@
   "bugs": {
     "url": "https://github.com/kuroitamashi/sirius-ui/issues"
   },
-  "homepage": "https://github.com/kuroitamashi/sirius-ui#readme"
+  "homepage": "https://github.com/kuroitamashi/sirius-ui#readme",
+  "scripts": {
+    "check:icons": "node src/Icon/check-icons.mjs"
+  }
 }
