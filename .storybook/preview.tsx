@@ -30,6 +30,35 @@ const VIEWPORTS = {
   },
 } as const;
 
+/**
+ * Superposition de grille. Shopify a ecrit un addon pour ca ; ici un
+ * decorateur de 25 lignes suffit, sans dependance. La grille est en position
+ * fixe pour couvrir tout le cadre de l'apercu, et ne capte aucun clic.
+ */
+const GRIDS = { '12': 12, '4': 4 } as const;
+
+function GridOverlay({ columns }: { columns: number }) {
+  return (
+    <div
+      aria-hidden="true"
+      style={{
+        position: 'fixed',
+        inset: 0,
+        display: 'grid',
+        gridTemplateColumns: `repeat(${columns}, 1fr)`,
+        gap: 16,
+        padding: '0 16px',
+        pointerEvents: 'none',
+        zIndex: 2147483647,
+      }}
+    >
+      {Array.from({ length: columns }, (_, i) => (
+        <span key={i} style={{ background: 'rgba(215, 44, 13, 0.12)' }} />
+      ))}
+    </div>
+  );
+}
+
 const preview: Preview = {
   parameters: {
     layout: 'centered',
@@ -53,6 +82,7 @@ const preview: Preview = {
   initialGlobals: {
     backgrounds: { value: 'app' },
     viewport: { value: undefined, isRotated: false },
+    grid: 'off',
   },
 
   /**
@@ -61,6 +91,19 @@ const preview: Preview = {
    * ressortir les effets mal nettoyes avant qu'ils n'arrivent en production.
    */
   globalTypes: {
+    grid: {
+      description: 'Superposition de grille',
+      toolbar: {
+        title: 'Grille',
+        icon: 'grid',
+        items: [
+          { value: 'off', title: 'Grille masquee' },
+          { value: '12', title: '12 colonnes' },
+          { value: '4', title: '4 colonnes (mobile)' },
+        ],
+        dynamicTitle: true,
+      },
+    },
     strictMode: {
       description: 'React.StrictMode',
       toolbar: {
@@ -87,6 +130,9 @@ const preview: Preview = {
           }}
         >
           <Story />
+          {context.globals.grid !== 'off' && (
+            <GridOverlay columns={GRIDS[context.globals.grid as keyof typeof GRIDS]} />
+          )}
         </div>
       );
       return context.globals.strictMode === 'off' ? (
