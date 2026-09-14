@@ -112,4 +112,21 @@ export const components: ComponentDoc[] = [
     ],
     storybook: 'all-components-accountconnection--tous-les-cas',
   },
+  {
+    slug: 'action-list',
+    name: 'ActionList',
+    category: 'Actions',
+    summary:
+      'Menu contextuel vertical d’actions ou d’options, utilisable seul ou dans un Popover déclenchable.',
+    when: [
+      'Regrouper plusieurs actions secondaires derrière un bouton « Plus d’actions ▾ ».',
+      'Menu contextuel de commande, de produit ou de fichier.',
+      'Afficher des sections d’options avec icônes, texte d’aide et actions destructrices en rouge.',
+    ],
+    avoid: [
+      'Pour de la navigation principale entre pages (utiliser Menu ou Sidebar).',
+      'Si vous avez une seule action (utiliser un Button direct).',
+    ],
+    storybook: 'all-components-actionlist--with-sections-and-destructive',
+  },
 ];

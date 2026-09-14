@@ -1,0 +1,184 @@
+/* ==========================================================================
+   Sirius Design System - ActionList
+   Menu d'actions contextuel, listes d'options et menus déroulants (Polaris)
+   ========================================================================== */
+
+.sirius-action-list-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.sirius-action-list-trigger {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.sirius-action-list {
+  background: var(--sirius-surface);
+  border: 1px solid var(--sirius-border);
+  border-radius: var(--sirius-radius-lg);
+  box-shadow: var(--sirius-shadow-card);
+  padding: 6px;
+  min-width: 220px;
+  max-width: 320px;
+  user-select: none;
+}
+
+.sirius-action-list--popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 1000;
+  box-shadow: var(--sirius-shadow-popover);
+  animation: sirius-popover-in 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+@keyframes sirius-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Sections --- */
+.sirius-action-list__section {
+  padding: 2px 0;
+}
+
+.sirius-action-list__section:not(:first-child) {
+  border-top: 1px solid var(--sirius-border-subdued);
+  margin-top: 6px;
+  padding-top: 6px;
+}
+
+.sirius-action-list__section-title {
+  margin: 4px 10px 6px 10px;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--sirius-text);
+  letter-spacing: -0.01em;
+}
+
+/* --- Liste d'éléments --- */
+.sirius-action-list__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sirius-action-list__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  border-radius: var(--sirius-radius-base);
+  color: var(--sirius-text);
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 1.35;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: var(--sirius-transition);
+}
+
+.sirius-action-list__item:hover {
+  background: var(--sirius-surface-hover);
+}
+
+.sirius-action-list__item--active {
+  background: var(--sirius-surface-active);
+  font-weight: 550;
+}
+
+.sirius-action-list__item--destructive {
+  color: var(--sirius-critical);
+}
+
+.sirius-action-list__item--destructive:hover {
+  background: var(--sirius-critical-surface);
+}
+
+.sirius-action-list__item--disabled {
+  color: var(--sirius-text-disabled);
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* --- Préfixes & Icônes --- */
+.sirius-action-list__icon,
+.sirius-action-list__prefix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sirius-text-subdued);
+  flex-shrink: 0;
+}
+
+.sirius-action-list__item--destructive .sirius-action-list__icon {
+  color: var(--sirius-critical);
+}
+
+.sirius-action-list__image {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--sirius-radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+.sirius-action-list__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Textes (Label + HelpText) --- */
+.sirius-action-list__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.sirius-action-list__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sirius-action-list__help-text {
+  font-size: 12px;
+  font-weight: normal;
+  color: var(--sirius-text-subdued);
+  line-height: 1.3;
+}
+
+/* --- Suffixe & Badges --- */
+.sirius-action-list__suffix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sirius-text-subdued);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.sirius-action-list__badge {
+  flex-shrink: 0;
+  margin-left: auto;
+}

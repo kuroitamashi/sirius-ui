@@ -14,8 +14,18 @@ export type { SiriusButtonGroupProps } from './ButtonGroup/ButtonGroup';
 export { SiriusClickableChip } from './ClickableChip/ClickableChip';
 export type { SiriusClickableChipProps } from './ClickableChip/ClickableChip';
 
-export { SiriusMenu, SiriusActionList } from './Menu/Menu';
+export { SiriusMenu } from './Menu/Menu';
 export type { SiriusMenuProps, SiriusMenuItem } from './Menu/Menu';
+
+export { SiriusActionList, ActionList } from './ActionList';
+export type {
+  SiriusActionListProps,
+  SiriusActionListItemDescriptor,
+  SiriusActionListSection,
+  ActionListProps,
+  ActionListItemDescriptor,
+  ActionListSection,
+} from './ActionList';
 
 export { SiriusLink } from './Link/Link';
 export type { SiriusLinkProps } from './Link/Link';
