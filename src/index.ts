@@ -20,8 +20,13 @@ export type { SiriusMenuProps, SiriusMenuItem } from './Menu/Menu';
 export { SiriusLink } from './Link/Link';
 export type { SiriusLinkProps } from './Link/Link';
 
-export { SiriusCard, SiriusCardSection } from './Card/Card';
-export type { SiriusCardProps } from './Card/Card';
+export { SiriusCard, SiriusCardSection, Card } from './Card/Card';
+export type {
+  SiriusCardProps,
+  SiriusCardSectionProps,
+  SiriusCardAction,
+  SiriusCardProps as CardProps,
+} from './Card/Card';
 
 export { SiriusBadge } from './Badge/Badge';
 export type { SiriusBadgeProps, SiriusBadgeTone, SiriusBadgePip } from './Badge/Badge';

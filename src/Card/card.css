@@ -1,3 +1,8 @@
+/* ==========================================================================
+   Sirius Design System - Card
+   Conteneur de surface principal avec support des sections et actions
+   ========================================================================== */
+
 .sirius-card {
   background: var(--sirius-surface);
   border: 1px solid var(--sirius-border);
@@ -14,9 +19,9 @@
 
 .sirius-card__header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
   padding: 16px 20px;
   border-bottom: 1px solid var(--sirius-border-subdued);
 }
@@ -24,7 +29,8 @@
 .sirius-card__header-text {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
+  min-width: 0;
 }
 
 .sirius-card__title {
@@ -33,12 +39,21 @@
   color: var(--sirius-text);
   margin: 0;
   letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 
 .sirius-card__subtitle {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--sirius-text-subdued);
   margin: 0;
+  line-height: 1.4;
+}
+
+.sirius-card__action {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .sirius-card__body {
@@ -49,6 +64,7 @@
   padding: 0;
 }
 
+/* --- Sections internes --- */
 .sirius-card__section {
   padding: 16px 20px;
   border-bottom: 1px solid var(--sirius-border-subdued);
@@ -58,12 +74,85 @@
   border-bottom: none;
 }
 
+.sirius-card__section--subdued {
+  background: var(--sirius-surface-subdued);
+}
+
+.sirius-card__section--flush {
+  padding: 0;
+}
+
+.sirius-card__section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.sirius-card__section-title {
+  margin: 0;
+}
+
+.sirius-card__section-title h3 {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--sirius-text);
+  letter-spacing: -0.01em;
+}
+
+.sirius-card__section-actions {
+  flex-shrink: 0;
+}
+
+.sirius-card__section-content {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--sirius-text);
+}
+
+/* --- Pied de page --- */
 .sirius-card__footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
-  padding: 12px 20px;
+  padding: 14px 20px;
   background: var(--sirius-surface-subdued);
   border-top: 1px solid var(--sirius-border-subdued);
+}
+
+.sirius-card__footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* --- Adaptation responsive mobile --- */
+@media (max-width: 600px) {
+  .sirius-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .sirius-card__action {
+    width: 100%;
+  }
+
+  .sirius-card__action .sirius-btn {
+    width: 100%;
+  }
+
+  .sirius-card__footer-actions {
+    width: 100%;
+    flex-direction: column-reverse;
+  }
+
+  .sirius-card__footer-actions .sirius-btn {
+    width: 100%;
+  }
 }
