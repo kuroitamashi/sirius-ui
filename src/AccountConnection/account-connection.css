@@ -1,0 +1,142 @@
+/* ==========================================================================
+   Sirius Design System - AccountConnection
+   Composant de gestion de connexion d'un compte tiers ou service partenaire
+   ========================================================================== */
+
+.sirius-account-connection {
+  background: var(--sirius-surface);
+  border: 1px solid var(--sirius-border);
+  border-radius: var(--sirius-radius-lg);
+  box-shadow: var(--sirius-shadow-card);
+  padding: 20px;
+  position: relative;
+  transition: var(--sirius-transition);
+}
+
+.sirius-account-connection--connected {
+  border-color: var(--sirius-border);
+}
+
+.sirius-account-connection__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sirius-account-connection__content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.sirius-account-connection__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--sirius-radius-base);
+  background: #db2777; /* Rose magenta fidèle au style Polaris */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.sirius-account-connection__avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sirius-account-connection__avatar-initials {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.sirius-account-connection__text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.sirius-account-connection__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sirius-account-connection__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.3;
+  color: var(--sirius-text);
+  letter-spacing: -0.01em;
+}
+
+.sirius-account-connection__details {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--sirius-text-subdued);
+  word-break: break-word;
+}
+
+.sirius-account-connection__badge {
+  display: inline-flex;
+}
+
+.sirius-account-connection__action {
+  flex-shrink: 0;
+}
+
+.sirius-account-connection__body {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--sirius-text);
+}
+
+.sirius-account-connection__terms {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--sirius-border-subdued);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--sirius-text-subdued);
+}
+
+.sirius-account-connection__terms a {
+  color: var(--sirius-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: var(--sirius-transition);
+}
+
+.sirius-account-connection__terms a:hover {
+  color: var(--sirius-primary-hover);
+}
+
+/* --- Responsive mobile --- */
+@media (max-width: 600px) {
+  .sirius-account-connection__main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .sirius-account-connection__action {
+    width: 100%;
+  }
+
+  .sirius-account-connection__action .sirius-btn {
+    width: 100%;
+  }
+}

@@ -95,4 +95,21 @@ export const components: ComponentDoc[] = [
     ],
     storybook: 'donnees-table--defaut',
   },
+  {
+    slug: 'account-connection',
+    name: 'AccountConnection',
+    category: 'Structure',
+    summary:
+      "Gère l'état de connexion d'un compte tiers, service partenaire ou passerelle de paiement (ex: Wave, Orange Money).",
+    when: [
+      'Intégration d’une passerelle de paiement mobile (Wave, Orange Money, PayTech).',
+      'Connexion à un service d’expédition ou de notification (SMS, WhatsApp).',
+      'Afficher clairement le compte lié, son statut et permettre de connecter ou déconnecter en un clic.',
+    ],
+    avoid: [
+      'Pour une simple connexion utilisateur (login / logout) de la session du marchand.',
+      'Si aucune action de configuration externe n’est requise.',
+    ],
+    storybook: 'structure-accountconnection--tous-les-cas',
+  },
 ];

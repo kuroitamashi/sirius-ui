@@ -62,6 +62,13 @@ export type { SiriusPageHeaderProps, SiriusBreadcrumbItem } from './PageHeader/P
 export { SiriusContextualSaveBar, ContextualSaveBar } from './ContextualSaveBar';
 export type { SiriusContextualSaveBarProps, SiriusContextualSaveBarAction } from './ContextualSaveBar';
 
+export { SiriusAccountConnection, AccountConnection } from './AccountConnection';
+export type {
+  SiriusAccountConnectionProps,
+  SiriusAccountConnectionAction,
+  AccountConnectionProps,
+} from './AccountConnection';
+
 export * from './Form';
 
 export { Icon } from './Icon/Icon';
