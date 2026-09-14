@@ -4,7 +4,7 @@ import { Icon } from './Icon';
 import { SIRIUS_ICONS, ICON_ALIASES } from './sirius-icons';
 
 const meta = {
-  title: 'Fondations/Icones',
+  title: 'All Components/Icon',
   component: Icon,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

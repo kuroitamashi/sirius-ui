@@ -40,7 +40,7 @@ const columns = [
 ];
 
 const meta = {
-  title: 'Donnees/Table',
+  title: 'All Components/Table',
   component: SiriusTable,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

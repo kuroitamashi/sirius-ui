@@ -27,7 +27,7 @@ export const components: ComponentDoc[] = [
       "Naviguer vers une autre page : c'est un Link, pas un Button.",
       "Mettre une icone dans un bouton avec du texte. Regle SKS : jamais d'icone dedans.",
     ],
-    storybook: 'actions-button--toutes',
+    storybook: 'all-components-button--toutes',
   },
   {
     slug: 'badge',
@@ -44,7 +44,7 @@ export const components: ComponentDoc[] = [
       'Comme bouton. Un Badge ne se clique pas, utiliser ClickableChip.',
       'Pour un compteur. Un Badge dit un etat, pas un nombre.',
     ],
-    storybook: 'statut-badge--paiements',
+    storybook: 'all-components-badge--paiements',
   },
   {
     slug: 'card',
@@ -60,7 +60,7 @@ export const components: ComponentDoc[] = [
       'Empiler des Card dans des Card. Une seule profondeur.',
       "Une Card pour un seul champ. C'est du bruit.",
     ],
-    storybook: 'structure-card--avec-action',
+    storybook: 'all-components-card--avec-action',
   },
   {
     slug: 'money-field',
@@ -76,7 +76,7 @@ export const components: ComponentDoc[] = [
       "Une quantite ou un pourcentage : utiliser NumberField.",
       'Formater un montant en lecture seule : ce champ est fait pour la saisie.',
     ],
-    storybook: 'formulaires-moneyfield--avec-valeur',
+    storybook: 'all-components-moneyfield--avec-valeur',
   },
   {
     slug: 'table',
@@ -93,7 +93,7 @@ export const components: ComponentDoc[] = [
       "Moins de trois colonnes : une List se lit mieux sur telephone.",
       'Une mise en page. Un tableau sert a comparer des lignes, pas a aligner des blocs.',
     ],
-    storybook: 'donnees-table--defaut',
+    storybook: 'all-components-table--defaut',
   },
   {
     slug: 'account-connection',
@@ -110,6 +110,6 @@ export const components: ComponentDoc[] = [
       'Pour une simple connexion utilisateur (login / logout) de la session du marchand.',
       'Si aucune action de configuration externe n’est requise.',
     ],
-    storybook: 'structure-accountconnection--tous-les-cas',
+    storybook: 'all-components-accountconnection--tous-les-cas',
   },
 ];

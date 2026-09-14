@@ -74,7 +74,8 @@ const preview: Preview = {
     a11y: { test: 'todo' },
     options: {
       storySort: {
-        order: ['Actions', 'Statut', 'Structure', 'Formulaires', 'Donnees'],
+        method: 'alphabetical',
+        locales: 'fr-FR',
       },
     },
   },

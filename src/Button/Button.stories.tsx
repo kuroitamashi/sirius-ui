@@ -3,7 +3,7 @@ import { SiriusButton, type SiriusButtonProps } from './Button';
 import { Icon } from '../Icon/Icon';
 
 const meta = {
-  title: 'Actions/Button',
+  title: 'All Components/Button',
   component: SiriusButton,
   tags: ['autodocs'],
   args: { children: 'Label' },

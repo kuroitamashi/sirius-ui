@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { SiriusBadge } from './Badge';
 
 const meta = {
-  title: 'Statut/Badge',
+  title: 'All Components/Badge',
   component: SiriusBadge,
   tags: ['autodocs'],
   args: { children: 'Payee' },

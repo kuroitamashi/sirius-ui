@@ -4,7 +4,7 @@ import { SiriusAccountConnection } from './AccountConnection';
 import { SiriusBadge } from '../Badge/Badge';
 
 const meta = {
-  title: 'Structure/AccountConnection',
+  title: 'All Components/AccountConnection',
   component: SiriusAccountConnection,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

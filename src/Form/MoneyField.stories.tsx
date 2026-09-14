@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { SiriusMoneyField } from './MoneyField';
 
 const meta = {
-  title: 'Formulaires/MoneyField',
+  title: 'All Components/MoneyField',
   component: SiriusMoneyField,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

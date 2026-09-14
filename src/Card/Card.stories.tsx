@@ -3,7 +3,7 @@ import { SiriusCard, SiriusCardSection } from './Card';
 import { SiriusButton } from '../Button/Button';
 
 const meta = {
-  title: 'Structure/Card',
+  title: 'All Components/Card',
   component: SiriusCard,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
