@@ -33,8 +33,8 @@ export const AvecActionEnTete: Story = {
     children:
       'Add variants if this product comes in multiple versions, like different sizes or colors.',
     action: (
-      <SiriusButton variant="secondary" size="slim">
-        + Add variant
+      <SiriusButton variant="secondary" size="slim" icon="plus">
+        Add variant
       </SiriusButton>
     ),
   },
@@ -106,8 +106,8 @@ export const AvecTousLesElements: Story = {
           <SiriusButton variant="plain" size="slim">
             Total Sales
           </SiriusButton>
-          <SiriusButton variant="plain" size="slim">
-            View Sales ▾
+          <SiriusButton variant="plain" size="slim" disclosure>
+            View Sales
           </SiriusButton>
         </div>
       }

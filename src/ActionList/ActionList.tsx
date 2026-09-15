@@ -139,8 +139,8 @@ export function SiriusActionList({
     if (item.suffix) {
       return (
         <span className="sirius-action-list__suffix">
-          {typeof item.suffix === 'string' && item.suffix === 'check' ? (
-            <Icon name="check" size={16} />
+          {typeof item.suffix === 'string' ? (
+            <Icon name={item.suffix as IconName} size={16} />
           ) : (
             item.suffix
           )}

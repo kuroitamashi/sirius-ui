@@ -16,7 +16,12 @@ export interface SiriusButtonProps {
     | 'success'
     | 'brand';
   size?: 'slim' | 'medium' | 'large';
+  /** Icône préfixe à gauche (nom d'icône Sirius ou composant ReactNode) */
   icon?: IconName | React.ReactNode;
+  /** Icône suffixe à droite */
+  suffixIcon?: IconName | React.ReactNode;
+  /** Affiche l'icône chevron vers le bas ou le haut pour les menus déroulants (standard Polaris) */
+  disclosure?: boolean | 'down' | 'up' | 'select';
   iconOnly?: boolean;
   loading?: boolean;
   disabled?: boolean;
@@ -34,6 +39,8 @@ export function SiriusButton({
   variant = 'secondary',
   size = 'medium',
   icon,
+  suffixIcon,
+  disclosure,
   iconOnly = false,
   loading = false,
   disabled = false,
@@ -52,18 +59,33 @@ export function SiriusButton({
     iconOnly && 'sirius-btn--icon-only',
     fullWidth && 'sirius-btn--full-width',
     loading && 'sirius-btn--loading',
+    disclosure && 'sirius-btn--disclosure',
     className,
   ]
     .filter(Boolean)
     .join(' ');
 
-  const renderIcon = () => {
-    if (!icon) return null;
-    if (typeof icon === 'string') {
-      const iconSize = size === 'slim' ? 14 : 16;
-      return <Icon name={icon as IconName} size={iconSize} />;
+  const iconSize = size === 'slim' ? 14 : 16;
+  const chevronSize = size === 'slim' ? 12 : 14;
+
+  const renderIcon = (ic: IconName | React.ReactNode) => {
+    if (!ic) return null;
+    if (typeof ic === 'string') {
+      return <Icon name={ic as IconName} size={iconSize} />;
     }
-    return icon;
+    return ic;
+  };
+
+  const renderDisclosure = () => {
+    if (!disclosure) return null;
+    let chevronName: IconName = 'chevron-down';
+    if (disclosure === 'up') chevronName = 'chevron-up';
+    if (disclosure === 'select') chevronName = 'sort';
+    return (
+      <span className="sirius-btn__disclosure">
+        <Icon name={chevronName} size={chevronSize} />
+      </span>
+    );
   };
 
   const content = (
@@ -71,9 +93,13 @@ export function SiriusButton({
       {loading ? (
         <span className="sirius-btn__spinner" aria-hidden="true" />
       ) : (
-        icon && <span className="sirius-btn__icon">{renderIcon()}</span>
+        icon && <span className="sirius-btn__icon">{renderIcon(icon)}</span>
       )}
       {!iconOnly && children && <span className="sirius-btn__text">{children}</span>}
+      {suffixIcon && !loading && (
+        <span className="sirius-btn__suffix-icon">{renderIcon(suffixIcon)}</span>
+      )}
+      {renderDisclosure()}
     </>
   );
 

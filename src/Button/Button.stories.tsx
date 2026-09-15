@@ -101,17 +101,54 @@ export const Tailles: Story = {
   ),
 };
 
-/**
- * Regle SKS : un bouton ne contient **jamais** une icone a cote de son texte.
- * Soit du texte seul, soit une icone seule avec `iconOnly` et un `ariaLabel`.
- */
 export const IconeSeule: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-      <SiriusButton variant="secondary" iconOnly ariaLabel="Ajouter" icon={<Icon name="plus" size={15} />} />
-      <SiriusButton variant="secondary" iconOnly ariaLabel="Modifier" icon={<Icon name="edit" size={15} />} />
-      <SiriusButton variant="destructive-outline" iconOnly ariaLabel="Supprimer" icon={<Icon name="trash" size={15} />} />
-      <SiriusButton variant="plain" iconOnly ariaLabel="Fermer" icon={<Icon name="croix" size={15} />} />
+      <SiriusButton variant="secondary" iconOnly ariaLabel="Ajouter" icon="plus" />
+      <SiriusButton variant="secondary" iconOnly ariaLabel="Modifier" icon="edit" />
+      <SiriusButton variant="destructive-outline" iconOnly ariaLabel="Supprimer" icon="delete" />
+      <SiriusButton variant="plain" iconOnly ariaLabel="Fermer" icon="croix" />
+    </div>
+  ),
+};
+
+/**
+ * Boutons associant une icône Sirius et un libellé textuel (standard Shopify Polaris).
+ */
+export const AvecIconeEtTexte: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+      <SiriusButton variant="primary" icon="plus">
+        Ajouter un produit
+      </SiriusButton>
+      <SiriusButton variant="secondary" icon="import">
+        Importer CSV
+      </SiriusButton>
+      <SiriusButton variant="secondary" icon="export">
+        Exporter
+      </SiriusButton>
+      <SiriusButton variant="destructive-outline" icon="delete">
+        Supprimer
+      </SiriusButton>
+    </div>
+  ),
+};
+
+/**
+ * Boutons avec chevron disclosure pour les déclencheurs de menus et listes d'actions.
+ */
+export const MenuDeroulantDisclosure: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+      <SiriusButton variant="secondary" disclosure>
+        Plus d'actions
+      </SiriusButton>
+      <SiriusButton variant="plain" disclosure>
+        Filtrer par statut
+      </SiriusButton>
+      <SiriusButton variant="primary" disclosure>
+        Actions groupées
+      </SiriusButton>
     </div>
   ),
 };

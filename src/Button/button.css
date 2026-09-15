@@ -289,3 +289,25 @@
 @keyframes sirius-spin {
   to { transform: rotate(360deg); }
 }
+
+/* --------------------------------------------------------------------------
+   Icônes, Disclosure & Suffixes
+   -------------------------------------------------------------------------- */
+.sirius-btn__icon,
+.sirius-btn__disclosure,
+.sirius-btn__suffix-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.sirius-btn__disclosure {
+  margin-left: 3px;
+  color: currentColor;
+}
+
+.sirius-btn__suffix-icon {
+  margin-left: 4px;
+}

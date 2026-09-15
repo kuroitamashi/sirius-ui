@@ -14,13 +14,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Cas 1 : ActionList dans un Popover simple (déclencheur "More actions ▾").
+ * Cas 1 : ActionList dans un Popover simple avec bouton Sirius et disclosure natif.
  */
 export const InAPopover: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary">
-        More actions ▾
+      <SiriusButton variant="secondary" disclosure>
+        More actions
       </SiriusButton>
     ),
     items: [
@@ -37,13 +37,13 @@ export const InAPopover: Story = {
 };
 
 /**
- * Cas 2 : Avec icônes illustrant chaque action (Duplicate, Archive).
+ * Cas 2 : Avec les vraies icônes Sirius (duplicate, archive).
  */
 export const WithIconsOrImage: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary">
-        More actions ▾
+      <SiriusButton variant="secondary" disclosure>
+        More actions
       </SiriusButton>
     ),
     items: [
@@ -62,27 +62,27 @@ export const WithIconsOrImage: Story = {
 };
 
 /**
- * Cas 3 : Avec icônes, suffixe de sélection (coche 'check') et élément désactivé.
+ * Cas 3 : Avec icônes Sirius, suffixe de sélection (coche 'check') et élément désactivé.
  */
 export const WithAnIconAndASuffix: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary">
-        More actions ▾
+      <SiriusButton variant="secondary" disclosure>
+        More actions
       </SiriusButton>
     ),
     items: [
       {
-        icon: 'upload',
+        icon: 'import',
         content: 'Import file',
         suffix: 'check',
       },
       {
-        icon: 'arrow-up',
+        icon: 'export',
         content: 'Export file',
       },
       {
-        icon: 'upload',
+        icon: 'blog',
         content: 'Manage your blog articles',
         suffix: 'check',
       },
@@ -92,7 +92,7 @@ export const WithAnIconAndASuffix: Story = {
         suffix: 'check',
       },
       {
-        icon: 'upload',
+        icon: 'import',
         content: 'Disable file',
         disabled: true,
         suffix: 'check',
@@ -102,21 +102,21 @@ export const WithAnIconAndASuffix: Story = {
 };
 
 /**
- * Cas 4 : Organisé en sections avec titre et élément destructeur (Delete en rouge).
+ * Cas 4 : Organisé en sections avec titres, icônes Sirius et élément destructeur (Delete).
  */
 export const WithSectionsAndDestructive: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary">
-        More actions ▾
+      <SiriusButton variant="secondary" disclosure>
+        More actions
       </SiriusButton>
     ),
     sections: [
       {
         title: 'File options',
         items: [
-          { icon: 'upload', content: 'Import file' },
-          { icon: 'arrow-up', content: 'Export file' },
+          { icon: 'import', content: 'Import file' },
+          { icon: 'export', content: 'Export file' },
         ],
       },
       {
@@ -140,13 +140,13 @@ export const WithSectionsAndDestructive: Story = {
 };
 
 /**
- * Cas 5 : Avec texte d'aide explicatif sous chaque libellé et état actif.
+ * Cas 5 : Avec texte d'aide explicatif sous chaque libellé et état actif avec icônes Sirius.
  */
 export const WithHelpText: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary">
-        More actions ▾
+      <SiriusButton variant="secondary" disclosure>
+        More actions
       </SiriusButton>
     ),
     items: [
@@ -159,14 +159,14 @@ export const WithHelpText: Story = {
         helpText: 'Manage blogs published to your Online Store',
       },
       {
-        icon: 'upload',
+        icon: 'blog',
         content: 'Active blogs',
         helpText: 'This is helpful text',
         active: true,
         suffix: 'check',
       },
       {
-        icon: 'upload',
+        icon: 'blog',
         content: 'Disabled blogs',
         helpText: 'This is also helpful text',
         disabled: true,
@@ -177,13 +177,13 @@ export const WithHelpText: Story = {
 };
 
 /**
- * Cas 6 : Menu contextuel marchand Sen Kheweul Store (Commandes & Paiements).
+ * Cas 6 : Menu contextuel marchand Sen Kheweul Store (Commandes & Paiements avec icônes Sirius).
  */
 export const ActionsCommandesSKS: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary">
-        Actions commande ▾
+      <SiriusButton variant="secondary" disclosure>
+        Actions commande
       </SiriusButton>
     ),
     sections: [
@@ -196,7 +196,7 @@ export const ActionsCommandesSKS: Story = {
             helpText: 'Synchronisation instantanée avec le compte marchand',
           },
           {
-            icon: 'arrow-up',
+            icon: 'export',
             content: 'Télécharger la facture PDF',
           },
         ],
