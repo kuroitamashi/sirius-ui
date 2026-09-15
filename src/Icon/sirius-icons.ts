@@ -62,6 +62,10 @@ export const ICON_ALIASES: Record<string, string> = {
   'fleche-bas': 'arrow-down',
   oeil: 'view',
   'oeil-barre': 'hide',
+  eye: 'view',
+  sliders: 'adjust',
+  hash: 'hashtag',
+  domaines: 'domain',
 
   // Rich Text Editor Toolbar (ui/RichText)
   bold: 'text-bold',
