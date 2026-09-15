@@ -190,7 +190,16 @@ export function SiriusDataTable({
       {title && <h2 className="sirius-data-table__title">{title}</h2>}
 
       {/* Carte conteneur avec bordure et coins arrondis */}
-      <div className="sirius-data-table-card">
+      <div
+
+
+        className={[
+          'sirius-data-table-card',
+          stickyHeader && 'sirius-data-table-card--sticky',
+        ]
+          .filter(Boolean)
+          .join(' ')}
+      >
         <div
           className="sirius-data-table__scroll-container"
           style={{ maxHeight: maxHeight ? maxHeight : undefined }}
@@ -245,7 +254,6 @@ export function SiriusDataTable({
                         )}
                         <span>{heading}</span>
                       </span>
-
                     </th>
                   );
                 })}
@@ -261,17 +269,19 @@ export function SiriusDataTable({
                 <tr key={rowIdx}>
                   {row.map((cell, cellIdx) => {
                     const contentType = columnContentTypes[cellIdx] ?? 'text';
+                    const isTruncated = truncate && contentType === 'text';
                     return (
                       <td
                         key={cellIdx}
-                        className={[
-                          `sirius-data-table__cell--${contentType}`,
-                          truncate && contentType === 'text' && 'sirius-data-table__truncate',
-                        ]
-                          .filter(Boolean)
-                          .join(' ')}
+                        className={`sirius-data-table__cell--${contentType}`}
                       >
-                        {cell}
+                        {isTruncated ? (
+                          <span className="sirius-data-table__truncate-text">
+                            {cell}
+                          </span>
+                        ) : (
+                          cell
+                        )}
                       </td>
                     );
                   })}
@@ -286,7 +296,14 @@ export function SiriusDataTable({
 
         {/* Pied de tableau : Message de comptage */}
         {footerContent && (
-          <div className="sirius-data-table__footer">
+          <div
+            className={[
+              'sirius-data-table__footer',
+              hasZebraStriping && 'sirius-data-table__footer--white',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
             <p className="sirius-data-table__footer-text">{footerContent}</p>
           </div>
         )}

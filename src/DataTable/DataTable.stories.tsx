@@ -407,7 +407,7 @@ export const WithStickyHeaderEnabled: Story = {
       },
     ];
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 8; i++) {
       baseItems.forEach((item, idx) => {
         manyRows.push([
           <a href={`#item-${i}-${idx}`} onClick={(e) => e.preventDefault()} key={`${i}-${idx}`}>
@@ -429,12 +429,13 @@ export const WithStickyHeaderEnabled: Story = {
         rows={manyRows}
         totals={standardTotals}
         stickyHeader
-        maxHeight={460}
-        footerContent="Showing 18 of 18 results"
+        hasZebraStriping
+        footerContent="Showing 24 of 24 results"
       />
     );
   },
 };
+
 
 /**
  * 12. With Pagination (Cas 12 de la capture Shopify Polaris) :
