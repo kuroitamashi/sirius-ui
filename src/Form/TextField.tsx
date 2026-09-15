@@ -18,6 +18,7 @@ export interface SiriusTextFieldProps {
   name?: string;
   id?: string;
   autoComplete?: string;
+  autoFocus?: boolean;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
   icon?: React.ReactNode;
@@ -41,6 +42,7 @@ export function SiriusTextField({
   name,
   id,
   autoComplete,
+  autoFocus,
   prefix,
   suffix,
   icon,
@@ -87,6 +89,7 @@ export function SiriusTextField({
           readOnly={readOnly}
           required={required}
           autoComplete={autoComplete}
+          autoFocus={autoFocus}
           className="sirius-input"
           onChange={handleChange}
           onBlur={onBlur}
