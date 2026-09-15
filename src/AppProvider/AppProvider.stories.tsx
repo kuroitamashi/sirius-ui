@@ -59,13 +59,7 @@ const DemoResourceList: React.FC<{ items: Array<{ id: string; name: string; loca
         {items.map((item, idx) => (
           <div
             key={item.id}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: '12px 16px',
-              borderBottom: idx < items.length - 1 ? '1px solid #e1e3e5' : 'none',
-              gap: '12px',
-            }}
+            className="sirius-demo-resource-item"
           >
             {/* Avatar circulaire gris */}
             <div
