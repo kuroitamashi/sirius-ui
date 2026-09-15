@@ -60,9 +60,12 @@ export const Default: Story = {
       rows={standardRows}
       totals={standardTotals}
       sortable={[false, false, false, false, true]}
+      defaultSortDirection="descending"
+      initialSortColumnIndex={4}
     />
   ),
 };
+
 
 /**
  * 2. Sortable (Cas 2 de la capture Shopify Polaris) :

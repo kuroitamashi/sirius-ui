@@ -62,7 +62,56 @@ export interface SiriusDataTableProps {
   style?: React.CSSProperties;
 }
 
+/**
+ * Icône de tri officielle Polaris pour les colonnes DataTable :
+ * Deux chevrons empilés (haut et bas).
+ * - En tri ascendant : le chevron du haut est noir (#202223), le chevron du bas est gris clair (#c4cdd5).
+ * - En tri descendant : le chevron du bas est noir (#202223), le chevron du haut est gris clair (#c4cdd5).
+ * - Si colonne non activement triée : les deux chevrons sont en gris clair (#c4cdd5).
+ */
+export function DataTableSortIcon({
+  direction,
+  isSorted = false,
+}: {
+  direction?: SortDirection;
+  isSorted?: boolean;
+}) {
+  const isUpActive = isSorted && direction === 'ascending';
+  const isDownActive = isSorted && direction === 'descending';
+
+  const upColor = isUpActive ? '#202223' : '#c4cdd5';
+  const downColor = isDownActive ? '#202223' : '#c4cdd5';
+
+  return (
+    <svg
+      width="10"
+      height="14"
+      viewBox="0 0 10 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="sirius-data-table__sort-icon"
+      aria-hidden="true"
+    >
+      <path
+        d="M2 5L5 2L8 5"
+        stroke={upColor}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M2 9L5 12L8 9"
+        stroke={downColor}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function SiriusDataTable({
+
   title,
   columnContentTypes,
   headings,
@@ -189,26 +238,14 @@ export function SiriusDataTable({
                     >
                       <span className="sirius-data-table__heading-inner">
                         {isColSortable && (
-                          <span
-                            className={[
-                              'sirius-data-table__sort-icon',
-                              isCurrentlySorted && 'sirius-data-table__sort-icon--active',
-                            ]
-                              .filter(Boolean)
-                              .join(' ')}
-                          >
-                            {isCurrentlySorted ? (
-                              <Icon
-                                name={sortDirection === 'ascending' ? 'chevron-up' : 'chevron-down'}
-                                size={13}
-                              />
-                            ) : (
-                              <Icon name="sort" size={13} />
-                            )}
-                          </span>
+                          <DataTableSortIcon
+                            direction={sortDirection}
+                            isSorted={isCurrentlySorted}
+                          />
                         )}
                         <span>{heading}</span>
                       </span>
+
                     </th>
                   );
                 })}

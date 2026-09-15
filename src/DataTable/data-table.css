@@ -81,21 +81,16 @@
   background-color: #ffffff;
   font-weight: 500;
   font-size: 13px;
-  color: var(--sirius-text-subdued, #5c5f62);
+  color: var(--sirius-text, #202223);
   border-bottom: 1px solid var(--sirius-border-subdued, #e1e3e5);
   white-space: nowrap;
 }
 
-/* Colonnes triables */
+
+/* Colonnes triables : aucun style au survol, seul le chevron actif change de position au clic */
 .sirius-data-table__heading--sortable {
   cursor: pointer;
   user-select: none;
-  transition: background-color 0.1s ease, color 0.1s ease;
-}
-
-.sirius-data-table__heading--sortable:hover {
-  background-color: #f6f7f8;
-  color: var(--sirius-text, #202223);
 }
 
 .sirius-data-table__heading-inner {
@@ -112,18 +107,9 @@
 .sirius-data-table__sort-icon {
   display: inline-flex;
   align-items: center;
-  color: #8c9196;
   flex-shrink: 0;
-  transition: color 0.1s ease;
 }
 
-.sirius-data-table__heading--sortable:hover .sirius-data-table__sort-icon {
-  color: var(--sirius-text, #202223);
-}
-
-.sirius-data-table__sort-icon--active {
-  color: var(--sirius-text, #202223);
-}
 
 /* Sticky Header */
 .sirius-data-table--sticky thead th {
