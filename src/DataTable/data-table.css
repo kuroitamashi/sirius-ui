@@ -234,30 +234,33 @@
 
 /* --------------------------------------------------------------------------
    Pied de tableau (Footer & Pagination)
+   Standard Polaris : fond gris clair tamisé (#f7f7f8) identique aux Totaux
    -------------------------------------------------------------------------- */
 .sirius-data-table__footer {
   padding: 12px 16px;
   border-top: 1px solid var(--sirius-border-subdued, #e1e3e5);
-  background-color: var(--sirius-surface, #ffffff);
+  background-color: var(--sirius-surface-subdued, #f7f7f8);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .sirius-data-table__footer-text {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--sirius-text-subdued, #6d7175);
   margin: 0;
+  line-height: 20px;
 }
 
 .sirius-data-table__pagination {
   padding: 10px 16px;
   border-top: 1px solid var(--sirius-border-subdued, #e1e3e5);
-  background-color: var(--sirius-surface, #ffffff);
+  background-color: var(--sirius-surface-subdued, #f7f7f8);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 
 /* Pagination connectée standard Polaris [ < | > ] */
 .sirius-data-table__pagination-group {
