@@ -125,4 +125,11 @@ export type {
   SiriusTranslations,
 } from './AppProvider';
 
-
+export { SiriusAutocomplete, Autocomplete } from './Autocomplete';
+export type {
+  SiriusAutocompleteProps,
+  AutocompleteProps,
+  AutocompleteOption,
+  AutocompleteSection,
+  AutocompleteAction,
+} from './Autocomplete';
