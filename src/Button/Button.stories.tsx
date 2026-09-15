@@ -13,12 +13,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const VARIANTS = [
-  ['secondary', 'Par defaut'],
-  ['primary', 'Primaire'],
-  ['brand', 'Marque'],
-  ['success', 'Succes'],
-  ['plain', 'Nu'],
-  ['destructive', 'Destructeur'],
+  ['primary', 'Primaire (Vert SKS signature)'],
+  ['secondary', 'Secondaire (Noir tactile)'],
+  ['default', 'Par défaut / Tertiaire (Blanc biseauté)'],
+  ['brand', 'Marque (Vert - alias primary)'],
+  ['success', 'Succès (Vert - alias primary)'],
+  ['plain', 'Nu (Lien discret)'],
+  ['destructive', 'Destructeur (Rouge plein)'],
   ['destructive-outline', 'Destructeur contour'],
   ['destructive-plain', 'Destructeur nu'],
 ] as const;
@@ -80,8 +81,9 @@ export const Toutes: Story = {
   ),
 };
 
-export const ParDefaut: Story = { args: { variant: 'secondary' } };
 export const Primaire: Story = { args: { variant: 'primary' } };
+export const Secondaire: Story = { args: { variant: 'secondary' } };
+export const ParDefaut: Story = { args: { variant: 'default' } };
 export const Marque: Story = { args: { variant: 'brand' } };
 export const Succes: Story = { args: { variant: 'success' } };
 export const Nu: Story = { args: { variant: 'plain' } };
@@ -124,7 +126,7 @@ export const AvecIconeEtTexte: Story = {
       <SiriusButton variant="secondary" icon="import">
         Importer CSV
       </SiriusButton>
-      <SiriusButton variant="secondary" icon="export">
+      <SiriusButton variant="default" icon="export">
         Exporter
       </SiriusButton>
       <SiriusButton variant="destructive-outline" icon="delete">
@@ -140,14 +142,17 @@ export const AvecIconeEtTexte: Story = {
 export const MenuDeroulantDisclosure: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-      <SiriusButton variant="secondary" disclosure>
-        Plus d'actions
+      <SiriusButton variant="default" disclosure>
+        Plus d'actions (Blanc)
       </SiriusButton>
-      <SiriusButton variant="plain" disclosure>
-        Filtrer par statut
+      <SiriusButton variant="secondary" disclosure>
+        Actions groupées (Noir)
       </SiriusButton>
       <SiriusButton variant="primary" disclosure>
-        Actions groupées
+        Options principales (Vert)
+      </SiriusButton>
+      <SiriusButton variant="plain" disclosure>
+        Filtrer par statut (Nu)
       </SiriusButton>
     </div>
   ),

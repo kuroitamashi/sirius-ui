@@ -9,6 +9,10 @@ export interface SiriusButtonProps {
   variant?:
     | 'primary'
     | 'secondary'
+    | 'default'
+    | 'tertiary'
+    | 'dark'
+    | 'contrast'
     | 'plain'
     | 'destructive'
     | 'destructive-outline'
@@ -36,7 +40,7 @@ export interface SiriusButtonProps {
 
 export function SiriusButton({
   children,
-  variant = 'secondary',
+  variant = 'default',
   size = 'medium',
   icon,
   suffixIcon,

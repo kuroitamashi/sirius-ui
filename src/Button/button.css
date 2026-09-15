@@ -45,43 +45,11 @@
 }
 
 /* --------------------------------------------------------------------------
-   Sirius Primary (Le bouton noir tactile iconique de Sirius)
+   Sirius Primary (Vert SKS - Action principale signature)
    -------------------------------------------------------------------------- */
-.sirius-btn--primary {
-  background-color: #202020;
-  background-image: linear-gradient(180deg, #323232 0%, #202020 100%);
-  color: #ffffff;
-  border: 1px solid #141414;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
-    0 1px 2px 0 rgba(0, 0, 0, 0.18);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
-}
-
-.sirius-btn--primary:hover:not(:disabled) {
-  background-color: #1a1a1a;
-  background-image: linear-gradient(180deg, #262626 0%, #151515 100%);
-  border-color: #0c0c0c;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.16),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.45),
-    0 1px 2px 0 rgba(0, 0, 0, 0.25);
-}
-
-.sirius-btn--primary:active:not(:disabled) {
-  background-color: #141414;
-  background-image: linear-gradient(180deg, #181818 0%, #101010 100%);
-  border-color: #050505;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
-  transform: translateY(0.5px);
-}
-
-/* --------------------------------------------------------------------------
-   Sirius Success / Brand (Vert SKS avec le même relief tactile Sirius)
-   -------------------------------------------------------------------------- */
-.sirius-btn--success,
-.sirius-btn--brand {
+.sirius-btn--primary,
+.sirius-btn--brand,
+.sirius-btn--success {
   background-color: #00703f;
   background-image: linear-gradient(180deg, #00874e 0%, #00703f 100%);
   color: #ffffff;
@@ -90,18 +58,20 @@
     inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
     inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
     0 1px 2px 0 rgba(0, 0, 0, 0.15);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.sirius-btn--success:hover:not(:disabled),
-.sirius-btn--brand:hover:not(:disabled) {
+.sirius-btn--primary:hover:not(:disabled),
+.sirius-btn--brand:hover:not(:disabled),
+.sirius-btn--success:hover:not(:disabled) {
   background-color: #006036;
   background-image: linear-gradient(180deg, #007845 0%, #006036 100%);
   border-color: #004527;
 }
 
-.sirius-btn--success:active:not(:disabled),
-.sirius-btn--brand:active:not(:disabled) {
+.sirius-btn--primary:active:not(:disabled),
+.sirius-btn--brand:active:not(:disabled),
+.sirius-btn--success:active:not(:disabled) {
   background-color: #004d2c;
   background-image: linear-gradient(180deg, #005f36 0%, #004829 100%);
   border-color: #00371f;
@@ -110,30 +80,86 @@
 }
 
 /* --------------------------------------------------------------------------
-   Sirius Secondary / Default (Blanc avec bordure biseautée subtile)
+   Sirius Secondary (Noir tactile chic)
    -------------------------------------------------------------------------- */
-.sirius-btn--secondary {
+.sirius-btn--secondary,
+.sirius-btn--dark,
+.sirius-btn--contrast {
+  background-color: #202020;
+  background-image: linear-gradient(180deg, #323232 0%, #202020 100%);
+  color: #ffffff;
+  border: 1px solid #141414;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
+    0 1px 2px 0 rgba(0, 0, 0, 0.18);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.sirius-btn--secondary:hover:not(:disabled),
+.sirius-btn--dark:hover:not(:disabled),
+.sirius-btn--contrast:hover:not(:disabled) {
+  background-color: #1a1a1a;
+  background-image: linear-gradient(180deg, #262626 0%, #151515 100%);
+  border-color: #0c0c0c;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.45),
+    0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}
+
+.sirius-btn--secondary:active:not(:disabled),
+.sirius-btn--dark:active:not(:disabled),
+.sirius-btn--contrast:active:not(:disabled) {
+  background-color: #141414;
+  background-image: linear-gradient(180deg, #181818 0%, #101010 100%);
+  border-color: #050505;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+  transform: translateY(0.5px);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Sirius Default / Tertiary (Blanc avec bordure biseautée subtile)
+   -------------------------------------------------------------------------- */
+.sirius-btn,
+.sirius-btn--default,
+.sirius-btn--tertiary,
+.sirius-btn--outline,
+.sirius-btn--white {
   background-color: #ffffff;
   background-image: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
-  color: var(--sirius-text);
+  color: var(--sirius-text, #202223);
   border: 1px solid #c9cccf;
   box-shadow:
     inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
     0 1px 0 0 rgba(0, 0, 0, 0.05);
+  text-shadow: none;
 }
 
-.sirius-btn--secondary:hover:not(:disabled) {
+.sirius-btn:hover:not(:disabled),
+.sirius-btn--default:hover:not(:disabled),
+.sirius-btn--tertiary:hover:not(:disabled),
+.sirius-btn--outline:hover:not(:disabled),
+.sirius-btn--white:hover:not(:disabled) {
   background-color: #f6f7f8;
   background-image: linear-gradient(180deg, #f9fafb 0%, #f1f2f4 100%);
   border-color: #b5b8bb;
+  color: var(--sirius-text, #202223);
 }
 
-.sirius-btn--secondary:active:not(:disabled) {
+.sirius-btn:active:not(:disabled),
+.sirius-btn--default:active:not(:disabled),
+.sirius-btn--tertiary:active:not(:disabled),
+.sirius-btn--outline:active:not(:disabled),
+.sirius-btn--white:active:not(:disabled) {
   background-color: #eceef0;
   background-image: linear-gradient(180deg, #eceef0 0%, #e4e6e8 100%);
   border-color: #a8abaf;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
   transform: translateY(0.5px);
+  color: var(--sirius-text, #202223);
 }
 
 /* --------------------------------------------------------------------------
