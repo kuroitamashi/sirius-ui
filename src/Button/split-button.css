@@ -1,0 +1,132 @@
+/* ==========================================================================
+   Sirius Split Button
+   Polaris-parity split button (Main Action + Disclosure Chevron + Popover)
+   ========================================================================== */
+
+.sirius-split-button {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  vertical-align: middle;
+}
+
+.sirius-split-button--full-width {
+  display: flex;
+  width: 100%;
+}
+
+.sirius-split-button--full-width .sirius-split-button__main {
+  flex: 1 1 auto;
+}
+
+/* --------------------------------------------------------------------------
+   Segments & Border Radii
+   -------------------------------------------------------------------------- */
+.sirius-split-button__main.sirius-btn {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+}
+
+.sirius-split-button__disclosure.sirius-btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: none;
+  padding-left: 7px;
+  padding-right: 7px;
+  min-width: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sirius-split-button--slim .sirius-split-button__disclosure.sirius-btn {
+  padding-left: 5px;
+  padding-right: 5px;
+  min-width: 24px;
+}
+
+.sirius-split-button--large .sirius-split-button__disclosure.sirius-btn {
+  padding-left: 9px;
+  padding-right: 9px;
+  min-width: 36px;
+}
+
+/* Z-Index & Focus : les boutons actifs ou focalisés passent au premier plan */
+.sirius-split-button .sirius-btn:hover,
+.sirius-split-button .sirius-btn:focus-visible,
+.sirius-split-button .sirius-btn:active {
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Séparateur vertical tactile entre les deux boutons
+   -------------------------------------------------------------------------- */
+.sirius-split-button__divider {
+  width: 1px;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Divider pour bouton Secondary (Noir) */
+.sirius-split-button--secondary .sirius-split-button__divider,
+.sirius-split-button--dark .sirius-split-button__divider,
+.sirius-split-button--contrast .sirius-split-button__divider {
+  background-color: #121212;
+  box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Divider pour bouton Primary (Vert SKS) */
+.sirius-split-button--primary .sirius-split-button__divider,
+.sirius-split-button--brand .sirius-split-button__divider,
+.sirius-split-button--success .sirius-split-button__divider {
+  background-color: #004d2c;
+  box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Divider pour bouton Default (Blanc) */
+.sirius-split-button--default .sirius-split-button__divider,
+.sirius-split-button--tertiary .sirius-split-button__divider,
+.sirius-split-button--white .sirius-split-button__divider {
+  background-color: #d2d5d8;
+}
+
+/* Divider pour bouton Destructive (Rouge) */
+.sirius-split-button--destructive .sirius-split-button__divider {
+  background-color: #8a1500;
+  box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.15);
+}
+
+.sirius-split-button--destructive-outline .sirius-split-button__divider {
+  background-color: #fed2cd;
+}
+
+/* --------------------------------------------------------------------------
+   Popover déroulant intégré
+   -------------------------------------------------------------------------- */
+.sirius-split-button__popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 190px;
+  background-color: var(--sirius-surface, #ffffff);
+  border-radius: var(--sirius-radius-base, 8px);
+  border: 1px solid var(--sirius-border-subdued, #e1e3e5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+  z-index: var(--sirius-z-popover, 500);
+  overflow: hidden;
+  animation: sirius-popover-enter 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes sirius-popover-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

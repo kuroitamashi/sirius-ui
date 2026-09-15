@@ -8,6 +8,13 @@ import './tokens.css';
 export { SiriusButton } from './Button/Button';
 export type { SiriusButtonProps } from './Button/Button';
 
+export { SiriusSplitButton, SplitButton } from './Button/SplitButton';
+export type {
+  SiriusSplitButtonProps,
+  SiriusSplitButtonPrimaryAction,
+  SplitButtonProps,
+} from './Button/SplitButton';
+
 export { SiriusButtonGroup } from './ButtonGroup/ButtonGroup';
 export type { SiriusButtonGroupProps } from './ButtonGroup/ButtonGroup';
 

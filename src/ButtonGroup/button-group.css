@@ -4,16 +4,14 @@
   gap: 8px;
 }
 
-/* Variante connectée / segmented (comme dans Figma) */
+/* Variante connectée / segmented (comme dans Shopify Polaris) */
 .sirius-button-group--connected {
   gap: 0;
   border-radius: var(--sirius-radius-base);
-  box-shadow: var(--sirius-shadow-button);
 }
 
 .sirius-button-group--connected > .sirius-btn {
   border-radius: 0;
-  box-shadow: none;
 }
 
 .sirius-button-group--connected > .sirius-btn:not(:first-child) {

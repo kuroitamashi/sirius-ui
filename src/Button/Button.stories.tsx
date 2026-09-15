@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { SiriusButton, type SiriusButtonProps } from './Button';
+import { SiriusSplitButton } from './SplitButton';
 import { Icon } from '../Icon/Icon';
 
 const meta = {
@@ -155,6 +156,75 @@ export const MenuDeroulantDisclosure: Story = {
         Filtrer par statut (Nu)
       </SiriusButton>
     </div>
+  ),
+};
+
+/**
+ * Boutons scindés (Split Button standard Shopify Polaris) :
+ * Conforme à la capture d'écran Polaris avec le bouton noir (Save) et le bouton blanc (Save),
+ * ainsi que la déclinaison verte Sen-Kheweul Store. Le chevron ouvre un menu d'actions interactif.
+ */
+export const Split: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
+      {/* 1. Bouton scindé noir (Save) - conforme capture Shopify Polaris */}
+      <SiriusSplitButton
+        variant="secondary"
+        primaryAction={{
+          content: 'Save',
+          onAction: () => alert('Action Save exécutée (Noir tactile)'),
+        }}
+        actions={[
+          { content: 'Save and continue editing', onAction: () => alert('Save and continue') },
+          { content: 'Save as draft', onAction: () => alert('Save as draft') },
+          { content: 'Duplicate product', onAction: () => alert('Duplicate product') },
+        ]}
+      />
+
+      {/* 2. Bouton scindé blanc (Save) - conforme capture Shopify Polaris */}
+      <SiriusSplitButton
+        variant="default"
+        primaryAction={{
+          content: 'Save',
+          onAction: () => alert('Action Save exécutée (Blanc par défaut)'),
+        }}
+        actions={[
+          { content: 'Save and continue editing', onAction: () => alert('Save and continue') },
+          { content: 'Save as draft', onAction: () => alert('Save as draft') },
+          { content: 'Duplicate product', onAction: () => alert('Duplicate product') },
+        ]}
+      />
+
+      {/* 3. Bouton scindé vert SKS signature (Enregistrer) */}
+      <SiriusSplitButton
+        variant="primary"
+        primaryAction={{
+          content: 'Enregistrer',
+          onAction: () => alert('Action Enregistrer exécutée (Vert SKS signature)'),
+        }}
+        actions={[
+          { content: 'Enregistrer et publier', onAction: () => alert('Enregistrer et publier') },
+          { content: 'Enregistrer comme brouillon', onAction: () => alert('Brouillon') },
+          { content: 'Archiver le produit', onAction: () => alert('Archiver'), destructive: true },
+        ]}
+      />
+    </div>
+  ),
+};
+
+export const PlainDisclosure: Story = {
+  render: () => (
+    <SiriusButton variant="plain" disclosure>
+      More actions
+    </SiriusButton>
+  ),
+};
+
+export const SelectDisclosure: Story = {
+  render: () => (
+    <SiriusButton variant="default" disclosure="select">
+      Statut de la commande
+    </SiriusButton>
   ),
 };
 
