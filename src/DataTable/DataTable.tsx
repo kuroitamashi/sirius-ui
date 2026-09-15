@@ -265,28 +265,42 @@ export function SiriusDataTable({
               {!showTotalsInFooter && renderTotalsRow(false)}
 
               {/* Lignes de données */}
-              {rows.map((row, rowIdx) => (
-                <tr key={rowIdx}>
-                  {row.map((cell, cellIdx) => {
-                    const contentType = columnContentTypes[cellIdx] ?? 'text';
-                    const isTruncated = truncate && contentType === 'text';
-                    return (
-                      <td
-                        key={cellIdx}
-                        className={`sirius-data-table__cell--${contentType}`}
-                      >
-                        {isTruncated ? (
-                          <span className="sirius-data-table__truncate-text">
-                            {cell}
-                          </span>
-                        ) : (
-                          cell
-                        )}
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
+              {rows.map((row, rowIdx) => {
+                // Alternance zébrée : la première ligne de données (rowIdx === 0) juste sous
+                // l'en-tête ou les totaux reste BLANCHE. Les lignes impaires (1, 3, 5...) sont
+                // grisées pour éviter 2 lignes grises consécutives avec la ligne des totaux.
+                const isZebraRow = hasZebraStriping && rowIdx % 2 === 1;
+
+                return (
+                  <tr
+                    key={rowIdx}
+                    className={
+                      isZebraRow
+                        ? 'sirius-data-table__row--zebra-striped'
+                        : undefined
+                    }
+                  >
+                    {row.map((cell, cellIdx) => {
+                      const contentType = columnContentTypes[cellIdx] ?? 'text';
+                      const isTruncated = truncate && contentType === 'text';
+                      return (
+                        <td
+                          key={cellIdx}
+                          className={`sirius-data-table__cell--${contentType}`}
+                        >
+                          {isTruncated ? (
+                            <span className="sirius-data-table__truncate-text">
+                              {cell}
+                            </span>
+                          ) : (
+                            cell
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
 
               {/* Totaux en bas (si showTotalsInFooter est actif) */}
               {showTotalsInFooter && renderTotalsRow(true)}

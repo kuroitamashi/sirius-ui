@@ -179,12 +179,12 @@
   background-color: #f7f8f9;
 }
 
-/* Rayures zébrées : exactement la même couleur que les Totaux (#f7f7f8) */
-.sirius-data-table--zebra tbody tr:not(.sirius-data-table__row--totals):nth-child(even) {
+/* Rayures zébrées : couleur identique aux Totaux (#f7f7f8), alternant avec rowIdx 0 blanc */
+.sirius-data-table--zebra tbody tr.sirius-data-table__row--zebra-striped {
   background-color: var(--sirius-surface-subdued, #f7f7f8);
 }
 
-.sirius-data-table--zebra.sirius-data-table--hoverable tbody tr:not(.sirius-data-table__row--totals):hover {
+.sirius-data-table--zebra.sirius-data-table--hoverable tbody tr.sirius-data-table__row--zebra-striped:hover {
   background-color: #f1f2f4;
 }
 
@@ -238,7 +238,7 @@
   z-index: 5;
 }
 
-.sirius-data-table--fixed-first.sirius-data-table--zebra tbody tr:not(.sirius-data-table__row--totals):nth-child(even) td:first-child {
+.sirius-data-table--fixed-first.sirius-data-table--zebra tbody tr.sirius-data-table__row--zebra-striped td:first-child {
   background-color: var(--sirius-surface-subdued, #f7f7f8);
 }
 
