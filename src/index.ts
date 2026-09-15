@@ -108,3 +108,21 @@ export { SIRIUS_ICONS, ICON_ALIASES } from './Icon/sirius-icons';
 export { SiriusPagination, Pagination } from './Pagination';
 export type { SiriusPaginationProps, PaginationProps } from './Pagination';
 
+export {
+  SiriusAppProvider,
+  AppProvider,
+  useSiriusApp,
+  useSiriusLink,
+  useSiriusI18n,
+  frTranslations,
+  enTranslations,
+} from './AppProvider';
+export type {
+  SiriusAppProviderProps,
+  AppProviderProps,
+  SiriusAppContextType,
+  SiriusLinkComponent,
+  SiriusTranslations,
+} from './AppProvider';
+
+
