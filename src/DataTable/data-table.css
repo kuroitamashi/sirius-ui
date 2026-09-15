@@ -1,6 +1,6 @@
 /* ==========================================================================
    Sirius DataTable
-   Reproduction 1:1 du composant DataTable de Shopify Polaris
+   Reproduction 1:1 pixel-perfect du composant DataTable de Shopify Polaris
    ========================================================================== */
 
 .sirius-data-table-wrapper {
@@ -11,18 +11,18 @@
 
 .sirius-data-table__title {
   margin: 0 0 16px 0;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 24px;
   color: var(--sirius-text, #202223);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .sirius-data-table-card {
   background-color: var(--sirius-surface, #ffffff);
   border: 1px solid var(--sirius-border-subdued, #e1e3e5);
-  border-radius: var(--sirius-radius-card, 10px);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
   width: 100%;
   position: relative;
@@ -41,16 +41,17 @@
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   font-size: 13px;
-  line-height: 1.4;
+  line-height: 20px;
   color: var(--sirius-text, #202223);
   text-align: left;
 }
 
 .sirius-data-table th,
 .sirius-data-table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--sirius-border-subdued, #f1f2f4);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sirius-border-subdued, #e1e3e5);
   vertical-align: middle;
   box-sizing: border-box;
 }
@@ -58,7 +59,7 @@
 /* Densité accrue (mode compact) */
 .sirius-data-table--dense th,
 .sirius-data-table--dense td {
-  padding: 8px 16px;
+  padding: 7px 16px;
   font-size: 12.5px;
 }
 
@@ -74,13 +75,14 @@
 
 /* --------------------------------------------------------------------------
    En-tête de colonnes (thead)
-   Fond neutre secondaire distinct du corps de table (standard Polaris)
+   Standard Polaris : fond blanc (#ffffff), texte gris secondaire (#5c5f62)
    -------------------------------------------------------------------------- */
 .sirius-data-table thead th {
-  background-color: var(--sirius-surface-subdued, #f7f7f8);
+  background-color: #ffffff;
   font-weight: 500;
-  color: var(--sirius-text, #202223);
-  border-bottom: 1px solid var(--sirius-border, #e1e3e5);
+  font-size: 13px;
+  color: var(--sirius-text-subdued, #5c5f62);
+  border-bottom: 1px solid var(--sirius-border-subdued, #e1e3e5);
   white-space: nowrap;
 }
 
@@ -92,8 +94,8 @@
 }
 
 .sirius-data-table__heading--sortable:hover {
-  background-color: #f1f2f4;
-  color: var(--sirius-interactive, #005bd3);
+  background-color: #f6f7f8;
+  color: var(--sirius-text, #202223);
 }
 
 .sirius-data-table__heading-inner {
@@ -110,8 +112,13 @@
 .sirius-data-table__sort-icon {
   display: inline-flex;
   align-items: center;
-  color: var(--sirius-text-subdued, #6d7175);
+  color: #8c9196;
   flex-shrink: 0;
+  transition: color 0.1s ease;
+}
+
+.sirius-data-table__heading--sortable:hover .sirius-data-table__sort-icon {
+  color: var(--sirius-text, #202223);
 }
 
 .sirius-data-table__sort-icon--active {
@@ -123,21 +130,25 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: var(--sirius-surface-subdued, #f7f7f8);
-  box-shadow: 0 1px 0 var(--sirius-border, #e1e3e5);
+  background-color: #ffffff;
+  box-shadow: 0 1px 0 var(--sirius-border-subdued, #e1e3e5);
 }
 
 /* --------------------------------------------------------------------------
    Ligne de Totaux (Totals)
+   Standard Polaris : fond gris clair tamisé (#f7f7f8), texte gras (#202223)
    -------------------------------------------------------------------------- */
 .sirius-data-table__row--totals {
+  background-color: #f7f7f8;
   font-weight: 600;
-  background-color: var(--sirius-surface, #ffffff);
 }
 
 .sirius-data-table__row--totals td {
+  background-color: #f7f7f8;
   border-bottom: 1px solid var(--sirius-border-subdued, #e1e3e5);
   color: var(--sirius-text, #202223);
+  font-weight: 600;
+  font-size: 13px;
 }
 
 .sirius-data-table__row--totals-footer td {
@@ -149,19 +160,36 @@
    Corps du tableau & Lignes de données
    -------------------------------------------------------------------------- */
 .sirius-data-table tbody tr {
+  background-color: #ffffff;
   transition: background-color 0.1s ease;
 }
 
-.sirius-data-table--hoverable tbody tr:hover {
+.sirius-data-table tbody tr:not(.sirius-data-table__row--totals) td {
+  color: var(--sirius-text, #202223);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+/* Suppression de la bordure basse de la toute dernière ligne pour épouser le border-radius de la carte */
+.sirius-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Si les totaux sont en footer, l'avant-dernière ligne a besoin de sa bordure */
+.sirius-data-table tbody:has(.sirius-data-table__row--totals-footer) tr:nth-last-child(2) td {
+  border-bottom: 1px solid var(--sirius-border-subdued, #e1e3e5);
+}
+
+.sirius-data-table--hoverable tbody tr:not(.sirius-data-table__row--totals):hover {
   background-color: #f7f8f9;
 }
 
 /* Rayures zébrées */
-.sirius-data-table--zebra tbody tr:nth-child(even) {
+.sirius-data-table--zebra tbody tr:not(.sirius-data-table__row--totals):nth-child(even) {
   background-color: #fafbfc;
 }
 
-.sirius-data-table--zebra.sirius-data-table--hoverable tbody tr:hover {
+.sirius-data-table--zebra.sirius-data-table--hoverable tbody tr:not(.sirius-data-table__row--totals):hover {
   background-color: #f2f4f6;
 }
 
@@ -200,16 +228,21 @@
 }
 
 .sirius-data-table--fixed-first thead th:first-child {
-  background-color: var(--sirius-surface-subdued, #f7f7f8);
+  background-color: #ffffff;
   z-index: 15;
 }
 
-.sirius-data-table--fixed-first tbody td:first-child {
+.sirius-data-table--fixed-first .sirius-data-table__row--totals td:first-child {
+  background-color: #f7f7f8;
+  z-index: 10;
+}
+
+.sirius-data-table--fixed-first tbody tr:not(.sirius-data-table__row--totals) td:first-child {
   background-color: #ffffff;
   z-index: 5;
 }
 
-.sirius-data-table--fixed-first.sirius-data-table--zebra tbody tr:nth-child(even) td:first-child {
+.sirius-data-table--fixed-first.sirius-data-table--zebra tbody tr:not(.sirius-data-table__row--totals):nth-child(even) td:first-child {
   background-color: #fafbfc;
 }
 
@@ -218,7 +251,7 @@
    -------------------------------------------------------------------------- */
 .sirius-data-table__footer {
   padding: 12px 16px;
-  border-top: 1px solid var(--sirius-border-subdued, #f1f2f4);
+  border-top: 1px solid var(--sirius-border-subdued, #e1e3e5);
   background-color: var(--sirius-surface, #ffffff);
   display: flex;
   align-items: center;
@@ -233,7 +266,7 @@
 
 .sirius-data-table__pagination {
   padding: 10px 16px;
-  border-top: 1px solid var(--sirius-border-subdued, #f1f2f4);
+  border-top: 1px solid var(--sirius-border-subdued, #e1e3e5);
   background-color: var(--sirius-surface, #ffffff);
   display: flex;
   align-items: center;
@@ -283,3 +316,4 @@
   cursor: not-allowed;
   background-color: #ffffff;
 }
+

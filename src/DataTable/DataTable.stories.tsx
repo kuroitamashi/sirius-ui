@@ -59,6 +59,7 @@ export const Default: Story = {
       headings={standardHeadings}
       rows={standardRows}
       totals={standardTotals}
+      sortable={[false, false, false, false, true]}
     />
   ),
 };
