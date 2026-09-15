@@ -74,12 +74,13 @@
 
 /* --------------------------------------------------------------------------
    En-tête de colonnes (thead)
+   Fond neutre secondaire distinct du corps de table (standard Polaris)
    -------------------------------------------------------------------------- */
 .sirius-data-table thead th {
-  background-color: var(--sirius-surface, #ffffff);
+  background-color: var(--sirius-surface-subdued, #f7f7f8);
   font-weight: 500;
   color: var(--sirius-text, #202223);
-  border-bottom: 1px solid var(--sirius-border-subdued, #e1e3e5);
+  border-bottom: 1px solid var(--sirius-border, #e1e3e5);
   white-space: nowrap;
 }
 
@@ -87,10 +88,11 @@
 .sirius-data-table__heading--sortable {
   cursor: pointer;
   user-select: none;
-  transition: color 0.1s ease;
+  transition: background-color 0.1s ease, color 0.1s ease;
 }
 
 .sirius-data-table__heading--sortable:hover {
+  background-color: #f1f2f4;
   color: var(--sirius-interactive, #005bd3);
 }
 
@@ -121,7 +123,8 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  box-shadow: 0 1px 0 var(--sirius-border-subdued, #e1e3e5);
+  background-color: var(--sirius-surface-subdued, #f7f7f8);
+  box-shadow: 0 1px 0 var(--sirius-border, #e1e3e5);
 }
 
 /* --------------------------------------------------------------------------
@@ -193,13 +196,21 @@
 .sirius-data-table--fixed-first td:first-child {
   position: sticky;
   left: 0;
-  z-index: 5;
-  background-color: inherit;
   box-shadow: 2px 0 4px -2px rgba(0, 0, 0, 0.08);
 }
 
 .sirius-data-table--fixed-first thead th:first-child {
+  background-color: var(--sirius-surface-subdued, #f7f7f8);
   z-index: 15;
+}
+
+.sirius-data-table--fixed-first tbody td:first-child {
+  background-color: #ffffff;
+  z-index: 5;
+}
+
+.sirius-data-table--fixed-first.sirius-data-table--zebra tbody tr:nth-child(even) td:first-child {
+  background-color: #fafbfc;
 }
 
 /* --------------------------------------------------------------------------
