@@ -1,19 +1,14 @@
-'use client';
-
 import React, { useState } from 'react';
 import { Icon } from '../Icon/Icon';
+import { SiriusPagination } from '../Pagination';
+import type { SiriusPaginationProps } from '../Pagination';
 import './data-table.css';
 
 export type ColumnContentType = 'text' | 'numeric';
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
-export interface SiriusDataTablePagination {
-  hasNext?: boolean;
-  hasPrevious?: boolean;
-  onNext?: () => void;
-  onPrevious?: () => void;
-  label?: React.ReactNode;
-}
+export type SiriusDataTablePagination = SiriusPaginationProps;
+
 
 export interface SiriusDataTableProps {
   /** Titre au-dessus du tableau (ex: "Sales by product") */
@@ -322,30 +317,12 @@ export function SiriusDataTable({
           </div>
         )}
 
-        {/* Pied de tableau : Contrôle de pagination segmenté */}
+        {/* Pied de tableau : Contrôle de pagination Sirius */}
         {pagination && (
-          <div className="sirius-data-table__pagination">
-            <div className="sirius-data-table__pagination-group" role="navigation" aria-label="Pagination">
-              <button
-                type="button"
-                className="sirius-data-table__pagination-btn"
-                disabled={!pagination.hasPrevious}
-                onClick={pagination.onPrevious}
-                aria-label="Page précédente"
-              >
-                <Icon name="chevron-left" size={14} />
-              </button>
-              <button
-                type="button"
-                className="sirius-data-table__pagination-btn"
-                disabled={!pagination.hasNext}
-                onClick={pagination.onNext}
-                aria-label="Page suivante"
-              >
-                <Icon name="chevron-right" size={14} />
-              </button>
-            </div>
-          </div>
+          <SiriusPagination
+            type="table"
+            {...pagination}
+          />
         )}
       </div>
     </div>

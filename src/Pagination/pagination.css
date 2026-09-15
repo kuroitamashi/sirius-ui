@@ -1,0 +1,119 @@
+/**
+ * Sirius UI - Pagination Styles
+ * Conforme aux spécifications 1:1 de Shopify Polaris Pagination
+ */
+
+.sirius-pagination {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Mode type table : bandeau pleine largeur centré (comme en pied de tableau) */
+.sirius-pagination--table {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #ffffff;
+  border-top: 1px solid var(--sirius-border-subdued, #e1e3e5);
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   Segmented control (sans libellé)
+   -------------------------------------------------------------------------- */
+.sirius-pagination__segmented-group {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e4e5e7;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sirius-pagination__divider {
+  width: 1px;
+  height: 18px;
+  background-color: #c9cccf;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Avec libellé (With Label)
+   -------------------------------------------------------------------------- */
+.sirius-pagination__with-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sirius-pagination__label {
+  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--sirius-text, #202223);
+  line-height: 32px;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Boutons individuels
+   -------------------------------------------------------------------------- */
+.sirius-pagination__button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: #e4e5e7;
+  color: var(--sirius-text, #202223);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  user-select: none;
+}
+
+/* Forme segmentée */
+.sirius-pagination__button--segmented-prev {
+  border-radius: 8px 0 0 8px;
+}
+
+.sirius-pagination__button--segmented-next {
+  border-radius: 0 8px 8px 0;
+}
+
+/* Survol & Clic */
+.sirius-pagination__button:hover:not(:disabled):not(.sirius-pagination__button--disabled) {
+  background-color: #d8dadd;
+}
+
+.sirius-pagination__button:active:not(:disabled):not(.sirius-pagination__button--disabled) {
+  background-color: #cfd1d4;
+}
+
+.sirius-pagination__button:focus-visible {
+  box-shadow: 0 0 0 2px var(--sirius-interactive, #005bd3);
+  z-index: 1;
+}
+
+/* État désactivé */
+.sirius-pagination__button:disabled,
+.sirius-pagination__button--disabled {
+  background-color: #e4e5e7;
+  color: #8c9196;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Icônes chevrons */
+.sirius-pagination__icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  display: block;
+}

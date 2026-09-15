@@ -104,3 +104,7 @@ export * from './Form';
 export { Icon } from './Icon/Icon';
 export type { IconProps, IconName } from './Icon/Icon';
 export { SIRIUS_ICONS, ICON_ALIASES } from './Icon/sirius-icons';
+
+export { SiriusPagination, Pagination } from './Pagination';
+export type { SiriusPaginationProps, PaginationProps } from './Pagination';
+
