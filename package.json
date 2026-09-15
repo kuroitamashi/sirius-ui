@@ -17,6 +17,11 @@
       "import": "./src/Icon/Icon.tsx",
       "default": "./src/Icon/Icon.tsx"
     },
+    "./Button": {
+      "types": "./src/Button/index.ts",
+      "import": "./src/Button/index.ts",
+      "default": "./src/Button/index.ts"
+    },
     "./styles.css": "./src/styles.css",
     "./tokens.css": "./src/tokens.css"
   },

@@ -1,5 +1,5 @@
-export { SiriusButton } from './Button';
-export type { SiriusButtonProps } from './Button';
+export { SiriusButton, SiriusButton as Button } from './Button';
+export type { SiriusButtonProps, SiriusButtonProps as ButtonProps } from './Button';
 
 export { SiriusSplitButton, SplitButton } from './SplitButton';
 export type {

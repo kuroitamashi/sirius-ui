@@ -5,8 +5,8 @@
 
 import './tokens.css';
 
-export { SiriusButton } from './Button/Button';
-export type { SiriusButtonProps } from './Button/Button';
+export { SiriusButton, SiriusButton as Button } from './Button/Button';
+export type { SiriusButtonProps, SiriusButtonProps as ButtonProps } from './Button/Button';
 
 export { SiriusSplitButton, SplitButton } from './Button/SplitButton';
 export type {
