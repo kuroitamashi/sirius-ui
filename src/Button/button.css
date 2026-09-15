@@ -123,7 +123,6 @@
 /* --------------------------------------------------------------------------
    Sirius Default / Tertiary (Blanc avec bordure biseautée subtile)
    -------------------------------------------------------------------------- */
-.sirius-btn,
 .sirius-btn--default,
 .sirius-btn--tertiary,
 .sirius-btn--outline,
@@ -138,7 +137,6 @@
   text-shadow: none;
 }
 
-.sirius-btn:hover:not(:disabled),
 .sirius-btn--default:hover:not(:disabled),
 .sirius-btn--tertiary:hover:not(:disabled),
 .sirius-btn--outline:hover:not(:disabled),
@@ -149,7 +147,6 @@
   color: var(--sirius-text, #202223);
 }
 
-.sirius-btn:active:not(:disabled),
 .sirius-btn--default:active:not(:disabled),
 .sirius-btn--tertiary:active:not(:disabled),
 .sirius-btn--outline:active:not(:disabled),
