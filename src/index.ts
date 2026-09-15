@@ -75,6 +75,14 @@ export type { SiriusDividerProps } from './Divider/Divider';
 export { SiriusTable } from './Table/Table';
 export type { SiriusTableProps, SiriusTableColumn, SiriusTablePagination } from './Table/Table';
 
+export { SiriusDataTable, DataTable } from './DataTable';
+export type {
+  SiriusDataTableProps,
+  SiriusDataTablePagination,
+  ColumnContentType,
+  SortDirection,
+} from './DataTable';
+
 export { SiriusList, SiriusListItem } from './List/List';
 export type { SiriusListProps, SiriusListItemProps } from './List/List';
 
