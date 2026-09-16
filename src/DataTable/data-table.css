@@ -188,8 +188,12 @@
   background-color: #f1f2f4;
 }
 
-/* Liens dans les lignes */
-.sirius-data-table a,
+/* Liens dans les lignes.
+   Vise la classe, jamais le <a> nu : une cellule contient aussi des liens qui
+   ne doivent PAS ressembler à des liens (nom de produit, entrées d'un menu
+   d'actions), et une règle sur `a` les repeignait en bleu souligné au survol,
+   obligeant chaque consommateur à la combattre. Pour un vrai lien de cellule :
+   className="sirius-data-table__link". */
 .sirius-data-table .sirius-data-table__link {
   color: var(--sirius-interactive, #005bd3);
   text-decoration: none;
@@ -197,7 +201,6 @@
   transition: color 0.1s ease, text-decoration 0.1s ease;
 }
 
-.sirius-data-table a:hover,
 .sirius-data-table .sirius-data-table__link:hover {
   text-decoration: underline;
   color: var(--sirius-interactive-hover, #004299);

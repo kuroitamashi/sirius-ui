@@ -151,7 +151,7 @@ export function SiriusCard({
                   key={idx}
                   variant={
                     act.variant ||
-                    (act.destructive ? 'destructive-outline' : 'secondary')
+                    (act.destructive ? 'destructive-plain' : 'secondary')
                   }
                   onClick={act.onClick || act.onAction}
                   loading={act.loading}

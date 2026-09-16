@@ -93,7 +93,7 @@ export function SiriusAccountConnection({
   const buttonVariant: SiriusButtonProps['variant'] =
     action?.variant ||
     (action?.destructive
-      ? 'destructive-outline'
+      ? 'destructive-plain'
       : connected
       ? 'secondary'
       : 'primary');

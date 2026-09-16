@@ -15,10 +15,7 @@ export interface SiriusButtonProps {
     | 'contrast'
     | 'plain'
     | 'destructive'
-    | 'destructive-outline'
-    | 'destructive-plain'
-    | 'success'
-    | 'brand';
+    | 'destructive-plain';
   size?: 'slim' | 'medium' | 'large';
   /** Icône préfixe à gauche (nom d'icône Sirius ou composant ReactNode) */
   icon?: IconName | React.ReactNode;
@@ -38,7 +35,19 @@ export interface SiriusButtonProps {
   ariaLabel?: string;
 }
 
-export function SiriusButton({
+/* Attributs natifs acceptés en plus (aria-expanded, title, form, data-*…).
+   Un bouton qui ouvre un menu doit pouvoir porter son état et se faire
+   mesurer par son parent : sans ça, chaque déclencheur recopie les classes
+   `sirius-btn` à la main et le design system ne sert plus à rien. */
+export type SiriusButtonRest = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  keyof SiriusButtonProps
+>;
+
+export const SiriusButton = React.forwardRef<
+  HTMLButtonElement,
+  SiriusButtonProps & SiriusButtonRest
+>(function SiriusButton({
   children,
   variant = 'default',
   size = 'medium',
@@ -55,7 +64,8 @@ export function SiriusButton({
   type = 'button',
   className = '',
   ariaLabel,
-}: SiriusButtonProps) {
+  ...rest
+}, ref) {
   const classes = [
     'sirius-btn',
     `sirius-btn--${variant}`,
@@ -69,7 +79,10 @@ export function SiriusButton({
     .filter(Boolean)
     .join(' ');
 
-  const iconSize = size === 'slim' ? 14 : 16;
+  // 20px, la taille native des glyphes (viewBox 0 0 20 20) et celle de Polaris.
+  // À 16 dans un bouton carré de 32, l'icône flottait au milieu de 8px d'air
+  // de chaque côté : le bouton se voyait, le dessin non.
+  const iconSize = size === 'slim' ? 16 : 20;
   const chevronSize = size === 'slim' ? 12 : 14;
 
   const renderIcon = (ic: IconName | React.ReactNode) => {
@@ -112,6 +125,7 @@ export function SiriusButton({
       <a
         href={href}
         className={classes}
+        {...(rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         target={external ? '_blank' : undefined}
         rel={external ? 'noopener noreferrer' : undefined}
         aria-label={ariaLabel}
@@ -124,13 +138,15 @@ export function SiriusButton({
 
   return (
     <button
+      ref={ref}
       type={type}
       className={classes}
       disabled={disabled || loading}
       onClick={onClick}
       aria-label={ariaLabel}
+      {...rest}
     >
       {content}
     </button>
   );
-}
+});

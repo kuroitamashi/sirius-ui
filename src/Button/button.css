@@ -14,7 +14,12 @@
   font-weight: 500;
   font-size: 13px;
   line-height: 1.25;
-  padding: 7px 14px;
+  /* Hauteur pilotée par min-height, pas par le padding : sans ça un bouton
+     à icône (20px de haut) dépasse un bouton à texte seul (16,25px), et deux
+     boutons côte à côte ne s'alignent pas. Le padding vertical est calculé
+     pour que l'icône tombe pile à la hauteur cible. */
+  padding: 5px 14px;
+  min-height: 32px;
   text-decoration: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -47,9 +52,7 @@
 /* --------------------------------------------------------------------------
    Sirius Primary (Vert SKS - Action principale signature)
    -------------------------------------------------------------------------- */
-.sirius-btn--primary,
-.sirius-btn--brand,
-.sirius-btn--success {
+.sirius-btn--primary {
   background-color: #00703f;
   background-image: linear-gradient(180deg, #00874e 0%, #00703f 100%);
   color: #ffffff;
@@ -61,17 +64,13 @@
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.sirius-btn--primary:hover:not(:disabled),
-.sirius-btn--brand:hover:not(:disabled),
-.sirius-btn--success:hover:not(:disabled) {
+.sirius-btn--primary:hover:not(:disabled) {
   background-color: #006036;
   background-image: linear-gradient(180deg, #007845 0%, #006036 100%);
   border-color: #004527;
 }
 
-.sirius-btn--primary:active:not(:disabled),
-.sirius-btn--brand:active:not(:disabled),
-.sirius-btn--success:active:not(:disabled) {
+.sirius-btn--primary:active:not(:disabled) {
   background-color: #004d2c;
   background-image: linear-gradient(180deg, #005f36 0%, #004829 100%);
   border-color: #00371f;
@@ -168,7 +167,9 @@
   color: var(--sirius-text, #202223);
   border-color: transparent;
   box-shadow: none;
-  padding: 4px 6px;
+  /* padding horizontal seul : un bouton nu reste à la hauteur de tous les
+     autres, il ne perd que son fond et sa bordure */
+  padding-inline: 8px;
   font-weight: 500;
 }
 
@@ -208,44 +209,24 @@
   transform: translateY(0.5px);
 }
 
-.sirius-btn--destructive-outline {
-  background-color: #ffffff;
-  background-image: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
-  color: #d72c0d;
-  border: 1px solid #fed2cd;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
-    0 1px 0 0 rgba(0, 0, 0, 0.05);
-}
-
-.sirius-btn--destructive-outline:hover:not(:disabled) {
-  background-color: #fff4f2;
-  background-image: none;
-  border-color: #fca5a5;
-}
-
-.sirius-btn--destructive-outline:active:not(:disabled) {
-  background-color: #ffe8e5;
-  background-image: none;
-  border-color: #f87171;
-  transform: translateY(0.5px);
-}
-
 .sirius-btn--destructive-plain {
   background-color: transparent;
   background-image: none;
   color: #d72c0d;
   border-color: transparent;
   box-shadow: none;
-  padding: 4px 6px;
+  padding-inline: 8px;
 }
 
+/* Survol gris, exactement comme .sirius-btn--plain : c'est la couleur du
+   texte qui dit le danger, pas le fond. Un fond rouge au survol d'un bouton
+   nu le faisait ressembler à une action déjà déclenchée. */
 .sirius-btn--destructive-plain:hover:not(:disabled) {
-  background-color: #fff4f2;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .sirius-btn--destructive-plain:active:not(:disabled) {
-  background-color: #ffe8e5;
+  background-color: rgba(0, 0, 0, 0.09);
 }
 
 /* --------------------------------------------------------------------------
@@ -260,9 +241,11 @@
   flex-shrink: 0;
 }
 
+/* 28px : l'icône slim fait 16, il reste 6px de garde de chaque côté,
+   le même rapport que le bouton medium (20 dans 32). */
 .sirius-btn--icon-only.sirius-btn--slim {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
 }
 
 .sirius-btn--icon-only.sirius-btn--large {
@@ -274,13 +257,15 @@
    Tailles
    -------------------------------------------------------------------------- */
 .sirius-btn--slim {
-  padding: 5px 10px;
+  padding: 3px 10px;
+  min-height: 28px;
   font-size: 12px;
   border-radius: 6px;
 }
 
 .sirius-btn--large {
-  padding: 10px 18px;
+  padding: 6px 18px;
+  min-height: 38px;
   font-size: 14px;
   border-radius: 9px;
 }
@@ -325,6 +310,20 @@
   flex-shrink: 0;
   line-height: 1;
 }
+
+/* La taille de l'icône appartient au bouton, pas à l'appelant.
+   `iconSize` dans Button.tsx ne s'applique qu'à une icône passée par son nom ;
+   une icône passée déjà construite (`icon={<Icon size={15} />}`) gardait sa
+   propre taille et restait minuscule dans un bouton de 32. La règle CSS
+   l'emporte sur les attributs width/height du SVG, donc les deux formes
+   d'appel tombent enfin sur la même taille. Le chevron n'est pas concerné :
+   il se règle plus petit que l'icône, exprès. */
+.sirius-btn__icon svg,
+.sirius-btn__suffix-icon svg { width: 20px; height: 20px; }
+.sirius-btn--slim .sirius-btn__icon svg,
+.sirius-btn--slim .sirius-btn__suffix-icon svg { width: 16px; height: 16px; }
+.sirius-btn--large .sirius-btn__icon svg,
+.sirius-btn--large .sirius-btn__suffix-icon svg { width: 24px; height: 24px; }
 
 .sirius-btn__disclosure {
   margin-left: 3px;

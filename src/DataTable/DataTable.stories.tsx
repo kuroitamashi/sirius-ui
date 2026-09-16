@@ -172,7 +172,7 @@ export const WithRowHeadingLinks: Story = {
   render: () => {
     const rowsWithLinks = [
       [
-        <a href="#emerald" onClick={(e) => e.preventDefault()} key="1">
+        <a className="sirius-data-table__link" href="#emerald" onClick={(e) => e.preventDefault()} key="1">
           Emerald Silk Gown
         </a>,
         '$875.00',
@@ -181,7 +181,7 @@ export const WithRowHeadingLinks: Story = {
         '$122,500.00',
       ],
       [
-        <a href="#mauve" onClick={(e) => e.preventDefault()} key="2">
+        <a className="sirius-data-table__link" href="#mauve" onClick={(e) => e.preventDefault()} key="2">
           Mauve Cashmere Scarf
         </a>,
         '$230.00',
@@ -190,7 +190,7 @@ export const WithRowHeadingLinks: Story = {
         '$19,090.00',
       ],
       [
-        <a href="#blazer" onClick={(e) => e.preventDefault()} key="3">
+        <a className="sirius-data-table__link" href="#blazer" onClick={(e) => e.preventDefault()} key="3">
           Navy Merino Wool Blazer with khaki chinos and yellow belt
         </a>,
         '$445.00',
@@ -221,7 +221,7 @@ export const WithAllOfItsElements: Story = {
   render: () => {
     const rowsWithLinksAndTruncate = [
       [
-        <a href="#emerald" onClick={(e) => e.preventDefault()} key="1">
+        <a className="sirius-data-table__link" href="#emerald" onClick={(e) => e.preventDefault()} key="1">
           Emerald Silk Gown
         </a>,
         '$875.00',
@@ -230,7 +230,7 @@ export const WithAllOfItsElements: Story = {
         '$121,500.00',
       ],
       [
-        <a href="#mauve" onClick={(e) => e.preventDefault()} key="2">
+        <a className="sirius-data-table__link" href="#mauve" onClick={(e) => e.preventDefault()} key="2">
           Mauve Cashmere Scarf
         </a>,
         '$230.00',
@@ -239,7 +239,7 @@ export const WithAllOfItsElements: Story = {
         '$19,090.00',
       ],
       [
-        <a href="#blazer" onClick={(e) => e.preventDefault()} key="3">
+        <a className="sirius-data-table__link" href="#blazer" onClick={(e) => e.preventDefault()} key="3">
           Navy Merino Wool Blazer with khaki chin...
         </a>,
         '$445.00',
@@ -344,7 +344,7 @@ export const WithIncreasedDensityAndZebraStriping: Story = {
   render: () => {
     const rowsWithLinks = [
       [
-        <a href="#emerald" onClick={(e) => e.preventDefault()} key="1">
+        <a className="sirius-data-table__link" href="#emerald" onClick={(e) => e.preventDefault()} key="1">
           Emerald Silk Gown
         </a>,
         '$875.00',
@@ -353,7 +353,7 @@ export const WithIncreasedDensityAndZebraStriping: Story = {
         '$121,500.00',
       ],
       [
-        <a href="#mauve" onClick={(e) => e.preventDefault()} key="2">
+        <a className="sirius-data-table__link" href="#mauve" onClick={(e) => e.preventDefault()} key="2">
           Mauve Cashmere Scarf
         </a>,
         '$230.00',
@@ -362,7 +362,7 @@ export const WithIncreasedDensityAndZebraStriping: Story = {
         '$19,090.00',
       ],
       [
-        <a href="#blazer" onClick={(e) => e.preventDefault()} key="3">
+        <a className="sirius-data-table__link" href="#blazer" onClick={(e) => e.preventDefault()} key="3">
           Navy Merino Wool Blazer with khaki chinos and yellow belt
         </a>,
         '$445.00',
@@ -410,7 +410,7 @@ export const WithStickyHeaderEnabled: Story = {
     for (let i = 0; i < 8; i++) {
       baseItems.forEach((item, idx) => {
         manyRows.push([
-          <a href={`#item-${i}-${idx}`} onClick={(e) => e.preventDefault()} key={`${i}-${idx}`}>
+          <a className="sirius-data-table__link" href={`#item-${i}-${idx}`} onClick={(e) => e.preventDefault()} key={`${i}-${idx}`}>
             {item.name}
           </a>,
           item.price,

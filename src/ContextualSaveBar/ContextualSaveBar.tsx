@@ -65,7 +65,7 @@ export function SiriusContextualSaveBar({
           )}
           {saveAction && (
             <SiriusButton
-              variant="success"
+              variant="primary"
               onClick={saveAction.onAction}
               loading={saveAction.loading}
               disabled={saveAction.disabled}

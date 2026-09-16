@@ -17,11 +17,8 @@ const VARIANTS = [
   ['primary', 'Primaire (Vert SKS signature)'],
   ['secondary', 'Secondaire (Noir tactile)'],
   ['default', 'Par défaut / Tertiaire (Blanc biseauté)'],
-  ['brand', 'Marque (Vert - alias primary)'],
-  ['success', 'Succès (Vert - alias primary)'],
   ['plain', 'Nu (Lien discret)'],
   ['destructive', 'Destructeur (Rouge plein)'],
-  ['destructive-outline', 'Destructeur contour'],
   ['destructive-plain', 'Destructeur nu'],
 ] as const;
 
@@ -38,14 +35,14 @@ function Row({ variant }: { variant: SiriusButtonProps['variant'] }) {
         variant={variant}
         iconOnly
         ariaLabel={isDestructive(variant!) ? 'Supprimer' : 'Voir la commande'}
-        icon={<Icon name={icone} size={15} />}
+        icon={icone}
       />
       <SiriusButton
         variant={variant}
         iconOnly
         disabled
         ariaLabel={isDestructive(variant!) ? 'Supprimer' : 'Voir la commande'}
-        icon={<Icon name={icone} size={15} />}
+        icon={icone}
       />
       <SiriusButton variant={variant} loading>Label</SiriusButton>
     </div>
@@ -85,11 +82,8 @@ export const Toutes: Story = {
 export const Primaire: Story = { args: { variant: 'primary' } };
 export const Secondaire: Story = { args: { variant: 'secondary' } };
 export const ParDefaut: Story = { args: { variant: 'default' } };
-export const Marque: Story = { args: { variant: 'brand' } };
-export const Succes: Story = { args: { variant: 'success' } };
 export const Nu: Story = { args: { variant: 'plain' } };
 export const Destructeur: Story = { args: { variant: 'destructive' } };
-export const DestructeurContour: Story = { args: { variant: 'destructive-outline' } };
 export const DestructeurNu: Story = { args: { variant: 'destructive-plain' } };
 
 export const Tailles: Story = {
@@ -109,7 +103,7 @@ export const IconeSeule: Story = {
     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
       <SiriusButton variant="secondary" iconOnly ariaLabel="Ajouter" icon="plus" />
       <SiriusButton variant="secondary" iconOnly ariaLabel="Modifier" icon="edit" />
-      <SiriusButton variant="destructive-outline" iconOnly ariaLabel="Supprimer" icon="delete" />
+      <SiriusButton variant="destructive-plain" iconOnly ariaLabel="Supprimer" icon="delete" />
       <SiriusButton variant="plain" iconOnly ariaLabel="Fermer" icon="croix" />
     </div>
   ),
@@ -130,7 +124,7 @@ export const AvecIconeEtTexte: Story = {
       <SiriusButton variant="default" icon="export">
         Exporter
       </SiriusButton>
-      <SiriusButton variant="destructive-outline" icon="delete">
+      <SiriusButton variant="destructive-plain" icon="delete">
         Supprimer
       </SiriusButton>
     </div>
