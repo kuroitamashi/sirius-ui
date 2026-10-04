@@ -1,5 +1,37 @@
-import React from 'react';
+import * as PolarisIcons from '@shopify/polaris-icons';
 import { SIRIUS_ICONS, ICON_ALIASES } from './sirius-icons';
+
+/** Mapping direct vers les nouvelles icônes officielles Shopify Polaris */
+const POLARIS_MAP: Record<string, React.FunctionComponent<React.SVGProps<SVGSVGElement>>> = {
+  // Navigation principale
+  dashboard: PolarisIcons.HomeIcon,
+  home: PolarisIcons.HomeIcon,
+  accueil: PolarisIcons.HomeIcon,
+  commandes: PolarisIcons.OrderIcon,
+  orders: PolarisIcons.OrderIcon,
+  produits: PolarisIcons.ProductIcon,
+  products: PolarisIcons.ProductIcon,
+  clients: PolarisIcons.PersonIcon,
+  customers: PolarisIcons.PersonIcon,
+  promotions: PolarisIcons.DiscountIcon,
+  discounts: PolarisIcons.DiscountIcon,
+  promo: PolarisIcons.DiscountIcon,
+  templates: PolarisIcons.ThemeTemplateIcon,
+  themes: PolarisIcons.ThemeTemplateIcon,
+  reglages: PolarisIcons.SettingsIcon,
+  settings: PolarisIcons.SettingsIcon,
+  // Contrôles & UI
+  search: PolarisIcons.SearchIcon,
+  recherche: PolarisIcons.SearchIcon,
+  menu: PolarisIcons.MenuIcon,
+  sidebar: PolarisIcons.LayoutSidebarLeftIcon,
+  cloche: PolarisIcons.NotificationIcon,
+  notifications: PolarisIcons.NotificationIcon,
+  boutiques: PolarisIcons.StoreIcon,
+  utilisateurs: PolarisIcons.PersonIcon,
+  facturation: PolarisIcons.OrderDraftIcon,
+  inactivite: PolarisIcons.ProfileIcon,
+};
 
 /** Nom d'une icone du jeu Sirius, alias historiques compris.
     SIRIUS_ICONS est un Record<string, ...>, donc tout nom est accepte a la
@@ -14,12 +46,27 @@ export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 }
 
 /**
- * Composant Icon officiel basé sur les icônes Sirius UI.
+ * Composant Icon officiel basé sur les icônes Sirius UI & Shopify Polaris.
  * - viewBox: 0 0 20 20
  * - fill: "currentColor" (hérite des couleurs CSS, hover, états actifs et thèmes)
- * - Rétrocompatibilité totale avec tous les alias historiques et noms de fichiers Sirius.
+ * - Priorité aux nouvelles icônes Shopify Polaris avec fallback fluide sur Sirius UI.
  */
 export function Icon({ name, size = 16, className, style, ...props }: IconProps) {
+  const PolarisComp = POLARIS_MAP[name] || POLARIS_MAP[ICON_ALIASES[name]];
+  if (PolarisComp) {
+    return (
+      <PolarisComp
+        width={size}
+        height={size}
+        className={className}
+        style={{ fill: 'currentColor', ...style }}
+        aria-hidden="true"
+        focusable="false"
+        {...props}
+      />
+    );
+  }
+
   const glyph = SIRIUS_ICONS[name] || SIRIUS_ICONS[ICON_ALIASES[name]];
   if (!glyph) return null;
 

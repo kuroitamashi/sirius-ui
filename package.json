@@ -69,5 +69,8 @@
     "docs:dev": "npm --prefix docs-site run dev",
     "docs:build": "npm run build-storybook && npm --prefix docs-site run build",
     "check:icons": "node src/Icon/check-icons.mjs"
+  },
+  "dependencies": {
+    "@shopify/polaris-icons": "^9.3.1"
   }
 }
