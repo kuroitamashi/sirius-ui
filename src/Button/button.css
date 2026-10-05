@@ -1,6 +1,10 @@
 /* ==========================================================================
-   Sirius Button - Pure Sirius UI Recreation
-   Tactile bevel, depth gradient, inset top-highlight & crisp typography
+   Sirius Button
+   Design plat : aucun dégradé, aucun reflet, aucune ombre, aucun
+   enfoncement au clic. Seule la couleur de fond change au survol et à
+   l'appui. La bordure de 1px reste sur toutes les variantes, de la couleur
+   du fond quand elle ne doit pas se voir, pour que tous les boutons gardent
+   exactement la même hauteur.
    ========================================================================== */
 
 .sirius-btn {
@@ -24,10 +28,7 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   outline: none;
-  /* Transitions ciblées : JAMAIS de transition 'background' ou 'all' pour éviter le flash d'interpolation de gradient */
   transition:
-    transform 0.05s ease,
-    box-shadow 0.1s ease,
     border-color 0.1s ease,
     background-color 0.1s ease,
     color 0.1s ease;
@@ -50,111 +51,70 @@
 }
 
 /* --------------------------------------------------------------------------
-   Sirius Primary (Vert SKS - Action principale signature)
+   Primary (vert SKS, l'action principale)
    -------------------------------------------------------------------------- */
 .sirius-btn--primary {
   background-color: #00703f;
-  background-image: linear-gradient(180deg, #00874e 0%, #00703f 100%);
+  border-color: #00703f;
   color: #ffffff;
-  border: 1px solid #005431;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
-    0 1px 2px 0 rgba(0, 0, 0, 0.15);
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
-
 .sirius-btn--primary:hover:not(:disabled) {
   background-color: #006036;
-  background-image: linear-gradient(180deg, #007845 0%, #006036 100%);
-  border-color: #004527;
+  border-color: #006036;
 }
-
 .sirius-btn--primary:active:not(:disabled) {
   background-color: #004d2c;
-  background-image: linear-gradient(180deg, #005f36 0%, #004829 100%);
-  border-color: #00371f;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
-  transform: translateY(0.5px);
+  border-color: #004d2c;
 }
 
 /* --------------------------------------------------------------------------
-   Sirius Secondary (Noir tactile chic)
+   Secondary (noir)
    -------------------------------------------------------------------------- */
 .sirius-btn--secondary,
 .sirius-btn--dark,
 .sirius-btn--contrast {
   background-color: #202020;
-  background-image: linear-gradient(180deg, #323232 0%, #202020 100%);
+  border-color: #202020;
   color: #ffffff;
-  border: 1px solid #141414;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
-    0 1px 2px 0 rgba(0, 0, 0, 0.18);
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 }
-
 .sirius-btn--secondary:hover:not(:disabled),
 .sirius-btn--dark:hover:not(:disabled),
 .sirius-btn--contrast:hover:not(:disabled) {
-  background-color: #1a1a1a;
-  background-image: linear-gradient(180deg, #262626 0%, #151515 100%);
-  border-color: #0c0c0c;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.16),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.45),
-    0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  background-color: #383838;
+  border-color: #383838;
   color: #ffffff;
 }
-
 .sirius-btn--secondary:active:not(:disabled),
 .sirius-btn--dark:active:not(:disabled),
 .sirius-btn--contrast:active:not(:disabled) {
-  background-color: #141414;
-  background-image: linear-gradient(180deg, #181818 0%, #101010 100%);
-  border-color: #050505;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
-  transform: translateY(0.5px);
+  background-color: #000000;
+  border-color: #000000;
   color: #ffffff;
 }
 
 /* --------------------------------------------------------------------------
-   Sirius Default / Tertiary (Blanc avec bordure biseautée subtile)
+   Default / Tertiary (blanc à bordure)
    -------------------------------------------------------------------------- */
 .sirius-btn--default,
 .sirius-btn--tertiary,
 .sirius-btn--outline,
 .sirius-btn--white {
   background-color: #ffffff;
-  background-image: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+  border-color: #c9cccf;
   color: var(--sirius-text, #202223);
-  border: 1px solid #c9cccf;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
-    0 1px 0 0 rgba(0, 0, 0, 0.05);
-  text-shadow: none;
 }
-
 .sirius-btn--default:hover:not(:disabled),
 .sirius-btn--tertiary:hover:not(:disabled),
 .sirius-btn--outline:hover:not(:disabled),
 .sirius-btn--white:hover:not(:disabled) {
-  background-color: #f6f7f8;
-  background-image: linear-gradient(180deg, #f9fafb 0%, #f1f2f4 100%);
-  border-color: #b5b8bb;
+  background-color: #f3f4f5;
   color: var(--sirius-text, #202223);
 }
-
 .sirius-btn--default:active:not(:disabled),
 .sirius-btn--tertiary:active:not(:disabled),
 .sirius-btn--outline:active:not(:disabled),
 .sirius-btn--white:active:not(:disabled) {
-  background-color: #eceef0;
-  background-image: linear-gradient(180deg, #eceef0 0%, #e4e6e8 100%);
-  border-color: #a8abaf;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
-  transform: translateY(0.5px);
+  background-color: #e8e9eb;
   color: var(--sirius-text, #202223);
 }
 
@@ -163,10 +123,8 @@
    -------------------------------------------------------------------------- */
 .sirius-btn--plain {
   background-color: transparent;
-  background-image: none;
   color: var(--sirius-text, #202223);
   border-color: transparent;
-  box-shadow: none;
   /* padding horizontal seul : un bouton nu reste à la hauteur de tous les
      autres, il ne perd que son fond et sa bordure */
   padding-inline: 8px;
@@ -183,38 +141,28 @@
 }
 
 /* --------------------------------------------------------------------------
-   Sirius Destructive (Action critique rouge - Solide et Contour)
+   Destructive (rouge plein, action irréversible)
    -------------------------------------------------------------------------- */
 .sirius-btn--destructive {
   background-color: #bc2200;
-  background-image: linear-gradient(180deg, #d72c0d 0%, #bc2200 100%);
+  border-color: #bc2200;
   color: #ffffff;
-  border: 1px solid #991900;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),
-    0 1px 2px rgba(0, 0, 0, 0.15);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
-
 .sirius-btn--destructive:hover:not(:disabled) {
   background-color: #aa1b00;
-  background-image: linear-gradient(180deg, #c7240a 0%, #aa1b00 100%);
+  border-color: #aa1b00;
+  color: #ffffff;
 }
-
 .sirius-btn--destructive:active:not(:disabled) {
   background-color: #8a1500;
-  background-image: linear-gradient(180deg, #991900 0%, #7e1200 100%);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
-  transform: translateY(0.5px);
+  border-color: #8a1500;
+  color: #ffffff;
 }
 
 .sirius-btn--destructive-plain {
   background-color: transparent;
-  background-image: none;
   color: #d72c0d;
   border-color: transparent;
-  box-shadow: none;
   padding-inline: 8px;
 }
 
@@ -270,6 +218,17 @@
   border-radius: 9px;
 }
 
+.sirius-btn--pill {
+  border-radius: 999px;
+  /* l'arrondi complet mange les coins : un peu plus d'air sur les côtés pour
+     que le texte ne paraisse pas serré contre le bord */
+  padding-inline: 16px;
+}
+.sirius-btn--pill.sirius-btn--slim { padding-inline: 12px; }
+.sirius-btn--pill.sirius-btn--large { padding-inline: 20px; }
+/* icône seule en pilule : un cercle */
+.sirius-btn--pill.sirius-btn--icon-only { padding: 0; }
+
 .sirius-btn--full-width {
   width: 100%;
 }
@@ -282,7 +241,6 @@
   opacity: 0.45;
   cursor: not-allowed;
   pointer-events: none;
-  box-shadow: none;
 }
 
 .sirius-btn__spinner {

@@ -15,8 +15,8 @@ type Story = StoryObj<typeof meta>;
 
 const VARIANTS = [
   ['primary', 'Primaire (Vert SKS signature)'],
-  ['secondary', 'Secondaire (Noir tactile)'],
-  ['default', 'Par défaut / Tertiaire (Blanc biseauté)'],
+  ['secondary', 'Secondaire (Noir)'],
+  ['default', 'Par défaut / Tertiaire (Blanc à bordure)'],
   ['plain', 'Nu (Lien discret)'],
   ['destructive', 'Destructeur (Rouge plein)'],
   ['destructive-plain', 'Destructeur nu'],
@@ -25,26 +25,28 @@ const VARIANTS = [
 const isDestructive = (v: string) => v.startsWith('destructive');
 
 /** Une ligne de la matrice : les quatre etats d'une meme variante. */
-function Row({ variant }: { variant: SiriusButtonProps['variant'] }) {
+function Row({ variant, pill }: { variant: SiriusButtonProps['variant']; pill?: boolean }) {
   const icone = isDestructive(variant!) ? 'croix' : 'commandes';
   return (
     <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-      <SiriusButton variant={variant}>Label</SiriusButton>
-      <SiriusButton variant={variant} disabled>Label</SiriusButton>
+      <SiriusButton pill={pill} variant={variant}>Label</SiriusButton>
+      <SiriusButton pill={pill} variant={variant} disabled>Label</SiriusButton>
       <SiriusButton
+        pill={pill}
         variant={variant}
         iconOnly
         ariaLabel={isDestructive(variant!) ? 'Supprimer' : 'Voir la commande'}
         icon={icone}
       />
       <SiriusButton
+        pill={pill}
         variant={variant}
         iconOnly
         disabled
         ariaLabel={isDestructive(variant!) ? 'Supprimer' : 'Voir la commande'}
         icon={icone}
       />
-      <SiriusButton variant={variant} loading>Label</SiriusButton>
+      <SiriusButton pill={pill} variant={variant} loading>Label</SiriusButton>
     </div>
   );
 }
@@ -56,9 +58,8 @@ function Row({ variant }: { variant: SiriusButtonProps['variant'] }) {
  * Sers-t'en pour verifier une modification de `button.css` d'un coup d'oeil,
  * plutot que d'ouvrir huit histoires les unes apres les autres.
  */
-export const Toutes: Story = {
-  parameters: { layout: 'padded' },
-  render: () => (
+function Matrice({ pill }: { pill?: boolean }) {
+  return (
     <div style={{ display: 'grid', gap: 20 }}>
       {VARIANTS.map(([v, label]) => (
         <div key={v}>
@@ -72,7 +73,35 @@ export const Toutes: Story = {
           >
             {label} <code style={{ fontWeight: 400 }}>{v}</code>
           </p>
-          <Row variant={v} />
+          <Row variant={v} pill={pill} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export const Toutes: Story = {
+  parameters: { layout: 'padded' },
+  render: () => <Matrice />,
+};
+
+/** La meme matrice, en forme pilule (`pill`). Icone seule = cercle. */
+export const ToutesEnPilule: Story = {
+  parameters: { layout: 'padded' },
+  render: () => <Matrice pill />,
+};
+
+/** Les trois tailles en pilule, a cote de leur version a coins. */
+export const PiluleTailles: Story = {
+  parameters: { layout: 'padded' },
+  render: () => (
+    <div style={{ display: 'grid', gap: 12 }}>
+      {(['slim', 'medium', 'large'] as const).map(size => (
+        <div key={size} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <SiriusButton variant="primary" size={size}>Enregistrer</SiriusButton>
+          <SiriusButton variant="primary" size={size} pill>Enregistrer</SiriusButton>
+          <SiriusButton variant="default" size={size} pill icon="commandes">Commandes</SiriusButton>
+          <SiriusButton variant="secondary" size={size} pill iconOnly icon="commandes" ariaLabel="Voir la commande" />
         </div>
       ))}
     </div>

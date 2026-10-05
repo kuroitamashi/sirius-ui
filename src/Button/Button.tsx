@@ -17,6 +17,8 @@ export interface SiriusButtonProps {
     | 'destructive'
     | 'destructive-plain';
   size?: 'slim' | 'medium' | 'large';
+  /** Forme pilule (arrondi complet) ; en icône seule, un cercle */
+  pill?: boolean;
   /** Icône préfixe à gauche (nom d'icône Sirius ou composant ReactNode) */
   icon?: IconName | React.ReactNode;
   /** Icône suffixe à droite */
@@ -51,6 +53,7 @@ export const SiriusButton = React.forwardRef<
   children,
   variant = 'default',
   size = 'medium',
+  pill = false,
   icon,
   suffixIcon,
   disclosure,
@@ -70,6 +73,7 @@ export const SiriusButton = React.forwardRef<
     'sirius-btn',
     `sirius-btn--${variant}`,
     size !== 'medium' && `sirius-btn--${size}`,
+    pill && 'sirius-btn--pill',
     iconOnly && 'sirius-btn--icon-only',
     fullWidth && 'sirius-btn--full-width',
     loading && 'sirius-btn--loading',
