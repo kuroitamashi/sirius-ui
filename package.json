@@ -1,6 +1,6 @@
 {
   "name": "@kuroitamashi/sirius-ui",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Modern, high-performance Design System built with React and TypeScript.",
   "main": "./src/index.ts",
   "module": "./src/index.ts",

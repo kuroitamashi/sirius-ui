@@ -41,7 +41,7 @@
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-family: inherit;
   font-size: 13px;
   line-height: 20px;
   color: var(--sirius-text, #202223);

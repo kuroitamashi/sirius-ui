@@ -6,7 +6,7 @@
 .sirius-autocomplete {
   position: relative;
   width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, Helvetica, sans-serif;
+  font-family: inherit;
   box-sizing: border-box;
 }
 
