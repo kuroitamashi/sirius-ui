@@ -25,28 +25,26 @@ const VARIANTS = [
 const isDestructive = (v: string) => v.startsWith('destructive');
 
 /** Une ligne de la matrice : les quatre etats d'une meme variante. */
-function Row({ variant, pill }: { variant: SiriusButtonProps['variant']; pill?: boolean }) {
+function Row({ variant }: { variant: SiriusButtonProps['variant'] }) {
   const icone = isDestructive(variant!) ? 'croix' : 'commandes';
   return (
     <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-      <SiriusButton pill={pill} variant={variant}>Label</SiriusButton>
-      <SiriusButton pill={pill} variant={variant} disabled>Label</SiriusButton>
+      <SiriusButton variant={variant}>Label</SiriusButton>
+      <SiriusButton variant={variant} disabled>Label</SiriusButton>
       <SiriusButton
-        pill={pill}
         variant={variant}
         iconOnly
         ariaLabel={isDestructive(variant!) ? 'Supprimer' : 'Voir la commande'}
         icon={icone}
       />
       <SiriusButton
-        pill={pill}
         variant={variant}
         iconOnly
         disabled
         ariaLabel={isDestructive(variant!) ? 'Supprimer' : 'Voir la commande'}
         icon={icone}
       />
-      <SiriusButton pill={pill} variant={variant} loading>Label</SiriusButton>
+      <SiriusButton variant={variant} loading>Label</SiriusButton>
     </div>
   );
 }
@@ -58,7 +56,7 @@ function Row({ variant, pill }: { variant: SiriusButtonProps['variant']; pill?: 
  * Sers-t'en pour verifier une modification de `button.css` d'un coup d'oeil,
  * plutot que d'ouvrir huit histoires les unes apres les autres.
  */
-function Matrice({ pill }: { pill?: boolean }) {
+function Matrice() {
   return (
     <div style={{ display: 'grid', gap: 20 }}>
       {VARIANTS.map(([v, label]) => (
@@ -73,7 +71,7 @@ function Matrice({ pill }: { pill?: boolean }) {
           >
             {label} <code style={{ fontWeight: 400 }}>{v}</code>
           </p>
-          <Row variant={v} pill={pill} />
+          <Row variant={v} />
         </div>
       ))}
     </div>
@@ -83,29 +81,6 @@ function Matrice({ pill }: { pill?: boolean }) {
 export const Toutes: Story = {
   parameters: { layout: 'padded' },
   render: () => <Matrice />,
-};
-
-/** La meme matrice, en forme pilule (`pill`). Icone seule = cercle. */
-export const ToutesEnPilule: Story = {
-  parameters: { layout: 'padded' },
-  render: () => <Matrice pill />,
-};
-
-/** Les trois tailles en pilule, a cote de leur version a coins. */
-export const PiluleTailles: Story = {
-  parameters: { layout: 'padded' },
-  render: () => (
-    <div style={{ display: 'grid', gap: 12 }}>
-      {(['slim', 'medium', 'large'] as const).map(size => (
-        <div key={size} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <SiriusButton variant="primary" size={size}>Enregistrer</SiriusButton>
-          <SiriusButton variant="primary" size={size} pill>Enregistrer</SiriusButton>
-          <SiriusButton variant="default" size={size} pill icon="commandes">Commandes</SiriusButton>
-          <SiriusButton variant="secondary" size={size} pill iconOnly icon="commandes" ariaLabel="Voir la commande" />
-        </div>
-      ))}
-    </div>
-  ),
 };
 
 export const Primaire: Story = { args: { variant: 'primary' } };

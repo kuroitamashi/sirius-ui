@@ -7,7 +7,7 @@
 /* Variante connectée / segmented (comme dans Shopify Polaris) */
 .sirius-button-group--connected {
   gap: 0;
-  border-radius: var(--sirius-radius-base);
+  border-radius: 999px;
 }
 
 .sirius-button-group--connected > .sirius-btn {
@@ -19,13 +19,13 @@
 }
 
 .sirius-button-group--connected > .sirius-btn:first-child {
-  border-top-left-radius: var(--sirius-radius-base);
-  border-bottom-left-radius: var(--sirius-radius-base);
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
 }
 
 .sirius-button-group--connected > .sirius-btn:last-child {
-  border-top-right-radius: var(--sirius-radius-base);
-  border-bottom-right-radius: var(--sirius-radius-base);
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
 }
 
 .sirius-button-group--connected > .sirius-btn:hover,

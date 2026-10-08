@@ -13,7 +13,9 @@
   justify-content: center;
   gap: 6px;
   position: relative;
-  border-radius: var(--sirius-radius-base, var(--radius, 8px));
+  /* Pilule pour tous les boutons, décidé le 2026-10-08 : une seule forme
+     dans tout le système, plus de prop à oublier. Icône seule = cercle. */
+  border-radius: 999px;
   font-family: inherit;
   font-weight: 500;
   font-size: 13px;
@@ -22,7 +24,9 @@
      à icône (20px de haut) dépasse un bouton à texte seul (16,25px), et deux
      boutons côte à côte ne s'alignent pas. Le padding vertical est calculé
      pour que l'icône tombe pile à la hauteur cible. */
-  padding: 5px 14px;
+  /* l'arrondi complet mange les coins : un peu plus d'air sur les côtés pour
+     que le texte ne paraisse pas serré contre le bord */
+  padding: 5px 16px;
   min-height: 32px;
   text-decoration: none;
   cursor: pointer;
@@ -205,29 +209,16 @@
    Tailles
    -------------------------------------------------------------------------- */
 .sirius-btn--slim {
-  padding: 3px 10px;
+  padding: 3px 12px;
   min-height: 28px;
   font-size: 12px;
-  border-radius: 6px;
 }
 
 .sirius-btn--large {
-  padding: 6px 18px;
+  padding: 6px 20px;
   min-height: 38px;
   font-size: 14px;
-  border-radius: 9px;
 }
-
-.sirius-btn--pill {
-  border-radius: 999px;
-  /* l'arrondi complet mange les coins : un peu plus d'air sur les côtés pour
-     que le texte ne paraisse pas serré contre le bord */
-  padding-inline: 16px;
-}
-.sirius-btn--pill.sirius-btn--slim { padding-inline: 12px; }
-.sirius-btn--pill.sirius-btn--large { padding-inline: 20px; }
-/* icône seule en pilule : un cercle */
-.sirius-btn--pill.sirius-btn--icon-only { padding: 0; }
 
 .sirius-btn--full-width {
   width: 100%;
