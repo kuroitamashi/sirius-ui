@@ -5,7 +5,7 @@
 
 .sirius-page-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
   font-family: inherit;
@@ -30,8 +30,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   margin: 0;
   border: none;
@@ -85,10 +85,9 @@
 /* Titre principal */
 .sirius-page-header__title {
   margin: 0;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 650;
   color: #202223;
-  letter-spacing: -0.02em;
   line-height: 1.3;
 }
 
