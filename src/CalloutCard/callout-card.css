@@ -1,6 +1,6 @@
 /* ==========================================================================
    Sirius CalloutCard
-   Gabarit relevé sur Polaris (storybook.polaris.shopify.dev, 2026-10-09) :
+   Gabarit relevé sur le Storybook de Polaris (2026-10-09) :
    padding 16, titre 13/650 puis 8px, texte 13/450, boutons 8px dessous
    (12px ici, nos pilules font 32px et non 28) et 8px entre eux,
    illustration de 100px à 20px du texte, croix 28x28 et contenu décalé de 44px quand elle est là. Ici la croix est l'icône seule standard de
