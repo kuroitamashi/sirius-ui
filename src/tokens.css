@@ -75,6 +75,13 @@
   --sirius-shadow-bevel: inset 0 -1px 0 0 rgb(0 0 0 / 0.17), inset 1px 0 0 0 rgb(0 0 0 / 0.13), inset -1px 0 0 0 rgb(0 0 0 / 0.13), inset 0 1px 0 0 rgb(204 204 204 / 0.5);
   /* Fenêtres flottantes : le biseau, plus une ombre courte qui tombe vers le bas. */
   --sirius-shadow-popover: var(--sirius-shadow-bevel), 0 4px 6px -2px rgb(26 26 26 / 0.2);
+  /* Ombre des cartes, relevée sur l'admin Shopify (shadow-100, 2026-10-09) :
+     un contour de 1px #ddd flouté, cinq ombres très légères empilées vers le
+     bas, et un anneau de 1px à 6 % de noir.
+     L'inspecteur affichait « initial » dans la première couche : ce sont les
+     emplacements vides du jeton Shopify (ni inset, ni étalement), retirés ici
+     car ils rendraient toute la déclaration invalide. */
+  --s-shadow-100: 0rem 0rem .0625rem #dddddd, 0rem .3125rem .3125rem -.15625rem #00000008, 0rem .1875rem .1875rem -.09375rem #00000005, 0rem .125rem .125rem -.0625rem #00000005, 0rem .0625rem .0625rem -.03125rem #00000008, 0rem .03125rem .03125rem 0rem #0000000a, 0rem 0rem 0rem .0625rem #0000000f;
   --sirius-shadow-button: 0 1px 0 rgba(0, 0, 0, 0.05);
 
   /* --- Rayons de courbure --- */
@@ -86,6 +93,19 @@
      fenêtre (16 - 6 de marge) ; Mouhamadou le veut plus prononcé : 12px. */
   --sirius-radius-item: 12px;
   --sirius-radius-full: 9999px;
+
+  /* Échelle de rayons de l'admin Shopify (--p-border-radius-*), relevée le
+     2026-10-09 et renommée en --s-. */
+  --s-border-radius-0: 0rem;
+  --s-border-radius-050: .125rem;
+  --s-border-radius-100: .25rem;
+  --s-border-radius-150: .375rem;
+  --s-border-radius-200: .5rem;
+  --s-border-radius-300: .75rem;
+  --s-border-radius-400: 1rem;
+  --s-border-radius-500: 1.25rem;
+  --s-border-radius-750: 1.875rem;
+  --s-border-radius-full: 624.9375rem;
 
   /* --- Transitions --- */
   --sirius-transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);

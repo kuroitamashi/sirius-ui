@@ -3,11 +3,12 @@
    Conteneur de surface principal avec support des sections et actions
    ========================================================================== */
 
+/* Direction Sirius (2026-10-09) : coins de 16px, pas de border, l'ombre
+   shadow-100 de l'admin Shopify porte seule le contour. */
 .sirius-card {
   background: var(--sirius-surface);
-  border: 1px solid var(--sirius-border);
-  border-radius: var(--sirius-radius-lg);
-  box-shadow: var(--sirius-shadow-card);
+  border-radius: var(--sirius-radius-xl);
+  box-shadow: var(--s-shadow-100);
   overflow: hidden;
   position: relative;
   transition: var(--sirius-transition);
@@ -22,8 +23,28 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
+  position: relative;
   padding: 16px 20px;
-  border-bottom: 1px solid var(--sirius-border-subdued);
+}
+
+/* Séparateurs : jamais bord à bord, ils s'arrêtent à 20px des côtés, à
+   l'aplomb du texte (décidé le 2026-10-09). */
+.sirius-card__header::after,
+.sirius-card__section:not(:last-child)::after,
+.sirius-card__footer::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: var(--sirius-border-subdued);
+}
+.sirius-card__header::after,
+.sirius-card__section:not(:last-child)::after {
+  bottom: 0;
+}
+.sirius-card__footer::before {
+  top: 0;
 }
 
 .sirius-card__header-text {
@@ -66,12 +87,8 @@
 
 /* --- Sections internes --- */
 .sirius-card__section {
+  position: relative;
   padding: 16px 20px;
-  border-bottom: 1px solid var(--sirius-border-subdued);
-}
-
-.sirius-card__section:last-child {
-  border-bottom: none;
 }
 
 .sirius-card__section--subdued {
@@ -118,9 +135,9 @@
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
+  position: relative;
   padding: 14px 20px;
   background: var(--sirius-surface-subdued);
-  border-top: 1px solid var(--sirius-border-subdued);
 }
 
 .sirius-card__footer-actions {
