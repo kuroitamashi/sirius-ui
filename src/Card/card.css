@@ -3,11 +3,11 @@
    Conteneur de surface principal avec support des sections et actions
    ========================================================================== */
 
-/* Direction Sirius (2026-10-09) : coins de 16px, pas de border, l'ombre
+/* Direction Sirius (2026-10-09) : coins de 20px (rôle container), pas de border, l'ombre
    shadow-100 de l'admin Shopify porte seule le contour. */
 .sirius-card {
   background: var(--sirius-surface);
-  border-radius: var(--sirius-radius-xl);
+  border-radius: var(--s-border-radius-container);
   box-shadow: var(--s-shadow-100);
   overflow: hidden;
   position: relative;

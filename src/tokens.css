@@ -84,18 +84,22 @@
   --s-shadow-100: 0rem 0rem .0625rem #dddddd, 0rem .3125rem .3125rem -.15625rem #00000008, 0rem .1875rem .1875rem -.09375rem #00000005, 0rem .125rem .125rem -.0625rem #00000005, 0rem .0625rem .0625rem -.03125rem #00000008, 0rem .03125rem .03125rem 0rem #0000000a, 0rem 0rem 0rem .0625rem #0000000f;
   --sirius-shadow-button: 0 1px 0 rgba(0, 0, 0, 0.05);
 
-  /* --- Rayons de courbure --- */
-  --sirius-radius-sm: 4px;
-  --sirius-radius-base: 8px;
-  --sirius-radius-lg: 12px;
-  --sirius-radius-xl: 16px;          /* Fenêtres flottantes (menus, listes d'actions) */
-  /* Lignes d'un menu flottant. 10px épouserait exactement le coin de la
-     fenêtre (16 - 6 de marge) ; Mouhamadou le veut plus prononcé : 12px. */
-  --sirius-radius-item: 12px;
-  --sirius-radius-full: 9999px;
+  /* --- Rayons de courbure ---
+     Trois étages, comme l'admin Shopify (relevé du 2026-10-09, voir
+     reference/shopify-admin-tokens.md) :
+     1. l'échelle --s-border-radius-0 à -full, des valeurs brutes ;
+     2. les rôles (container, control, dialog...), qui choisissent dans
+        l'échelle. Un composant n'utilise QUE des rôles ;
+     3. les anciens noms --sirius-radius-*, gardés pour ne rien casser,
+        qui pointent vers l'échelle ou un rôle. Plus aucun chiffre ici. */
+  --sirius-radius-sm: var(--s-border-radius-100);    /* 4px */
+  --sirius-radius-base: var(--s-border-radius-200);  /* 8px */
+  --sirius-radius-lg: var(--s-border-radius-300);    /* 12px */
+  --sirius-radius-xl: var(--s-border-radius-400);    /* 16px, fenêtres flottantes */
+  --sirius-radius-item: var(--s-border-radius-option-item);
+  --sirius-radius-full: var(--s-border-radius-full);
 
-  /* Échelle de rayons de l'admin Shopify (--p-border-radius-*), relevée le
-     2026-10-09 et renommée en --s-. */
+  /* 1. Échelle de l'admin Shopify (--p-border-radius-*), renommée en --s-. */
   --s-border-radius-0: 0rem;
   --s-border-radius-050: .125rem;
   --s-border-radius-100: .25rem;
@@ -106,6 +110,17 @@
   --s-border-radius-500: 1.25rem;
   --s-border-radius-750: 1.875rem;
   --s-border-radius-full: 624.9375rem;
+
+  /* 2. Rôles, mêmes valeurs que l'admin Shopify. Choix du 2026-10-09 :
+     on prend le design de Shopify pour les cartes, champs et fenêtres. */
+  --s-border-radius-container: var(--s-border-radius-500);     /* cartes, 20px */
+  --s-border-radius-control: var(--s-border-radius-300);       /* champs, 12px */
+  --s-border-radius-control-inner: var(--s-border-radius-200); /* dans un champ, 8px */
+  --s-border-radius-dialog: 1.5rem;                            /* fenêtres, 24px, hors échelle chez Shopify aussi */
+  --s-border-radius-popover: var(--s-border-radius-400);       /* menus, 16px */
+  /* Lignes de menu : 10px épouserait exactement le coin de la fenêtre
+     (16 - 6 de marge) ; Mouhamadou le veut plus prononcé, et Shopify aussi. */
+  --s-border-radius-option-item: var(--s-border-radius-300);   /* 12px */
 
   /* --- Transitions --- */
   --sirius-transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
