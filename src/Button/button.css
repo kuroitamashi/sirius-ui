@@ -143,12 +143,12 @@
 }
 
 .sirius-btn--plain:hover:not(:disabled) {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--s-color-bg-fill-transparent-hover);
   color: var(--sirius-text, #202223);
 }
 
 .sirius-btn--plain:active:not(:disabled) {
-  background-color: rgba(0, 0, 0, 0.09);
+  background-color: var(--s-color-bg-fill-transparent-active);
 }
 
 /* --------------------------------------------------------------------------
@@ -178,15 +178,17 @@
    texte qui dit le danger, pas le fond. Un fond rouge au survol d'un bouton
    nu le faisait ressembler à une action déjà déclenchée. */
 .sirius-btn--destructive-plain:hover:not(:disabled) {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--s-color-bg-fill-transparent-hover);
 }
 
 .sirius-btn--destructive-plain:active:not(:disabled) {
-  background-color: rgba(0, 0, 0, 0.09);
+  background-color: var(--s-color-bg-fill-transparent-active);
 }
 
 /* --------------------------------------------------------------------------
-   Icon Only (Boutons carrés comme dans le Figma)
+   Icon Only : cercle de 32 px, relevé le 2026-10-09 sur le bouton nu de
+   l'admin de référence (28 px, padding 4 px, icône 20 px). Même en slim :
+   32 px, seule l'icône descend à 16 px.
    -------------------------------------------------------------------------- */
 .sirius-btn--icon-only {
   width: 32px;
@@ -195,13 +197,6 @@
   display: inline-grid;
   place-items: center;
   flex-shrink: 0;
-}
-
-/* 28px : l'icône slim fait 16, il reste 6px de garde de chaque côté,
-   le même rapport que le bouton medium (20 dans 32). */
-.sirius-btn--icon-only.sirius-btn--slim {
-  width: 28px;
-  height: 28px;
 }
 
 .sirius-btn--icon-only.sirius-btn--large {

@@ -41,6 +41,9 @@
   --s-color-bg-fill-secondary: #ebebeb;
   --s-color-bg-fill-secondary-hover: #dddddd;
   --s-color-bg-fill-secondary-active: #d0d0d0;
+  /* bouton nu : fond invisible au repos, voile noir au survol et à l'appui */
+  --s-color-bg-fill-transparent-hover: #00000014;
+  --s-color-bg-fill-transparent-active: #00000021;
   /* Bouton rouge (--p-color-button-primary-*-critical). Couleurs seules : la
      référence le vernit, Sirius le garde plat (choix du 2026-10-09). */
   --s-color-button-primary-bg-critical: #d82019;
