@@ -1,0 +1,32 @@
+/* Vignette relevée le 2026-10-09 sur la liste des produits de l'admin de
+   référence : 36 px, coins 8 px, liseré #ebebeb, icône image grise sans photo. */
+.sirius-thumbnail {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  position: relative;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--s-color-icon-secondary);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+/* le liseré passe par-dessus la photo, sinon l'image le recouvre */
+.sirius-thumbnail::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px #ebebeb;
+  pointer-events: none;
+}
+.sirius-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.sirius-thumbnail--extraSmall { width: 24px; height: 24px; border-radius: 6px; }
+.sirius-thumbnail--medium { width: 60px; height: 60px; border-radius: 12px; }
+.sirius-thumbnail--large { width: 80px; height: 80px; border-radius: 12px; }

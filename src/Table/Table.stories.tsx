@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { SiriusTable } from './Table';
 import { SiriusBadge } from '../Badge/Badge';
+import { SiriusThumbnail } from '../Thumbnail/Thumbnail';
 
 type Commande = {
   numero: string;
@@ -140,3 +141,45 @@ export const Triable: Story = {
 export const Chargement: Story = { args: { loading: true, loadingLabel: 'Chargement des commandes…' } };
 
 export const Rayures: Story = { args: { zebra: true } };
+
+type Produit = { id: string; nom: string; statut: 'actif' | 'brouillon' | 'archive'; stock: number; variantes?: number; categorie?: string; canaux: number; type: string };
+
+const produits: Produit[] = [
+  { id: 'p1', nom: 'Sandales en cuir de Ngaye', statut: 'actif', stock: 0, variantes: 3, categorie: 'Sandales', canaux: 4, type: 'chaussures' },
+  { id: 'p2', nom: 'Boubou bazin riche brodé', statut: 'actif', stock: 49, categorie: 'Boubous', canaux: 3, type: 'vêtements' },
+  { id: 'p3', nom: 'Robe wax Ankara', statut: 'actif', stock: 100, variantes: 5, categorie: 'Robes', canaux: 3, type: 'vêtements' },
+  { id: 'p4', nom: 'Masque LED visage', statut: 'brouillon', stock: 20, canaux: 1, type: 'beauté' },
+  { id: 'p5', nom: 'Thiouraye de Diourbel', statut: 'actif', stock: 18, categorie: 'Parfums', canaux: 3, type: 'beauté' },
+  { id: 'p6', nom: 'Sac en raphia tressé', statut: 'archive', stock: 50, canaux: 1, type: 'accessoires' },
+];
+
+const badgeStatut = { actif: <SiriusBadge tone="success">Actif</SiriusBadge>, brouillon: <SiriusBadge tone="info">Brouillon</SiriusBadge>, archive: <SiriusBadge tone="neutral">Archivé</SiriusBadge> };
+
+/** Liste des produits telle que l'admin de référence l'affiche : à plat, vignette, statut, stock en rouge à zéro. */
+export const Produits: Story = {
+  render: () => (
+    <SiriusTable<Produit>
+      selectable
+      data={produits}
+      columns={[
+        { key: 'vignette', title: '', width: '36px', render: (p) => <SiriusThumbnail alt={p.nom} /> },
+        { key: 'nom', title: 'Produit', render: (p) => <span style={{ fontWeight: 550 }}>{p.nom}</span> },
+        { key: 'statut', title: 'Statut', render: (p) => badgeStatut[p.statut] },
+        {
+          key: 'stock',
+          title: 'Stock',
+          render: (p) => (
+            <>
+              <span style={p.stock === 0 ? { color: 'var(--s-color-text-critical-accent)' } : undefined}>{p.stock} en stock</span>
+              {p.variantes ? ` pour ${p.variantes} variantes` : ''}
+            </>
+          ),
+        },
+        { key: 'categorie', title: 'Catégorie' },
+        { key: 'canaux', title: 'Canaux', numeric: true },
+        { key: 'type', title: 'Type de produit' },
+      ]}
+      bulkActions={{ promotedActions: [{ content: 'Modifier les produits' }, { content: 'Mettre en ligne' }], actions: [{ content: 'Archiver' }, { content: 'Supprimer les produits', destructive: true }] }}
+    />
+  ),
+};

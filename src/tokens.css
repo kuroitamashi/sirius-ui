@@ -29,8 +29,6 @@
   --s-color-bg-surface-success: #e8fcd9;
   --s-color-bg-surface-warning: #ffeddb;
   --s-color-bg-surface-selected: #f2f2f2;
-  /* trait entre deux lignes de tableau (mesuré sur la référence, en attente du relevé admin) */
-  --s-color-border-table: #e3e3e3;
   --s-color-bg-surface-caution: #fff5c5;
   --s-color-bg-surface-info: #d2f6fe;
   --s-color-border: #dddddd;

@@ -67,6 +67,8 @@ export type { SiriusCalloutCardProps, SiriusCalloutCardAction } from './CalloutC
 
 export { SiriusSpinner } from './Spinner/Spinner';
 export type { SiriusSpinnerProps } from './Spinner/Spinner';
+export { SiriusThumbnail, SiriusThumbnail as Thumbnail } from './Thumbnail/Thumbnail';
+export type { SiriusThumbnailProps } from './Thumbnail/Thumbnail';
 
 export { SiriusMetricCard } from './MetricCard/MetricCard';
 export type { SiriusMetricCardProps } from './MetricCard/MetricCard';

@@ -1,23 +1,29 @@
 /* ==========================================================================
    Sirius Table : tableau de ressources (commandes, clients, produits)
-   Relevé du 2026-10-09 sur l'admin de référence : en-tête 36 px gris, texte
-   12 px graisse 550 ; lignes de 33 px (13 px, 6 px de marge), trait entre
-   les lignes ; survol gris très clair, ligne cochée un cran plus foncée.
+   Mise en page à plat de la liste des produits de l'admin de référence
+   (capture du 2026-10-09) : pas de carte autour, l'en-tête est une bande
+   grise #f7f7f7 aux coins de 8 px, les lignes sont séparées d'un trait
+   #f2f2f2. Texte 13 px, en-tête 12 px graisse 550. Une ligne fait 33 px,
+   48 px avec une vignette de 36 px.
    ========================================================================== */
 
+/* Sur la capture, tout repose sur une surface blanche, l'en-tête en retrait.
+   Notre fond de page est gris (#f6f6f7) : la bande d'en-tête #f7f7f7 y
+   disparaîtrait. Le tableau porte donc sa carte blanche, avec 8 px d'air. */
 .sirius-table-container {
   width: 100%;
-  background-color: #ffffff;
-  /* contour par l'ombre, comme toutes les cartes Sirius */
+  padding: 8px;
+  background-color: var(--sirius-surface, #ffffff);
   border-radius: var(--s-border-radius-container);
   box-shadow: var(--s-shadow-100);
-  overflow: hidden;
   font-family: inherit;
   box-sizing: border-box;
 }
 
-/* Mode intégré dans une carte : ni ombre ni arrondi */
+/* Dans une carte déjà blanche : ni carte ni marge en plus */
 .sirius-table-container--embedded {
+  padding: 0;
+  background: none;
   border-radius: 0;
   box-shadow: none;
 }
@@ -38,14 +44,12 @@
   color: var(--sirius-text);
 }
 
-/* En-têtes */
-.sirius-table__header-row {
-  background-color: var(--s-color-bg-surface-secondary);
-}
-
+/* En-têtes : la bande grise est peinte cellule par cellule, la première et
+   la dernière arrondissent ses bouts */
 .sirius-table__th {
-  height: 36px;
-  padding: 8px 6px;
+  height: 32px;
+  padding: 6px;
+  background-color: var(--s-color-bg-surface-secondary);
   font-weight: 550;
   font-size: 12px;
   line-height: 20px;
@@ -58,6 +62,8 @@
 .sirius-table__td:first-child {
   padding-left: 12px;
 }
+.sirius-table__th:first-child { border-radius: 8px 0 0 8px; }
+.sirius-table__th:last-child { border-radius: 0 8px 8px 0; }
 .sirius-table__th:last-child,
 .sirius-table__td:last-child {
   padding-right: 12px;
@@ -118,12 +124,14 @@
 .sirius-table__bulk {
   position: absolute;
   inset: 0 0 auto 0;
-  height: 36px;
+  height: 32px;
   display: flex;
+  border-radius: 8px;
+  overflow: hidden;
 }
 .sirius-table__bulk > * {
   flex: 1;
-  min-height: 36px;
+  min-height: 32px;
 }
 
 /* Lignes et cellules */
@@ -134,10 +142,9 @@
 /* trait entre les lignes en ombre intérieure : il ne prend aucune place, la
    ligne fait 33 px pile (avec border-collapse, une bordure se partage entre
    deux cellules et laisse des demi-pixels) */
-.sirius-table__row > td,
-.sirius-table__loading-row > td,
-.sirius-table__empty-cell {
-  box-shadow: inset 0 1px 0 var(--s-color-border-table);
+.sirius-table__row + .sirius-table__row > td,
+.sirius-table__loading-row + .sirius-table__row > td {
+  box-shadow: inset 0 1px 0 var(--s-color-border-secondary);
 }
 
 .sirius-table__row:hover {
@@ -224,9 +231,9 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 10px 12px;
-  background-color: var(--s-color-bg-surface-secondary);
-  border-top: 1px solid var(--s-color-border-table);
+  /* dans la carte, sous le trait de la dernière ligne, sans fond */
+  padding: 8px 4px 0;
+  border-top: 1px solid var(--s-color-border-secondary);
   gap: 12px;
 }
 
