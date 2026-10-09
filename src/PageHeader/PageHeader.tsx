@@ -69,7 +69,7 @@ export function SiriusPageHeader({
   const renderIconButton = () => {
     if (!icon) return null;
 
-    const iconContent = typeof icon === 'string' ? <Icon name={icon} size={16} /> : icon;
+    const iconContent = typeof icon === 'string' ? <Icon name={icon} size={20} /> : icon;
     const btnClass = [
       'sirius-page-header__icon-btn',
       iconHovered && 'sirius-page-header__icon-btn--hovered',
@@ -139,10 +139,14 @@ export function SiriusPageHeader({
             </>
           )}
 
-          {/* Séparateur vers le titre */}
-          <span className="sirius-page-header__separator">
-            <Icon name="chevron-right" size={12} />
-          </span>
+          {/* Séparateur vers le titre : seulement après un fil d'Ariane.
+              Sans fil d'Ariane, l'icône représente déjà la page (Produits,
+              Commandes…), comme dans l'admin Shopify : icône puis titre. */}
+          {breadcrumbs && breadcrumbs.length > 0 && (
+            <span className="sirius-page-header__separator">
+              <Icon name="chevron-right" size={12} />
+            </span>
+          )}
 
           {/* Titre de la page */}
           <h1 className="sirius-page-header__title">{title}</h1>
