@@ -69,13 +69,19 @@
 
   /* --- Ombres Sirius --- */
   --sirius-shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --sirius-shadow-popover: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.12);
+  /* Biseau façon Polaris (shadow-bevel-100) : un liseré INTÉRIEUR, gris clair
+     en haut, plus foncé en bas, d'où l'impression d'un trait d'ombre sous
+     l'élément. Ce n'est pas une ombre portée. */
+  --sirius-shadow-bevel: inset 0 -1px 0 0 rgb(0 0 0 / 0.17), inset 1px 0 0 0 rgb(0 0 0 / 0.13), inset -1px 0 0 0 rgb(0 0 0 / 0.13), inset 0 1px 0 0 rgb(204 204 204 / 0.5);
+  /* Fenêtres flottantes : le biseau, plus une ombre courte qui tombe vers le bas. */
+  --sirius-shadow-popover: var(--sirius-shadow-bevel), 0 4px 6px -2px rgb(26 26 26 / 0.2);
   --sirius-shadow-button: 0 1px 0 rgba(0, 0, 0, 0.05);
 
   /* --- Rayons de courbure --- */
   --sirius-radius-sm: 4px;
   --sirius-radius-base: 8px;
   --sirius-radius-lg: 12px;
+  --sirius-radius-xl: 16px;          /* Fenêtres flottantes (menus, listes d'actions) */
   --sirius-radius-full: 9999px;
 
   /* --- Transitions --- */

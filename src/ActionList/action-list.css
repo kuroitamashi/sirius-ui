@@ -15,8 +15,10 @@
 
 .sirius-action-list {
   background: var(--sirius-surface);
-  border: 1px solid var(--sirius-border);
-  border-radius: var(--sirius-radius-lg);
+  /* Pas de border : l'ombre porte déjà un liseré de 1px. Les deux ensemble
+     donnaient un trait de 2px, trop épais face à Shopify. */
+  border: none;
+  border-radius: var(--sirius-radius-xl);
   box-shadow: var(--sirius-shadow-card);
   padding: 6px;
   min-width: 220px;
@@ -92,6 +94,13 @@
   cursor: pointer;
   box-sizing: border-box;
   transition: var(--sirius-transition);
+}
+
+/* Alignement sur le déclencheur : le premier tracé visible d'un élément (texte
+   ou icône) tombe sous le « M » de « More actions ». Le texte y est déjà avec
+   10px ; une icône Polaris a ~2px de vide dans son cadre de 20px, d'où 8px. */
+.sirius-action-list__item:has(> .sirius-action-list__icon) {
+  padding-left: 8px;
 }
 
 .sirius-action-list__item:hover {

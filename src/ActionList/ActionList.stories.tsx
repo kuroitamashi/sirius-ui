@@ -188,31 +188,21 @@ export const ActionsCommandesSKS: Story = {
     ),
     sections: [
       {
-        title: 'Finances & Reçus',
         items: [
-          {
-            icon: 'payment',
-            content: 'Vérifier la transaction Wave',
-            helpText: 'Synchronisation instantanée avec le compte marchand',
-          },
-          {
-            icon: 'export',
-            content: 'Télécharger la facture PDF',
-          },
+          { icon: 'duplicate', content: 'Dupliquer' },
+          { icon: 'archive', content: 'Archiver' },
+          { icon: 'download', content: 'Télécharger la facture PDF' },
         ],
       },
       {
-        title: 'Livraison Dakar',
+        title: 'Livraison',
+        items: [{ icon: 'delivery', content: 'Assigner à un livreur' }],
+      },
+      {
+        title: 'Imprimer',
         items: [
-          {
-            icon: 'delivery',
-            content: 'Assigner au livreur Tiak-Tiak',
-          },
-          {
-            icon: 'check',
-            content: 'Marquer comme livrée',
-            suffix: 'check',
-          },
+          { icon: 'print', content: 'Imprimer la commande' },
+          { icon: 'print', content: 'Imprimer le bon de livraison' },
         ],
       },
       {
