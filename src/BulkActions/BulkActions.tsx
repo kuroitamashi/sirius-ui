@@ -3,6 +3,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { SiriusButton } from '../Button/Button';
 import { SiriusCheckbox } from '../Form/Checkbox';
+import { SiriusSwitch } from '../Form/Switch';
 import {
   SiriusActionList,
   type SiriusActionListItemDescriptor,
@@ -44,7 +45,16 @@ export interface SiriusBulkActionsProps {
   /** Actions rangées d'emblée dans le menu « … ». */
   actions?: SiriusBulkAction[];
   /** Libellé du compteur. Défaut : « 3 sélectionnés ». */
-  label?: (count: number) => React.ReactNode;
+  label?: (count: number) => string;
+  /**
+   * Interrupteur à droite de la barre : n'afficher que les lignes cochées.
+   * Absent si non fourni ; c'est l'écran qui filtre sa liste.
+   */
+  showSelected?: {
+    checked: boolean;
+    onChange: (checked: boolean) => void;
+    label?: string;
+  };
   className?: string;
 }
 
@@ -61,7 +71,10 @@ const versItem = (a: SiriusBulkAction): SiriusActionListItemDescriptor => ({
 
 const libelleParDefaut = (n: number) => `${n} sélectionné${n > 1 ? 's' : ''}`;
 
-const GAP = 8;
+/* Écarts relevés sur la maquette : 12px entre les boutons, 16px entre le
+   compteur et le premier bouton. */
+const GAP = 12;
+const GAP_SELECTION = 16;
 
 /**
  * Barre d'actions groupées, calquée sur les BulkActions de Polaris.
@@ -76,10 +89,12 @@ export function SiriusBulkActions({
   promotedActions = [],
   actions = [],
   label = libelleParDefaut,
+  showSelected,
   className = '',
 }: SiriusBulkActionsProps) {
   const barreRef = useRef<HTMLDivElement>(null);
   const gaucheRef = useRef<HTMLDivElement>(null);
+  const droiteRef = useRef<HTMLDivElement>(null);
   const mesureRef = useRef<HTMLDivElement>(null);
   const [visibles, setVisibles] = useState(promotedActions.length);
 
@@ -99,7 +114,8 @@ export function SiriusBulkActions({
         parseFloat(style.paddingLeft) -
         parseFloat(style.paddingRight) -
         (gaucheRef.current?.offsetWidth ?? 0) -
-        GAP * 2;
+        (droiteRef.current ? droiteRef.current.offsetWidth + GAP * 2 : 0) -
+        GAP_SELECTION;
       let total = 0;
       let n = 0;
       for (let i = 0; i < largeurs.length; i++) {
@@ -116,7 +132,7 @@ export function SiriusBulkActions({
     const ro = new ResizeObserver(calculer);
     ro.observe(barre);
     return () => ro.disconnect();
-  }, [promotedActions, actions.length, selectedCount]);
+  }, [promotedActions, actions.length, selectedCount, showSelected]);
 
   if (selectedCount <= 0) return null;
 
@@ -138,9 +154,8 @@ export function SiriusBulkActions({
       <SiriusActionList
         key={key}
         items={a.actions.map(versItem)}
-        placement="end"
         trigger={
-          <SiriusButton size="slim" disclosure>
+          <SiriusButton variant="plain" size="slim" disclosure className="sirius-bulk-actions__btn">
             {a.title}
           </SiriusButton>
         }
@@ -148,8 +163,12 @@ export function SiriusBulkActions({
     ) : (
       <SiriusButton
         key={key}
+        variant="plain"
         size="slim"
-        className={a.destructive ? 'sirius-bulk-actions__destructive' : undefined}
+        className={[
+          'sirius-bulk-actions__btn',
+          a.destructive && 'sirius-bulk-actions__btn--destructive',
+        ].filter(Boolean).join(' ')}
         disabled={a.disabled}
         onClick={a.onAction}
       >
@@ -164,48 +183,83 @@ export function SiriusBulkActions({
       role="toolbar"
       aria-label="Actions groupées"
     >
-      <div ref={gaucheRef} className="sirius-bulk-actions__selection">
-        <SiriusCheckbox
-          checked={toutCoche ? true : 'indeterminate'}
-          onChange={() => onToggleAll(!toutCoche)}
-          label={
-            <span className="sirius-bulk-actions__sr">
-              {toutCoche ? `Tout désélectionner (${totalCount})` : `Tout sélectionner (${totalCount})`}
-            </span>
-          }
-        />
-        <span className="sirius-bulk-actions__count" aria-live="polite">
-          {label(selectedCount)}
-        </span>
-      </div>
-
-      <div className="sirius-bulk-actions__actions">
-        {affichees.map((a, i) => bouton(a, i))}
-        {sections.length > 0 && (
-          <SiriusActionList
-            sections={sections}
-            placement="end"
-            trigger={
-              <SiriusButton size="slim" iconOnly icon="menu-horizontal" ariaLabel="Plus d'actions" />
+      <div className="sirius-bulk-actions__gauche">
+        <div ref={gaucheRef} className="sirius-bulk-actions__selection">
+          <SiriusCheckbox
+            checked={toutCoche ? true : 'indeterminate'}
+            onChange={() => onToggleAll(!toutCoche)}
+            label={
+              <span className="sirius-bulk-actions__sr">
+                {toutCoche ? `Tout désélectionner (${totalCount})` : `Tout sélectionner (${totalCount})`}
+              </span>
             }
           />
-        )}
+          {/* Le compteur est un menu : tout cocher ou tout décocher. */}
+          <SiriusActionList
+            items={[
+              ...(toutCoche
+                ? []
+                : [{ content: `Tout sélectionner (${totalCount})`, onAction: () => onToggleAll(true) }]),
+              { content: 'Tout désélectionner', onAction: () => onToggleAll(false) },
+            ]}
+            trigger={
+              <SiriusButton
+                variant="plain"
+                size="slim"
+                disclosure
+                className="sirius-bulk-actions__count"
+                aria-live="polite"
+              >
+                {label(selectedCount)}
+              </SiriusButton>
+            }
+          />
+        </div>
+
+        <div className="sirius-bulk-actions__actions">
+          {affichees.map((a, i) => bouton(a, i))}
+          {sections.length > 0 && (
+            <SiriusActionList
+              sections={sections}
+              trigger={
+                <SiriusButton
+                  variant="plain"
+                  size="slim"
+                  iconOnly
+                  icon="menu-horizontal"
+                  ariaLabel="Plus d'actions"
+                  className="sirius-bulk-actions__btn"
+                />
+              }
+            />
+          )}
+        </div>
       </div>
+
+      {showSelected && (
+        <div ref={droiteRef} className="sirius-bulk-actions__droite">
+          <SiriusSwitch
+            checked={showSelected.checked}
+            onChange={showSelected.onChange}
+            label={showSelected.label ?? 'Afficher la sélection'}
+          />
+        </div>
+      )}
 
       {/* Copie invisible pour mesurer la largeur de chaque bouton. */}
       <div ref={mesureRef} className="sirius-bulk-actions__mesure" aria-hidden="true">
         {promotedActions.map((a, i) =>
           isMenu(a) ? (
-            <SiriusButton key={i} size="slim" disclosure tabIndex={-1}>
+            <SiriusButton key={i} variant="plain" size="slim" disclosure tabIndex={-1} className="sirius-bulk-actions__btn">
               {a.title}
             </SiriusButton>
           ) : (
-            <SiriusButton key={i} size="slim" tabIndex={-1}>
+            <SiriusButton key={i} variant="plain" size="slim" tabIndex={-1} className="sirius-bulk-actions__btn">
               {a.content}
             </SiriusButton>
           )
         )}
-        <SiriusButton size="slim" iconOnly icon="menu-horizontal" ariaLabel="" tabIndex={-1} />
+        <SiriusButton variant="plain" size="slim" iconOnly icon="menu-horizontal" ariaLabel="" tabIndex={-1} className="sirius-bulk-actions__btn" />
       </div>
     </div>
   );

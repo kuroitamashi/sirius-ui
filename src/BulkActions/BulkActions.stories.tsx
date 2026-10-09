@@ -27,6 +27,7 @@ const ROBES = [
  */
 function Liste(props: Pick<SiriusBulkActionsProps, 'promotedActions' | 'actions'> & { largeur?: number }) {
   const [coches, setCoches] = useState<Set<number>>(new Set([0, 2]));
+  const [seulement, setSeulement] = useState(false);
   const basculer = (i: number) =>
     setCoches((c) => {
       const n = new Set(c);
@@ -46,13 +47,14 @@ function Liste(props: Pick<SiriusBulkActionsProps, 'promotedActions' | 'actions'
       }}
     >
       {coches.size > 0 ? (
-        <div style={{ borderBottom: '1px solid #ebebeb', borderRadius: '12px 12px 0 0' }}>
+        <div style={{ borderRadius: '12px 12px 0 0' }}>
           <SiriusBulkActions
             selectedCount={coches.size}
             totalCount={ROBES.length}
             onToggleAll={(tout) => setCoches(tout ? new Set(ROBES.map((_, i) => i)) : new Set())}
             promotedActions={props.promotedActions}
             actions={props.actions}
+            showSelected={{ checked: seulement, onChange: setSeulement }}
           />
         </div>
       ) : (
@@ -60,7 +62,7 @@ function Liste(props: Pick<SiriusBulkActionsProps, 'promotedActions' | 'actions'
           Coche une ligne pour voir la barre d'actions groupées.
         </div>
       )}
-      {ROBES.map((nom, i) => (
+      {ROBES.map((nom, i) => (seulement && coches.size > 0 && !coches.has(i) ? null : (
         <div
           key={nom}
           style={{
@@ -75,7 +77,7 @@ function Liste(props: Pick<SiriusBulkActionsProps, 'promotedActions' | 'actions'
         >
           <SiriusCheckbox checked={coches.has(i)} onChange={() => basculer(i)} label={nom} />
         </div>
-      ))}
+      )))}
     </div>
   );
 }

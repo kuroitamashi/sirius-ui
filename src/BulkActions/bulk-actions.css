@@ -1,7 +1,9 @@
 /* ==========================================================================
-   Sirius BulkActions, d'après les BulkActions de Polaris (IndexTable)
-   Barre de 40px : case et compteur à gauche, actions à droite, menu « … »
-   aligné sur le bord droit. Boutons Sirius en pilule (variante blanche).
+   Sirius BulkActions, design SKS du 2026-10-09
+   Barre grise de 40px qui prend la place de l'en-tête de la table : case,
+   compteur-menu, puis les actions collées à gauche en pilules grises pleines,
+   et à droite l'interrupteur « Afficher la sélection ». Mesures relevées sur
+   la maquette de Mouhamadou.
    ========================================================================== */
 
 .sirius-bulk-actions {
@@ -9,49 +11,115 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 24px;
   min-height: 40px;
-  padding: 6px 8px 6px 12px;
+  padding: 8px 12px;
   box-sizing: border-box;
-  background: var(--sirius-surface, #ffffff);
-  /* Reprend l'arrondi du conteneur : en tête d'une carte, le fond blanc ne
+  background: #f7f7f7;
+  /* Reprend l'arrondi du conteneur : en tête d'une carte, le fond ne
      déborde pas sur ses coins. */
   border-radius: inherit;
   font-family: inherit;
+  /* La barre réagit à SA largeur, pas à celle de l'écran : posée dans une
+     colonne étroite d'un grand écran, elle se replie aussi. */
+  container-type: inline-size;
+}
+
+.sirius-bulk-actions__gauche {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
 }
 
 .sirius-bulk-actions__selection {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 4px;
   flex-shrink: 0;
 }
 
 /* Le libellé de la case n'est lu que par les lecteurs d'écran : il ne doit
-   pas garder son écart de 10px, sinon le compteur s'éloigne de la case. */
+   pas garder son écart de 10px. */
 .sirius-bulk-actions__selection .sirius-checkbox-wrap {
   gap: 0;
-}
-
-.sirius-bulk-actions__count {
-  font-size: 12px;
-  font-weight: 550;
-  line-height: 16px;
-  color: var(--sirius-text, #303030);
-  white-space: nowrap;
 }
 
 .sirius-bulk-actions__actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   min-width: 0;
 }
 
-/* Action destructive : bouton blanc, seul le texte passe au rouge */
-.sirius-bulk-actions__destructive.sirius-btn,
-.sirius-bulk-actions__destructive.sirius-btn:hover:not(:disabled) {
+/* Les boutons : pilules grises pleines, 24px, sans bordure ni ombre */
+.sirius-bulk-actions .sirius-btn.sirius-bulk-actions__btn {
+  min-height: 24px;
+  height: 24px;
+  padding: 2px 10px;
+  border: none;
+  box-shadow: none;
+  background: #ebebeb;
+  color: #303030;
+  font-size: 12px;
+  font-weight: 550;
+}
+.sirius-bulk-actions .sirius-btn.sirius-bulk-actions__btn:hover:not(:disabled) {
+  background: #e0e0e0;
+  color: #303030;
+}
+.sirius-bulk-actions .sirius-btn.sirius-bulk-actions__btn:active:not(:disabled) {
+  background: #d6d6d6;
+}
+.sirius-bulk-actions .sirius-btn.sirius-bulk-actions__btn.sirius-btn--icon-only {
+  width: 24px;
+  padding: 0;
+}
+.sirius-bulk-actions .sirius-btn.sirius-bulk-actions__btn--destructive,
+.sirius-bulk-actions .sirius-btn.sirius-bulk-actions__btn--destructive:hover:not(:disabled) {
   color: #8e0b21;
+}
+
+/* Le compteur : texte nu avec son chevron, gris seulement au survol */
+.sirius-bulk-actions .sirius-btn.sirius-bulk-actions__count {
+  min-height: 24px;
+  height: 24px;
+  padding: 2px 8px;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  color: #303030;
+  font-size: 12px;
+  font-weight: 550;
+}
+.sirius-bulk-actions .sirius-btn.sirius-bulk-actions__count:hover:not(:disabled) {
+  background: #ebebeb;
+}
+
+.sirius-bulk-actions__droite {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 13px;
+  color: #303030;
+  white-space: nowrap;
+}
+
+/* Barre étroite (téléphone) : l'interrupteur garde sa place, son libellé se
+   masque visuellement mais reste lu par les lecteurs d'écran. */
+@container (max-width: 560px) {
+  .sirius-bulk-actions__droite .sirius-checkbox__label-block {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+  .sirius-bulk-actions__droite .sirius-switch-wrap {
+    gap: 0;
+  }
 }
 
 /* Copie hors écran qui sert à mesurer la largeur des boutons */
@@ -60,7 +128,7 @@
   top: 0;
   left: 0;
   display: flex;
-  gap: 8px;
+  gap: 12px;
   visibility: hidden;
   pointer-events: none;
   height: 0;
