@@ -133,6 +133,89 @@
   flex-shrink: 0;
 }
 
+/* Lecture seule : grisé comme le désactivé, mais le texte reste lisible */
+.sirius-input-box--readonly {
+  background: var(--sirius-surface-active);
+  box-shadow: none;
+}
+.sirius-input-box--readonly:hover,
+.sirius-input-box--readonly:focus-within {
+  box-shadow: none !important;
+}
+
+/* Sans contour : le cadre n'apparaît qu'au focus */
+.sirius-input-box--borderless:not(:focus-within) {
+  box-shadow: none !important;
+}
+
+.sirius-input--monospaced {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+
+/* Compteur 5/70 : chiffres de même largeur pour qu'il ne tremble pas à la frappe */
+.sirius-input__count {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Croix pour vider : bouton icône nu, cible de 32 px, fond au survol seulement */
+.sirius-input__clear {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--s-color-icon-secondary);
+  cursor: pointer;
+}
+.sirius-input__clear:hover {
+  background: var(--s-color-bg-fill-transparent-hover);
+  color: var(--sirius-text);
+}
+
+/* Lien d'action à droite du libellé */
+.sirius-field__label-action {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 450;
+  color: var(--s-color-text-link);
+  text-decoration: none;
+  cursor: pointer;
+}
+.sirius-field__label-action:hover {
+  text-decoration: underline;
+  color: var(--s-color-text-link-hover);
+}
+
+/* Champ collé à une liste ou un bouton : écart de 8 px, le champ prend la place */
+.sirius-field__connected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sirius-field__connected > .sirius-input-box {
+  flex: 1;
+  min-width: 0;
+}
+/* une liste ou un champ relié garde sa largeur naturelle, sinon son
+   width: 100% écrase le champ principal */
+.sirius-field__connected > :not(.sirius-input-box) {
+  flex: none;
+  width: auto;
+}
+
+/* les champs date et heure natifs ajoutent 1 px en haut et en bas : 34 px */
+.sirius-input::-webkit-datetime-edit,
+.sirius-input::-webkit-datetime-edit-fields-wrapper {
+  padding: 0;
+}
+
 /* Message d'erreur */
 .sirius-field__error {
   display: flex;
@@ -386,6 +469,33 @@
   box-sizing: border-box;
   box-shadow: var(--s-shadow-input);
   transition: box-shadow 0.1s ease, background-color 0.1s ease;
+  /* une valeur trop longue se coupe sur « … » avant le chevron */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* texte d'exemple (option vide choisie) en gris, comme dans un champ texte ;
+   les options de la liste ouverte gardent la couleur du texte */
+.sirius-select:has(option[value=""]:checked) {
+  color: var(--s-color-text-secondary);
+}
+.sirius-select option {
+  color: var(--sirius-text);
+}
+
+/* libellé dans le cadre, gris, devant la valeur ; le clic traverse vers la liste */
+.sirius-select__inline-label {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--s-color-text-secondary);
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 /* survol de la référence : le fond grisé à peine, l'anneau fonce */
