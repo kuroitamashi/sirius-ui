@@ -33,14 +33,16 @@
     for (const s of document.styleSheets) { try { walk(s.cssRules, '', ''); } catch (err) { out.push('  /* illisible : ' + s.href + ' */'); } }
     return out;
   };
-  const pile = [];
-  for (let e = pick; e && e !== document.body; e = e.parentElement) pile.unshift(e);
   const r0 = pick.getBoundingClientRect();
-  pick.querySelectorAll('*').forEach((c) => { const r = c.getBoundingClientRect(); if (Math.abs(r.width - r0.width) < 3 && Math.abs(r.height - r0.height) < 3) pile.push(c); });
+  const meme = (e) => { const r = e.getBoundingClientRect(); return Math.abs(r.width - r0.width) < 3 && Math.abs(r.height - r0.height) < 3; };
+  // Seuls les calques de la même taille que l'élément choisi : parents et enfants qui le recouvrent.
+  const pile = [pick];
+  for (let e = pick.parentElement; e && e !== document.body && meme(e); e = e.parentElement) pile.unshift(e);
+  pick.querySelectorAll('*').forEach((c) => { if (meme(c)) pile.push(c); });
   const lignes = [];
   for (const e of pile) for (const ps of ['', '::before', '::after']) {
     const p = porte(e, ps);
-    if (p.length) lignes.push((e === pick && !ps ? '>>> ' : '') + nom(e) + ps + '  [' + taille(e) + ']\n  ' + p.join('\n  ') + '\n  -- recette --\n' + (recettes(e, ps).join('\n') || '  (rien)'));
+    if (p.length || (e === pick && !ps)) lignes.push((e === pick && !ps ? '>>> ' : '') + nom(e) + ps + '  [' + taille(e) + ']\n  ' + (p.join('\n  ') || '(aucun style visible : sélectionne plutôt son parent, le <button> ou le <a>)') + '\n  -- recette --\n' + (recettes(e, ps).join('\n') || '  (rien)'));
   }
   copy(lignes.join('\n\n'));
   return lignes.length + ' calques copiés';
