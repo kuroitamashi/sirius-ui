@@ -1,12 +1,16 @@
 (() => {
-  const pick = $0;
+  // Le relevé part 3 s après le lancement : le temps de survoler l'élément ou de
+  // cliquer dedans. Cliquer dans la console lui ferait perdre le focus.
+  const pick = $0, cp = copy;
   const VIS = { 'border-radius': '0px', 'box-shadow': 'none', 'background-color': 'rgba(0, 0, 0, 0)', 'background-image': 'none', 'border-top-width': '0px', 'padding': '0px', 'overflow': 'visible', 'outline-style': 'none' };
   const nom = (e) => e.tagName.toLowerCase() + (e.classList.length ? '.' + [...e.classList].join('.') : '');
   const taille = (e) => { const r = e.getBoundingClientRect(); return Math.round(r.width) + 'x' + Math.round(r.height); };
   const porte = (e, ps) => {
     const cs = getComputedStyle(e, ps);
     if (/before|after/.test(ps) && cs.content === 'none') return [];
-    return Object.keys(VIS).filter((p) => cs.getPropertyValue(p) !== VIS[p]).map((p) => p + ': ' + cs.getPropertyValue(p));
+    // Un champ : sa couleur et sa typo calculées, toujours (le texte d'exemple aussi).
+    const typo = /^(INPUT|TEXTAREA|SELECT)$/.test(e.tagName) && !/before|after/.test(ps) ? ['color', 'font-size', 'font-weight', 'line-height'] : [];
+    return [...Object.keys(VIS).filter((p) => cs.getPropertyValue(p) !== VIS[p]), ...typo].map((p) => p + ': ' + cs.getPropertyValue(p));
   };
   const decls = (st) => st.cssText.split(/;(?![^(]*\))/).map((x) => x.trim()).filter(Boolean)
     .filter((x) => x.startsWith('--') || /^(border|padding|outline|box-shadow|background|color|font|line-height|letter-spacing|height|min-height)/.test(x));
@@ -35,6 +39,7 @@
     for (const s of [...(root.styleSheets || []), ...(root.adoptedStyleSheets || [])]) { try { walk(s.cssRules, '', ''); } catch (err) { out.push('  /* illisible : ' + s.href + ' */'); } }
     return out;
   };
+  setTimeout(() => {
   let r0 = pick.getBoundingClientRect();
   const meme = (e) => { const r = e.getBoundingClientRect(); return Math.abs(r.width - r0.width) < 3 && Math.abs(r.height - r0.height) < 3; };
   // Seuls les calques de la même taille que l'élément choisi : parents et enfants qui le recouvrent.
@@ -60,6 +65,8 @@
     const p = porte(e, ps);
     if (p.length || (e === pick && !ps)) lignes.push((e === pick && !ps ? '>>> ' : '') + nom(e) + ps + '  [' + taille(e) + ']\n  ' + (p.join('\n  ') || '(aucun style visible : sélectionne plutôt son parent, le <button> ou le <a>)') + '\n  -- recette --\n' + (recettes(e, ps).join('\n') || '  (rien)'));
   }
-  copy(lignes.join('\n\n'));
-  return lignes.length + ' calques copiés';
+  cp(lignes.join('\n\n'));
+  console.log(lignes.length + ' calques copiés');
+  }, 3000);
+  return 'Relevé dans 3 s : survole l\'élément, ou clique dedans';
 })();
