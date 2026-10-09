@@ -31,7 +31,10 @@
   padding: 6px 12px;
   background-color: #ffffff;
   border: 1px solid var(--sirius-border-subdued, #c9cccf);
-  border-radius: 8px;
+  /* Pilule comme les boutons : 18px = moitié des 36px de hauteur. Une valeur
+     fixe plutôt que 999px, pour qu'un champ passé sur deux lignes d'étiquettes
+     garde des coins arrondis au lieu de devenir un ovale. */
+  border-radius: 18px;
   min-height: 36px;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
   cursor: text;
@@ -122,9 +125,10 @@
   max-height: 320px;
   overflow-y: auto;
   background-color: #ffffff;
-  border: 1px solid var(--sirius-border-subdued, #e1e3e5);
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.1);
+  /* Même fenêtre flottante que la liste d'actions : 16px, biseau, pas de border. */
+  border: none;
+  border-radius: var(--sirius-radius-xl);
+  box-shadow: var(--sirius-shadow-popover);
   z-index: 1000;
   padding: 6px;
 }
