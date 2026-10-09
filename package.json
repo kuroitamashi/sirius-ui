@@ -23,7 +23,12 @@
       "default": "./src/Button/index.ts"
     },
     "./styles.css": "./src/styles.css",
-    "./tokens.css": "./src/tokens.css"
+    "./tokens.css": "./src/tokens.css",
+    "./periods": {
+      "types": "./src/DatePicker/periods.ts",
+      "import": "./src/DatePicker/periods.ts",
+      "default": "./src/DatePicker/periods.ts"
+    }
   },
   "files": [
     "src",

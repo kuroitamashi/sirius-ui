@@ -54,9 +54,7 @@ export type { SiriusRadioProps, SiriusRadioProps as RadioProps } from './Radio';
 export { SiriusSwitch, SiriusSwitch as Switch } from './Switch';
 export type { SiriusSwitchProps, SiriusSwitchProps as SwitchProps } from './Switch';
 
-// DatePicker
-export { DatePicker, DatePicker as SiriusDatePicker } from './DatePicker';
-export type { DatePickerProps, DatePickerProps as SiriusDatePickerProps, DateRange } from './DatePicker';
+// DatePicker et DateRangePicker : voir ../DatePicker
 
 // ColorField
 export { ColorField, ColorField as SiriusColorField } from './ColorField';

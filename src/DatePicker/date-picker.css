@@ -1,0 +1,174 @@
+/* --------------------------------------------------------------------------
+   SÉLECTEUR DE PÉRIODE (bouton + panneau : raccourcis, champs, deux mois)
+   et CALENDRIER UNE DATE. Les mois des deux composants partagent .sirius-cal.
+   -------------------------------------------------------------------------- */
+.sirius-drp { position: relative; display: inline-block; font-family: var(--s-font-family-sans, inherit); }
+
+.sirius-drp__trigger {
+  display: inline-flex; align-items: center; gap: var(--s-space-200);
+  padding: 10px 15px; font: inherit; font-size: var(--s-font-size-325);
+  font-weight: var(--s-font-weight-semibold); color: var(--s-color-text);
+  background: var(--s-color-bg-surface); border: 1px solid var(--s-color-border);
+  border-radius: var(--s-border-radius-200); cursor: pointer;
+}
+.sirius-drp__trigger svg { color: var(--s-color-icon-secondary); }
+/* Texte nu : le fond n'apparaît qu'au survol, sans icône. */
+.sirius-drp--plain .sirius-drp__trigger {
+  border: none; background: none; padding: 6px 8px;
+  font-weight: var(--s-font-weight-regular); color: var(--s-color-text-secondary);
+}
+.sirius-drp--plain .sirius-drp__trigger:hover { background: var(--s-color-bg-surface-selected); color: var(--s-color-text); }
+.sirius-drp--plain .sirius-drp__trigger > svg:first-child { display: none; }
+
+.sirius-drp__pop {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 30;
+  display: flex; background: var(--s-color-bg-surface); overflow: hidden;
+  border-radius: var(--s-border-radius-popover);
+  /* Contour net en ombre d'un pixel (pas de bordure qui bave sur le menu gris),
+     puis une ombre portée surtout vers le bas. */
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1), 0 16px 32px -8px rgb(0 0 0 / 0.22);
+}
+.sirius-drp--align-left .sirius-drp__pop { right: auto; left: 0; }
+
+/* Menu gauche : groupes séparés par un filet bord à bord, élément actif sur fond gris */
+.sirius-drp__menu {
+  display: flex; flex-direction: column; width: 190px; flex: none; padding: 6px 0;
+  max-height: min(560px, 80dvh); overflow-y: auto;
+  background: var(--s-color-bg-surface-secondary); border-right: 1px solid var(--s-color-border);
+}
+.sirius-drp__menu-group { display: flex; flex-direction: column; gap: 1px; padding: 6px 8px; }
+.sirius-drp__menu-group + .sirius-drp__menu-group,
+.sirius-drp__menu-back + .sirius-drp__menu-group { border-top: 1px solid var(--s-color-border); }
+.sirius-drp__menu-item {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-space-200);
+  padding: 5px 10px; background: none; border: none; border-radius: var(--s-border-radius-200);
+  font: inherit; font-size: var(--s-font-size-325); font-weight: var(--s-font-weight-regular);
+  color: var(--s-color-text); text-align: left; white-space: nowrap; cursor: pointer;
+}
+.sirius-drp__menu-item svg { color: var(--s-color-icon); flex: none; }
+.sirius-drp__menu-item:hover, .sirius-drp__menu-back:hover { background: var(--s-color-bg-fill-transparent-hover); }
+.sirius-drp__menu-item[aria-pressed="true"] { background: var(--s-color-bg-fill-transparent-active); font-weight: var(--s-font-weight-medium); }
+.sirius-drp__menu-back {
+  display: flex; align-items: center; gap: var(--s-space-200); margin: 0 8px 6px; padding: 6px 10px;
+  background: none; border: none; border-radius: var(--s-border-radius-200);
+  font: inherit; font-size: var(--s-font-size-325); font-weight: var(--s-font-weight-semibold);
+  color: var(--s-color-text); white-space: nowrap; cursor: pointer;
+}
+
+/* Effet rouleau du retour : le titre du sous-menu sort par le haut en se
+   floutant, « Retour » entre par le bas. */
+.sirius-drp__roll { display: grid; overflow: hidden; }
+.sirius-drp__roll-a, .sirius-drp__roll-b {
+  grid-area: 1 / 1;
+  transition: transform var(--s-motion-duration-300) var(--s-motion-ease-out),
+    opacity var(--s-motion-duration-300) var(--s-motion-ease), filter var(--s-motion-duration-300) var(--s-motion-ease);
+}
+.sirius-drp__roll-b { transform: translateY(100%); opacity: 0; filter: blur(4px); }
+.sirius-drp__menu-back:hover .sirius-drp__roll-a,
+.sirius-drp__menu-back:focus-visible .sirius-drp__roll-a { transform: translateY(-100%); opacity: 0; filter: blur(4px); }
+.sirius-drp__menu-back:hover .sirius-drp__roll-b,
+.sirius-drp__menu-back:focus-visible .sirius-drp__roll-b { transform: translateY(0); opacity: 1; filter: blur(0); }
+
+.sirius-drp__body { display: flex; flex-direction: column; }
+.sirius-drp__controls { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-space-200); padding: 12px 14px 4px; color: var(--s-color-text); }
+/* La liste déroulante remplace le menu de gauche sur petit écran seulement. */
+.sirius-drp .sirius-drp__mobile-select { display: none; }
+/* Champs pleine largeur : début → fin, puis l'horloge. La ligne des heures
+   reprend les mêmes colonnes, la 4e reste vide. */
+.sirius-drp__fields { display: grid; grid-template-columns: 1fr auto 1fr 32px; align-items: center; gap: var(--s-space-200); width: 100%; }
+.sirius-drp__input {
+  height: 32px; min-width: 0; padding: 0 12px; font: inherit; font-size: var(--s-font-size-325); color: var(--s-color-text);
+  background: var(--s-color-bg-surface); border: 1px solid var(--s-color-border); border-radius: var(--s-border-radius-element);
+}
+.sirius-drp__time { display: flex; align-items: center; gap: var(--s-space-200); color: var(--s-color-icon-secondary); cursor: text; }
+.sirius-drp__time input { flex: 1; min-width: 0; border: none; background: none; font: inherit; color: var(--s-color-text); outline: none; }
+.sirius-drp__time:focus-within { outline: 2px solid var(--s-color-bg-fill-brand-accent); outline-offset: -1px; }
+.sirius-drp__time-wrap { position: relative; min-width: 0; }
+.sirius-drp__time-list {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 5;
+  max-height: 260px; overflow-y: auto; margin: 0; padding: 6px; list-style: none;
+  background: var(--s-color-bg-surface); border-radius: var(--s-border-radius-300);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.1), 0 8px 20px -4px rgb(0 0 0 / 0.18);
+}
+.sirius-drp__time-list li { padding: 7px 10px; border-radius: var(--s-border-radius-200); cursor: pointer; color: var(--s-color-text); }
+.sirius-drp__time-list li:hover, .sirius-drp__time-list li.is-active { background: var(--s-color-bg-surface-selected); }
+.sirius-drp__time-list li[aria-selected="true"] { font-weight: var(--s-font-weight-semibold); }
+.sirius-drp__arrow { color: var(--s-color-icon-secondary); flex: none; }
+.sirius-drp__clock {
+  display: grid; place-items: center; width: 32px; height: 32px; padding: 0;
+  background: var(--s-color-bg-surface-selected); border: none; border-radius: var(--s-border-radius-full);
+  color: var(--s-color-icon); cursor: pointer;
+}
+.sirius-drp__clock:hover { background: var(--s-color-border); }
+.sirius-drp__clock[aria-pressed="true"] { background: var(--s-color-text); color: var(--s-color-bg-surface); }
+
+.sirius-drp__months { position: relative; display: grid; grid-template-columns: repeat(2, 224px); gap: var(--s-space-600); padding: 6px 14px 12px; }
+.sirius-drp__months::after { content: ''; position: absolute; left: 50%; top: 48px; bottom: 12px; border-left: 1px solid var(--s-color-border); }
+.sirius-drp__nav {
+  display: grid; place-items: center; width: 32px; height: 32px; padding: 0;
+  background: none; border: none; border-radius: var(--s-border-radius-200); color: var(--s-color-icon); cursor: pointer;
+}
+.sirius-drp__nav:hover { background: var(--s-color-bg-surface-secondary); }
+/* top = padding du bloc (6) + marge du titre (6) : flèches et mois sur la même ligne */
+.sirius-drp__months .sirius-drp__nav { position: absolute; top: 12px; }
+.sirius-drp__nav--prev { left: 14px; }
+.sirius-drp__nav--next { right: 14px; }
+.sirius-drp__foot { display: flex; align-items: center; justify-content: flex-end; gap: var(--s-space-200); margin-top: auto; padding: 10px 14px; border-top: 1px solid var(--s-color-border); }
+.sirius-drp__error { margin-right: auto; color: var(--s-color-text-critical-accent); }
+
+/* Un mois : partagé par le sélecteur de période et le calendrier une date. */
+.sirius-cal {
+  width: 308px; max-width: 100%; padding: var(--s-space-400);
+  background: var(--s-color-bg-surface); border: 1px solid var(--s-color-border); border-radius: var(--s-border-radius-element);
+}
+.sirius-cal__head { display: flex; align-items: center; justify-content: space-between; }
+.sirius-cal__head .sirius-cal__title { margin: 0; }
+.sirius-cal__title { display: block; text-align: center; line-height: 32px; margin: 6px 0 4px; font-size: var(--s-font-size-325); font-weight: var(--s-font-weight-semibold); color: var(--s-color-text); }
+.sirius-cal__title::first-letter { text-transform: uppercase; }
+.sirius-cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 2px; }
+.sirius-cal__dow { display: grid; place-items: center; height: 26px; color: var(--s-color-text-secondary); font-size: var(--s-font-size-300); }
+.sirius-cal__day {
+  display: grid; place-items: center; height: 30px; padding: 0;
+  background: none; border: none; font: inherit; font-size: var(--s-font-size-325); font-weight: var(--s-font-weight-regular);
+  color: var(--s-color-text); cursor: pointer;
+}
+.sirius-cal__day:hover:not(:disabled) { background: var(--s-color-bg-surface-selected); border-radius: var(--s-border-radius-200); }
+.sirius-cal__day:disabled { color: var(--s-color-text-disabled); cursor: default; }
+.sirius-cal__day.is-in-range { background: var(--s-color-bg-surface-selected); }
+.sirius-cal__day.is-edge { background: var(--s-color-text); color: var(--s-color-bg-surface); font-weight: var(--s-font-weight-semibold); border-radius: var(--s-border-radius-200); }
+.sirius-cal__day.is-today:not(.is-edge) { font-weight: var(--s-font-weight-semibold); }
+
+/* Téléphone et tablette : panneau fixe sous le bouton, liste déroulante à la
+   place du menu, un seul mois, zones tactiles de 44 px. */
+@media (max-width: 1023.98px) {
+  .sirius-drp .sirius-drp__pop {
+    position: fixed; left: 12px; right: 12px; top: calc(var(--sirius-drp-top, 0px) + 8px); z-index: 55;
+    flex-direction: column; max-height: calc(100dvh - var(--sirius-drp-top, 0px) - 20px); overflow-y: auto;
+  }
+  .sirius-drp__menu { display: none; }
+  .sirius-drp .sirius-drp__mobile-select { display: flex; flex-direction: column; width: 100%; }
+  .sirius-drp--plain .sirius-drp__trigger { min-height: 44px; }
+  .sirius-drp__input { height: 44px; padding: 0 8px; border-radius: 14px; }
+  .sirius-drp__time svg { width: 20px; height: 20px; }
+  .sirius-drp__clock { width: 44px; height: 44px; }
+  .sirius-drp__clock svg { width: 22px; height: 22px; }
+  .sirius-drp__fields { grid-template-columns: 1fr auto 1fr 44px; }
+  .sirius-drp__time input { align-self: stretch; }
+  /* 7 colonnes de 44 px = 308 px : marges réduites pour que les jours
+     atteignent 44 px de large dès 360 px d'écran. */
+  .sirius-drp__controls, .sirius-drp__months { padding-inline: 8px; }
+  .sirius-drp__nav--prev { left: 8px; }
+  .sirius-drp__nav--next { right: 8px; }
+  .sirius-drp__nav { width: 44px; height: 44px; }
+  .sirius-cal__title { line-height: 44px; }
+  .sirius-cal__day { height: 44px; }
+  .sirius-drp__time-list li { min-height: 44px; display: flex; align-items: center; }
+  .sirius-drp__foot .sirius-btn { min-height: 44px; padding-inline: 20px; }
+  .sirius-drp__months { grid-template-columns: 1fr; }
+  .sirius-drp__months .sirius-drp__month:first-of-type { display: none; }
+  .sirius-drp__months::after { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sirius-drp__roll-a, .sirius-drp__roll-b { transition: opacity var(--s-motion-duration-150) var(--s-motion-ease); transform: none !important; filter: none !important; }
+}

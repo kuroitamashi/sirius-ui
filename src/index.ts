@@ -1,6 +1,6 @@
 /**
  * Design System Sirius
- * Composants et tokens inspirés du standard Sirius UI
+ * Composants et tokens inspirÃ©s du standard Sirius UI
  */
 
 import './tokens.css';
@@ -115,6 +115,7 @@ export type {
 } from './AccountConnection';
 
 export * from './Form';
+export * from './DatePicker';
 
 export { Icon } from './Icon/Icon';
 export type { IconProps, IconName } from './Icon/Icon';
