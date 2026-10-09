@@ -188,7 +188,7 @@
 /* --------------------------------------------------------------------------
    Icon Only : cercle de 32 px, relevé le 2026-10-09 sur le bouton nu de
    l'admin de référence (28 px, padding 4 px, icône 20 px). Même en slim :
-   32 px, seule l'icône descend à 16 px.
+   32 px, icône 20 px.
    -------------------------------------------------------------------------- */
 .sirius-btn--icon-only {
   width: 32px;
@@ -202,6 +202,13 @@
 .sirius-btn--icon-only.sirius-btn--large {
   width: 38px;
   height: 38px;
+}
+
+/* les tailles slim et large posent un padding de texte qui élargissait
+   le cercle (42x38 en large) : un bouton icône n'en a jamais */
+.sirius-btn--icon-only.sirius-btn--slim,
+.sirius-btn--icon-only.sirius-btn--large {
+  padding: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -272,6 +279,8 @@
 .sirius-btn--slim .sirius-btn__suffix-icon svg { width: 16px; height: 16px; }
 .sirius-btn--large .sirius-btn__icon svg,
 .sirius-btn--large .sirius-btn__suffix-icon svg { width: 24px; height: 24px; }
+/* bouton icône seule : 20 px quelle que soit la taille, décidé le 2026-10-09 */
+.sirius-btn--icon-only .sirius-btn__icon svg { width: 20px; height: 20px; }
 
 .sirius-btn__disclosure {
   margin-left: 3px;
