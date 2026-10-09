@@ -6,6 +6,8 @@ import './form.css';
 
 export interface SiriusCheckboxProps {
   label?: React.ReactNode;
+  /** Libellé lu par les lecteurs d'écran mais masqué à l'écran (case d'une ligne de tableau). */
+  labelHidden?: boolean;
   details?: React.ReactNode;
   checked?: boolean | 'indeterminate';
   disabled?: boolean;
@@ -18,6 +20,7 @@ export interface SiriusCheckboxProps {
 
 export function SiriusCheckbox({
   label,
+  labelHidden = false,
   details,
   checked = false,
   disabled = false,
@@ -30,7 +33,13 @@ export function SiriusCheckbox({
   const isIndeterminate = checked === 'indeterminate';
   const isChecked = checked === true;
   const isError = Boolean(error);
-  const errorMessage = typeof error === 'string' ? error : 'Ce champ est requis';
+  // `true` rougit la case seule ; le message, s'il y en a un, est ailleurs.
+  const errorMessage = typeof error === 'string' ? error : undefined;
+  // L'état « en partie » n'existe pas en HTML : il se pose sur l'élément.
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  React.useEffect(() => {
+    if (inputRef.current) inputRef.current.indeterminate = isIndeterminate;
+  }, [isIndeterminate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
@@ -56,6 +65,7 @@ export function SiriusCheckbox({
         </span>
 
         <input
+          ref={inputRef}
           id={id}
           type="checkbox"
           name={name}
@@ -66,14 +76,14 @@ export function SiriusCheckbox({
         />
 
         {(label || details) && (
-          <div className="sirius-checkbox__label-block">
+          <div className={`sirius-checkbox__label-block ${labelHidden ? 'sirius-visually-hidden' : ''}`}>
             {label && <span className="sirius-checkbox__label">{label}</span>}
             {details && <span className="sirius-checkbox__details">{details}</span>}
           </div>
         )}
       </label>
 
-      {isError && (
+      {errorMessage && (
         <div className="sirius-field__error" role="alert" style={{ marginLeft: '28px' }}>
           <span className="sirius-field__error-icon" aria-hidden="true"><Icon name="alert-circle" size={14} /></span>
           <span>{errorMessage}</span>

@@ -252,52 +252,62 @@
 
 .sirius-checkbox {
   position: relative;
-  width: 18px;
-  height: 18px;
+  /* relevé du 2026-10-09 : carré de 14 px, coins 4 px, contour par l'ombre
+     (liseré 20 % hors du carré, donc 16 px à l'œil), aucune bordure */
+  width: 14px;
+  height: 14px;
+  margin: 2px;
   border-radius: 4px;
-  border: 1px solid var(--s-color-input-border);
+  border: 0;
   background: #ffffff;
+  box-shadow: var(--s-shadow-input-strong);
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  margin-top: 1px;
-  transition: background-color 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease;
+  transition: background-color 0.1s ease, box-shadow 0.1s ease;
   box-sizing: border-box;
 }
 
-.sirius-checkbox-wrap:hover:not(.sirius-checkbox-wrap--disabled) .sirius-checkbox {
-  border-color: var(--s-color-input-border-hover);
+.sirius-checkbox-wrap:hover:not(.sirius-checkbox-wrap--disabled) .sirius-checkbox:not(.sirius-checkbox--checked):not(.sirius-checkbox--indeterminate) {
+  box-shadow: var(--s-shadow-input-drop), 0 0 0 1px var(--s-color-input-border-hover);
+}
+
+/* focus clavier : l'<input> est caché, on dessine l'anneau sur la case */
+.sirius-checkbox-wrap:has(input:focus-visible) .sirius-checkbox,
+.sirius-radio-wrap:has(input:focus-visible) .sirius-radio {
+  outline: 2px solid #202020;
+  outline-offset: 2px;
 }
 
 .sirius-checkbox--checked,
 .sirius-checkbox--indeterminate {
   background: #202020;
-  border-color: #202020;
+  box-shadow: var(--s-shadow-input-drop), 0 0 0 1px #202020;
   color: #ffffff;
 }
 
 .sirius-checkbox--disabled {
   background: var(--sirius-surface-active);
-  border-color: var(--sirius-border-hover);
+  box-shadow: 0 0 0 1px var(--sirius-border-hover);
 }
 
 .sirius-checkbox--disabled.sirius-checkbox--checked,
 .sirius-checkbox--disabled.sirius-checkbox--indeterminate {
   background: var(--s-color-bg-fill-secondary);
-  border-color: var(--sirius-border-hover);
+  box-shadow: 0 0 0 1px var(--sirius-border-hover);
   color: #ffffff;
 }
 
 /* Checkbox Error */
 .sirius-checkbox--error {
-  border-color: #c01025;
   background: #fee8e7;
+  box-shadow: 0 0 0 1px #c01025;
 }
 
 .sirius-checkbox--error.sirius-checkbox--checked,
 .sirius-checkbox--error.sirius-checkbox--indeterminate {
   background: #991900;
-  border-color: #991900;
+  box-shadow: 0 0 0 1px #991900;
   color: #ffffff;
 }
 
@@ -331,32 +341,39 @@
 }
 
 .sirius-radio {
-  width: 18px;
-  height: 18px;
+  /* même recette que la case à cocher, en rond */
+  width: 14px;
+  height: 14px;
+  margin: 2px;
   border-radius: 50%;
-  border: 1px solid var(--s-color-input-border);
+  border: 0;
   background: #ffffff;
+  box-shadow: var(--s-shadow-input-strong);
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  margin-top: 1px;
-  transition: border-color 0.1s ease, box-shadow 0.1s ease;
+  transition: box-shadow 0.1s ease;
   box-sizing: border-box;
 }
 
+/* choisi : anneau noir épais, point blanc de 6 px au centre */
 .sirius-radio--checked {
-  border: 5px solid #202020;
   background: #ffffff;
+  box-shadow: var(--s-shadow-input-drop), 0 0 0 1px #202020, inset 0 0 0 4px #202020;
 }
 
 .sirius-radio-wrap:hover:not(.sirius-radio-wrap--disabled) .sirius-radio:not(.sirius-radio--checked) {
-  border-color: var(--s-color-input-border-hover);
+  box-shadow: var(--s-shadow-input-drop), 0 0 0 1px var(--s-color-input-border-hover);
 }
 
 .sirius-radio--disabled {
   background: var(--sirius-surface-active);
-  border-color: var(--sirius-border-hover);
+  box-shadow: 0 0 0 1px var(--sirius-border-hover);
   cursor: not-allowed;
+}
+
+.sirius-radio--disabled.sirius-radio--checked {
+  box-shadow: 0 0 0 1px var(--sirius-border-hover), inset 0 0 0 4px var(--sirius-border-hover);
 }
 
 /* --------------------------------------------------------------------------
