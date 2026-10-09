@@ -146,6 +146,14 @@ export function SiriusDataTable({
   const toggleAll = (all: boolean) => setSelection(all ? selectableIds : []);
   const selecting = selectable && selectedCount > 0;
 
+  // Interrupteur « Afficher la sélection » à droite de la barre : le tableau
+  // masque lui-même les lignes non cochées. Il se coupe quand la sélection se vide.
+  const [onlySelected, setOnlySelected] = useState(false);
+  const showOnlySelected = onlySelected && selecting;
+  React.useEffect(() => {
+    if (!selecting) setOnlySelected(false);
+  }, [selecting]);
+
   const colCount = headings.length + (selectable ? 1 : 0);
   const totalsLabel = typeof totalsName === 'string' ? totalsName : totalsName?.singular ?? 'Total';
 
@@ -259,6 +267,7 @@ export function SiriusDataTable({
 
               {rows.map((row, rowIdx) => {
                 const id = ids[rowIdx];
+                if (showOnlySelected && !selection.includes(id)) return null;
                 const disabled = isRowDisabled?.(rowIdx) ?? false;
                 const selected = selectable && selection.includes(id);
                 const tone = rowTone?.(rowIdx);
@@ -318,6 +327,7 @@ export function SiriusDataTable({
           {selecting && (
             <div className="sirius-data-table__bulk">
               <SiriusBulkActions
+                showSelected={{ checked: showOnlySelected, onChange: setOnlySelected }}
                 {...bulkActions}
                 selectedCount={selectedCount}
                 totalCount={selectableIds.length}
