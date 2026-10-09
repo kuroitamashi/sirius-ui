@@ -18,9 +18,9 @@
         if (r.media) { walk(r.cssRules, '@media ' + r.media.mediaText, parent); continue; }
         let full = parent;
         if (r.selectorText) {
-          full = r.selectorText.split(',').map((s) => s.trim()).map((s) => !parent ? s : s.includes('&') ? s.replace(/&/g, parent) : parent + ' ' + s).join(', ');
+          full = r.selectorText.split(/,(?![^(]*\))/).map((s) => s.trim()).map((s) => !parent ? s : s.includes('&') ? s.replace(/&/g, parent) : parent + ' ' + s).join(', ');
           let ok = false;
-          for (const s of full.split(',').map((s) => s.trim()).filter((s) => ps ? s.endsWith(ps) : !/::?(before|after|placeholder)$/.test(s))) {
+          for (const s of full.split(/,(?![^(]*\))/).map((s) => s.trim()).filter((s) => ps ? s.endsWith(ps) : !/::?(before|after|placeholder)$/.test(s))) {
             try { if (e.matches(ps ? s.slice(0, -ps.length) || '*' : s)) ok = true; } catch (err) {}
           }
           const d = ok ? decls(r.style) : [];
@@ -35,7 +35,7 @@
     for (const s of [...(root.styleSheets || []), ...(root.adoptedStyleSheets || [])]) { try { walk(s.cssRules, '', ''); } catch (err) { out.push('  /* illisible : ' + s.href + ' */'); } }
     return out;
   };
-  const r0 = pick.getBoundingClientRect();
+  let r0 = pick.getBoundingClientRect();
   const meme = (e) => { const r = e.getBoundingClientRect(); return Math.abs(r.width - r0.width) < 3 && Math.abs(r.height - r0.height) < 3; };
   // Seuls les calques de la même taille que l'élément choisi : parents et enfants qui le recouvrent.
   const pile = [pick];
@@ -43,6 +43,18 @@
   pick.querySelectorAll('*').forEach((c) => { if (meme(c)) pile.push(c); });
   // Un champ dessine souvent son cadre sur un calque voisin posé derrière l'<input>.
   [...(pick.parentElement?.children || [])].forEach((c) => { if (c !== pick && meme(c)) { pile.push(c); c.querySelectorAll('*').forEach((d) => { if (meme(d)) pile.push(d); }); } });
+  // Un <input> est souvent nu, plus petit que la boîte qui le dessine : on remonte
+  // (y compris hors du shadowRoot) jusqu'au premier ancêtre qui porte un cadre.
+  if (/^(INPUT|TEXTAREA|SELECT)$/.test(pick.tagName)) {
+    const cadre = (e) => [e, ...e.children].some((c) => ['', '::before', '::after'].some((ps) => porte(c, ps).some((x) => /^(box-shadow|border-top-width|border-radius)/.test(x))));
+    let a = pick.parentElement || pick.getRootNode().host;
+    while (a && a !== document.body && !cadre(a)) a = a.parentElement || a.getRootNode().host;
+    if (a && a !== document.body) {
+      r0 = a.getBoundingClientRect();
+      pile.push(a);
+      a.querySelectorAll('*').forEach((c) => { if (meme(c) && !pile.includes(c)) pile.push(c); });
+    }
+  }
   const lignes = [];
   for (const e of pile) for (const ps of ['', '::before', '::after', ...(/^(INPUT|TEXTAREA)$/.test(e.tagName) ? ['::placeholder'] : [])]) {
     const p = porte(e, ps);
