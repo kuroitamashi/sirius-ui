@@ -69,7 +69,33 @@ const ToneIcons: Record<SiriusBannerTone, React.ReactNode> = {
   critical: <Icon name="alert-circle" size={20} />,
 };
 
-const CloseIcon = <Icon name="x" size={14} />;
+/* Icônes pleines de la disposition subdued : un disque à la couleur du ton
+   et le signe en blanc par-dessus. Polaris n'a pas de version pleine de ces
+   icônes, d'où le dessin ici, dans le même cadre 20x20 (disque de 16px). */
+function FilledToneIcon({ tone }: { tone: SiriusBannerTone }) {
+  const blanc = { fill: '#ffffff' };
+  return (
+    <svg viewBox="0 0 20 20" width={20} height={20} aria-hidden="true" focusable="false">
+      <circle cx="10" cy="10" r="8" fill="currentColor" />
+      {tone === 'success' ? (
+        <path d="M6.75 10.25 9 12.5l4.25-4.5" fill="none" stroke="#ffffff" strokeWidth="1.6"
+          strokeLinecap="round" strokeLinejoin="round" />
+      ) : tone === 'info' ? (
+        <>
+          <circle cx="10" cy="6.75" r="1" style={blanc} />
+          <rect x="9.25" y="8.75" width="1.5" height="5.25" rx="0.75" style={blanc} />
+        </>
+      ) : (
+        <>
+          <rect x="9.25" y="5.75" width="1.5" height="5.25" rx="0.75" style={blanc} />
+          <circle cx="10" cy="13.25" r="1" style={blanc} />
+        </>
+      )}
+    </svg>
+  );
+}
+
+const CloseIcon = <Icon name="x" size={20} />;
 
 export function SiriusBanner({
   title,
@@ -232,69 +258,73 @@ export function SiriusBanner({
   // =========================================================================
   // DISPOSITION 3 : SUBDUED (Fond teinté doux Sirius avec ou sans titre)
   // =========================================================================
-  const isCompact = !title;
+  const subduedIcon = icon ?? <FilledToneIcon tone={tone} />;
+  const corps = (children || link) && (
+    <>
+      {children}
+      {link && (
+        <>
+          {' '}
+          {link.url ? (
+            <a href={link.url} className="sirius-banner__link">
+              {link.text}
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={link.onClick}
+              className="sirius-banner__link sirius-banner__link--btn"
+            >
+              {link.text}
+            </button>
+          )}
+        </>
+      )}
+    </>
+  );
 
+  /* Structure Shopify : l'icône et le titre sur une ligne, puis le texte et
+     les actions calés sur le bord gauche, sans retrait sous l'icône. Sans
+     titre, c'est le texte qui prend place à côté de l'icône. */
   return (
     <div
-      className={`sirius-banner sirius-banner--layout-subdued sirius-banner--${tone} ${isCompact ? 'sirius-banner--compact' : ''} ${className}`}
+      className={`sirius-banner sirius-banner--layout-subdued sirius-banner--${tone} ${className}`}
       role="status"
     >
-      <div className="sirius-banner__icon">{renderedIcon}</div>
-      <div className="sirius-banner__content">
-        {title && <div className="sirius-banner__title">{title}</div>}
-        <div className="sirius-banner__body">
-          {children}
-          {link && (
-            <>
-              {' '}
-              {link.url ? (
-                <a href={link.url} className="sirius-banner__link">
-                  {link.text}
-                </a>
-              ) : (
-                <button
-                  type="button"
-                  onClick={link.onClick}
-                  className="sirius-banner__link sirius-banner__link--btn"
-                >
-                  {link.text}
-                </button>
-              )}
-            </>
-          )}
+      <div className="sirius-banner__head">
+        <span className="sirius-banner__icon">{subduedIcon}</span>
+        <div className={title ? 'sirius-banner__title' : 'sirius-banner__body'}>
+          {title ?? corps}
         </div>
-        {(action || secondaryAction) && (
-          <div className="sirius-banner__actions">
-            {action && (
-              <button
-                type="button"
-                onClick={action.onAction}
-                className="sirius-btn sirius-btn--default sirius-btn--slim"
-              >
-                {action.content}
-              </button>
-            )}
-            {secondaryAction && (
-              <button
-                type="button"
-                onClick={secondaryAction.onAction}
-                className="sirius-btn sirius-btn--plain sirius-btn--slim"
-              >
-                {secondaryAction.content}
-              </button>
-            )}
-          </div>
+        {onDismiss && (
+          <button
+            type="button"
+            className="sirius-banner__dismiss"
+            onClick={onDismiss}
+            aria-label="Fermer"
+          >
+            {CloseIcon}
+          </button>
         )}
       </div>
-      {onDismiss && (
-        <button
-          type="button"
-          className="sirius-banner__dismiss"
-          onClick={onDismiss}
-          aria-label="Fermer"
-        >
-          {CloseIcon}
-        </button>
+      {title && corps && <div className="sirius-banner__body">{corps}</div>}
+      {(action || secondaryAction) && (
+        <div className="sirius-banner__actions">
+          {action && (
+            <button type="button" onClick={action.onAction} className="sirius-banner__action">
+              {action.content}
+            </button>
+          )}
+          {secondaryAction && (
+            <button
+              type="button"
+              onClick={secondaryAction.onAction}
+              className="sirius-banner__action sirius-banner__action--plain"
+            >
+              {secondaryAction.content}
+            </button>
+          )}
+        </div>
       )}
     </div>
   );

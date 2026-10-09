@@ -7,6 +7,9 @@
    ========================================================================== */
 
 .sirius-banner {
+  /* Toute la largeur disponible, même dans un parent flex. Pour la limiter,
+     l'écran qui l'utilise pose un max-width. */
+  width: 100%;
   border-radius: var(--sirius-radius-base, 8px);
   position: relative;
   font-family: inherit;
@@ -163,103 +166,132 @@
 }
 
 /* --------------------------------------------------------------------------
-   DISPOSITION 3 : SUBDUED (Fond teinté doux Sirius)
+   DISPOSITION 3 : SUBDUED, la disposition par défaut (design SKS du 2026-10-09)
+   Fond teinté sans bordure, coins de 16px, padding de 16px. Tous les textes
+   sont dans la teinte du ton, jamais en noir : titre très foncé, texte moyen,
+   icône vive, bouton d'action sur une teinte un cran plus soutenue que le fond.
+   Info reprend les couleurs relevées sur l'admin Shopify ; les autres tons
+   suivent les mêmes rapports.
    -------------------------------------------------------------------------- */
 .sirius-banner--layout-subdued {
-  padding: 12px 14px;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  border: 1px solid transparent;
+  display: grid;
+  gap: 2px;
+  padding: 16px;
+  border-radius: var(--sirius-radius-xl, 16px);
+  background: var(--sirius-banner-bg);
+  color: var(--sirius-banner-text);
+  font-size: 13px;
+  font-weight: 450;
+  line-height: 20px;
 }
 
-.sirius-banner--layout-subdued.sirius-banner--compact {
-  align-items: center;
-  padding: 10px 14px;
+.sirius-banner__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.sirius-banner__head > :nth-child(2) {
+  flex: 1;
+  min-width: 0;
 }
 
 .sirius-banner__icon {
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  margin-top: 1px;
-}
-
-.sirius-banner--compact .sirius-banner__icon {
-  margin-top: 0;
-}
-
-.sirius-banner__content {
-  flex: 1;
-  min-width: 0;
+  color: var(--sirius-banner-accent);
 }
 
 .sirius-banner__title {
-  font-weight: 650;
-  font-size: 13.5px;
-  margin-bottom: 2px;
-  letter-spacing: -0.01em;
+  color: var(--sirius-banner-title);
+  font-weight: 550;
 }
 
-.sirius-banner__body {
-  color: #202223;
+.sirius-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* Bouton d'action : pilule teintée, sans bordure ni ombre, texte du titre */
+.sirius-banner__action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 3px 12px;
+  border: none;
+  border-radius: var(--sirius-radius-full, 9999px);
+  background: var(--sirius-banner-btn);
+  color: var(--sirius-banner-title);
+  font: inherit;
+  font-weight: 550;
+  cursor: pointer;
+  transition: filter 0.15s ease, background-color 0.15s ease;
+}
+.sirius-banner__action:hover {
+  filter: brightness(0.95);
+}
+.sirius-banner__action--plain {
+  background: transparent;
+}
+.sirius-banner__action--plain:hover {
+  filter: none;
+  background: var(--sirius-banner-btn);
+}
+
+.sirius-banner--layout-subdued .sirius-banner__link {
+  color: var(--sirius-banner-title);
 }
 
 .sirius-banner__dismiss {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 3px;
-  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  /* Sans ça, le padding par défaut du navigateur (1px 6px) décale l'icône
+     de 2px à droite dans son cercle. */
+  padding: 0;
+  margin: -4px -4px -4px 0;
+  border-radius: var(--sirius-radius-full, 9999px);
   display: grid;
   place-items: center;
-  transition: background 0.1s ease;
+  color: var(--sirius-banner-title);
+  transition: background 0.15s ease;
   flex-shrink: 0;
   -webkit-tap-highlight-color: transparent;
-  outline: none;
 }
-
 .sirius-banner__dismiss:hover {
-  background: rgba(0, 0, 0, 0.06);
+  background: var(--sirius-banner-btn);
 }
 
-/* Couleurs Subdued par Tonalité */
+/* Les cinq nuances de chaque ton */
 .sirius-banner--layout-subdued.sirius-banner--info {
-  background: #eaf4fe;
-  border-color: #cde4fe;
+  --sirius-banner-bg: #d2f6fe;
+  --sirius-banner-btn: #adedfd;
+  --sirius-banner-accent: #00b0de;
+  --sirius-banner-text: #01596f;
+  --sirius-banner-title: #002c38;
 }
-.sirius-banner--layout-subdued.sirius-banner--info .sirius-banner__icon,
-.sirius-banner--layout-subdued.sirius-banner--info .sirius-banner__title,
-.sirius-banner--layout-subdued.sirius-banner--info .sirius-banner__dismiss {
-  color: #0066cc;
-}
-
 .sirius-banner--layout-subdued.sirius-banner--success {
-  background: #e3f6ed;
-  border-color: #b7ecd2;
+  --sirius-banner-bg: #d4fbdc;
+  --sirius-banner-btn: #b2f3c2;
+  --sirius-banner-accent: #04a36f;
+  --sirius-banner-text: #0b5a42;
+  --sirius-banner-title: #012d21;
 }
-.sirius-banner--layout-subdued.sirius-banner--success .sirius-banner__icon,
-.sirius-banner--layout-subdued.sirius-banner--success .sirius-banner__title,
-.sirius-banner--layout-subdued.sirius-banner--success .sirius-banner__dismiss {
-  color: #007a5c;
-}
-
 .sirius-banner--layout-subdued.sirius-banner--warning {
-  background: #fff4df;
-  border-color: #fedfa7;
+  --sirius-banner-bg: #ffefd9;
+  --sirius-banner-btn: #ffdcb0;
+  --sirius-banner-accent: #e08c00;
+  --sirius-banner-text: #6e4a00;
+  --sirius-banner-title: #382400;
 }
-.sirius-banner--layout-subdued.sirius-banner--warning .sirius-banner__icon,
-.sirius-banner--layout-subdued.sirius-banner--warning .sirius-banner__title,
-.sirius-banner--layout-subdued.sirius-banner--warning .sirius-banner__dismiss {
-  color: #915900;
-}
-
 .sirius-banner--layout-subdued.sirius-banner--critical {
-  background: #fee8e7;
-  border-color: #fcc6c3;
-}
-.sirius-banner--layout-subdued.sirius-banner--critical .sirius-banner__icon,
-.sirius-banner--layout-subdued.sirius-banner--critical .sirius-banner__title,
-.sirius-banner--layout-subdued.sirius-banner--critical .sirius-banner__dismiss {
-  color: #c01025;
+  --sirius-banner-bg: #fee8eb;
+  --sirius-banner-btn: #fdd0d6;
+  --sirius-banner-accent: #e22c38;
+  --sirius-banner-text: #8e0b21;
+  --sirius-banner-title: #4c0614;
 }
