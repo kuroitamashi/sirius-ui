@@ -57,7 +57,94 @@
   /* --- Typographie & Textes --- */
   /* Police SKS : déclarée par l'application (@font-face SKS-Inter), les
      composants héritent. Repli système si elle n'est pas chargée. */
-  --sirius-font: 'SKS-Inter', system-ui, sans-serif;
+  --s-font-family-sans: 'SKS-Inter', system-ui, sans-serif;
+  --s-font-family-mono: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+  /* Réglages OpenType de la référence. Mesuré le 2026-10-09 : sans effet sur
+     SKS-Inter, dont les glyphes ont déjà ces formes (3 plat, 4/6/9 ouverts,
+     l à queue). Gardé pour une autre police, pas appliqué. */
+  --s-font-feature-settings: "calt" on, "ss03" on, "cv09" on, "cv02" on, "cv03" on, "cv04" on;
+
+  /* 1. Échelles (--p-font-*, relevé du 2026-10-09). Suffixe en quarts de pixel. */
+  --s-font-size-275: .6875rem;  /* 11px */
+  --s-font-size-300: .75rem;    /* 12px */
+  --s-font-size-325: .8125rem;  /* 13px */
+  --s-font-size-350: .875rem;   /* 14px */
+  --s-font-size-400: 1rem;      /* 16px */
+  --s-font-size-450: 1.125rem;  /* 18px */
+  --s-font-size-500: 1.25rem;   /* 20px */
+  --s-font-size-550: 1.375rem;  /* 22px */
+  --s-font-size-600: 1.5rem;    /* 24px */
+  --s-font-size-750: 1.875rem;  /* 30px */
+  --s-font-size-800: 2rem;      /* 32px */
+  --s-font-size-900: 2.25rem;   /* 36px */
+  --s-font-size-1000: 2.5rem;   /* 40px */
+  --s-font-line-height-300: .75rem;
+  --s-font-line-height-400: 1rem;
+  --s-font-line-height-500: 1.25rem;
+  --s-font-line-height-600: 1.5rem;
+  --s-font-line-height-700: 1.75rem;
+  --s-font-line-height-800: 2rem;
+  --s-font-line-height-1000: 2.5rem;
+  --s-font-line-height-1200: 3rem;
+  --s-font-weight-regular: 400;
+  --s-font-weight-medium: 500;
+  --s-font-weight-semibold: 600;
+  --s-font-weight-bold: 600;    /* comme la référence : pas de 700 */
+  --s-font-letter-spacing-normal: 0rem;
+  --s-font-letter-spacing-dense: -.005em;
+  --s-font-letter-spacing-denser: -.01em;
+  --s-font-letter-spacing-densest: -.02em;
+
+  /* 2. Rôles : taille, interligne, graisse et approche vont ensemble. */
+  --s-font-size-body-x-small: var(--s-font-size-275);
+  --s-font-size-body-small: var(--s-font-size-300);
+  --s-font-size-body-medium: var(--s-font-size-325);
+  --s-font-size-body-large: .9375rem;   /* 15px, hors échelle dans la référence aussi */
+  --s-font-line-height-body-x-small: .875rem;
+  --s-font-line-height-body-small: 1.125rem;
+  --s-font-line-height-body-medium: var(--s-font-line-height-500);
+  --s-font-line-height-body-large: 1.375rem;
+  --s-font-letter-spacing-body-x-small: var(--s-font-letter-spacing-normal);
+  --s-font-letter-spacing-body-small: var(--s-font-letter-spacing-dense);
+  --s-font-letter-spacing-body-medium: var(--s-font-letter-spacing-denser);
+  --s-font-letter-spacing-body-large: var(--s-font-letter-spacing-normal);
+
+  --s-font-size-heading-small: var(--s-font-size-300);
+  --s-font-size-heading-medium: var(--s-font-size-325);
+  --s-font-size-heading-large: .9375rem;
+  --s-font-line-height-heading-small: 1.125rem;
+  --s-font-line-height-heading-medium: var(--s-font-line-height-500);
+  --s-font-line-height-heading-large: 1.375rem;
+  --s-font-weight-heading: var(--s-font-weight-medium);
+  --s-font-letter-spacing-heading-small: var(--s-font-letter-spacing-dense);
+  --s-font-letter-spacing-heading-medium: var(--s-font-letter-spacing-denser);
+  --s-font-letter-spacing-heading-large: var(--s-font-letter-spacing-denser);
+
+  --s-font-size-display-small: var(--s-font-size-550);
+  --s-font-size-display-medium: 1.625rem;   /* 26px */
+  --s-font-size-display-large: 1.8125rem;   /* 29px */
+  --s-font-line-height-display-small: var(--s-font-line-height-700);
+  --s-font-line-height-display-medium: var(--s-font-line-height-800);
+  --s-font-line-height-display-large: 2.25rem;
+  --s-font-weight-display: var(--s-font-weight-medium);
+  --s-font-letter-spacing-display: var(--s-font-letter-spacing-densest);
+
+  /* Boutons : 13px et 600 chez Sirius (direction artistique du 2026-10-09),
+     la référence est à 12px et 500. */
+  --s-font-size-button-label: var(--s-font-size-325);
+  --s-font-line-height-button-label: var(--s-font-line-height-400);
+  --s-font-weight-button-label: var(--s-font-weight-semibold);
+  --s-font-size-input-label: var(--s-font-size-325);
+  --s-font-size-input-label-small: var(--s-font-size-300);
+  --s-font-size-input-value: var(--s-font-size-325);
+  --s-font-line-height-input-label: var(--s-font-line-height-500);
+  --s-font-line-height-input-value: var(--s-font-line-height-500);
+  --s-font-weight-input-label: var(--s-font-weight-medium);
+  --s-font-size-details-text: var(--s-font-size-300);
+  --s-font-line-height-details-text: var(--s-font-line-height-400);
+
+  /* 3. Ancien nom. */
+  --sirius-font: var(--s-font-family-sans);
   --sirius-text: var(--s-color-text);
   --sirius-text-subdued: var(--s-color-text-secondary);
   --sirius-text-faint: var(--s-color-text-tertiary);
