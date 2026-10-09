@@ -39,6 +39,8 @@
   --s-color-input-border: #8c8c8c;
   --s-color-input-border-hover: #606060;
   --s-color-bg-fill-secondary: #ebebeb;
+  --s-color-bg-fill-secondary-hover: #dddddd;
+  --s-color-bg-fill-secondary-active: #d0d0d0;
 
   /* --- Surfaces & Plans de fond --- */
   /* Fond de page : aucun jeton relevé ne le donne, valeur gardée. */

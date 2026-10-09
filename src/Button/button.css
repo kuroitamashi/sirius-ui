@@ -84,6 +84,24 @@
 }
 
 /* --------------------------------------------------------------------------
+   Secondary (gris plein, plat, ni bordure ni ombre), relevé le 2026-10-09
+   sur l'admin de référence. Le nom vient de la référence ; il désignait le
+   noir avant, supprimé le même jour.
+   -------------------------------------------------------------------------- */
+.sirius-btn--secondary {
+  background-color: var(--s-color-bg-fill-secondary);
+  border-color: transparent;
+  color: var(--sirius-text, #202223);
+}
+.sirius-btn--secondary:hover:not(:disabled) {
+  background-color: var(--s-color-bg-fill-secondary-hover);
+  color: var(--sirius-text, #202223);
+}
+.sirius-btn--secondary:active:not(:disabled) {
+  background-color: var(--s-color-bg-fill-secondary-active);
+}
+
+/* --------------------------------------------------------------------------
    Default / Tertiary (blanc, contour par l'ombre)
    -------------------------------------------------------------------------- */
 .sirius-btn--default,

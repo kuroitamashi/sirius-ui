@@ -16,6 +16,7 @@ type Story = StoryObj<typeof meta>;
 const VARIANTS = [
   ['default', 'Par défaut (Blanc)'],
   ['primary', 'Primaire (Vert SKS signature)'],
+  ['secondary', 'Secondaire (Gris)'],
   ['plain', 'Nu (Lien discret)'],
   ['destructive', 'Destructeur (Rouge plein)'],
   ['destructive-plain', 'Destructeur nu'],
@@ -84,6 +85,7 @@ export const Toutes: Story = {
 
 export const ParDefaut: Story = { args: { variant: 'default' } };
 export const Primaire: Story = { args: { variant: 'primary' } };
+export const Secondaire: Story = { args: { variant: 'secondary' } };
 export const Nu: Story = { args: { variant: 'plain' } };
 export const Destructeur: Story = { args: { variant: 'destructive' } };
 export const DestructeurNu: Story = { args: { variant: 'destructive-plain' } };
@@ -141,6 +143,9 @@ export const MenuDeroulantDisclosure: Story = {
     <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
       <SiriusButton variant="default" disclosure>
         Plus d'actions (Blanc)
+      </SiriusButton>
+      <SiriusButton variant="secondary" disclosure>
+        Trier (Gris)
       </SiriusButton>
       <SiriusButton variant="primary" disclosure>
         Options principales (Vert)

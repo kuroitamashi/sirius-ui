@@ -85,6 +85,11 @@
   background-color: var(--sirius-border);
 }
 
+/* Divider pour bouton Secondary (Gris) */
+.sirius-split-button--secondary .sirius-split-button__divider {
+  background-color: var(--s-color-bg-fill-secondary-active);
+}
+
 /* Divider pour bouton Destructive (Rouge) */
 .sirius-split-button--destructive .sirius-split-button__divider {
   background-color: #8a1500;

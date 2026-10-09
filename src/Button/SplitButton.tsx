@@ -55,6 +55,7 @@ export interface SiriusSplitButtonProps {
    * Variante de couleur Sirius UI :
    * - 'default'   : Blanc avec bordure biseautée
    * - 'primary'   : Vert SKS signature
+   * - 'secondary' : Gris plein
    * - 'destructive', etc.
    */
   variant?: SiriusButtonProps['variant'];
