@@ -60,6 +60,13 @@
       a.querySelectorAll('*').forEach((c) => { if (meme(c) && !pile.includes(c)) pile.push(c); });
     }
   }
+  // Une ligne de tableau : le survol et l'arrondi vivent souvent sur ses cellules
+  // de bout (première et dernière), qui n'ont pas la taille de la ligne.
+  const tr = pick.closest('tr');
+  if (tr) {
+    if (!pile.includes(tr)) pile.unshift(tr);
+    for (const c of [tr.cells[0], tr.cells[tr.cells.length - 1]]) if (c && !pile.includes(c)) pile.push(c);
+  }
   const lignes = [];
   for (const e of pile) for (const ps of ['', '::before', '::after', ...(/^(INPUT|TEXTAREA)$/.test(e.tagName) ? ['::placeholder'] : [])]) {
     const p = porte(e, ps);
