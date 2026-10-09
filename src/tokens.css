@@ -234,6 +234,12 @@
      diffus. Relevé du 2026-10-09 sur la version récente de l'admin de référence
      (--s-button-variant-secondary-box-shadow, absent des --p-*). */
   --s-shadow-button-default: 0 0 0 1px #00000012, 0 2px 20px 0 #00000008, 0 5px 20px 0 #00000008, 0 8px 60px 0 #00000008;
+  /* Champ de saisie : pas de bordure, un liseré d'ombre à 13 % et deux ombres
+     portées très légères (--p-shadow-input, relevé du 2026-10-09). L'anneau
+     se compose à part pour que survol, focus et erreur n'en changent que la
+     couleur. */
+  --s-shadow-input-drop: 0 .125rem .1875rem -.0625rem #0000000a, 0 .1875rem .25rem -.09375rem #0000000a;
+  --s-shadow-input: var(--s-shadow-input-drop), 0 0 0 1px #00000021;
   --s-color-button-gradient-bg-fill: radial-gradient(50% 50% at 50% 0%, #ffffff33 0%, #ffffff00 100%), radial-gradient(49.59% 37.11% at 50.41% 101.56%, #ffffff26 0%, #ffffff00 66.46%);
   --s-color-button-primary-text: #ffffff;
   --s-color-button-primary-text-hover: #dddddd;

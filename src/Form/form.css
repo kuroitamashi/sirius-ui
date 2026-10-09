@@ -44,64 +44,67 @@
   position: relative;
   display: flex;
   align-items: center;
+  /* cadre de l'admin de référence : fond blanc, contour porté par l'ombre,
+     aucune bordure (sinon trait doublé) ; 32 px comme les boutons */
   background: #ffffff;
-  border: 1px solid var(--s-color-input-border);
+  border: 0;
   border-radius: var(--s-border-radius-control);
-  box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.05);
-  transition: border-color 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+  box-shadow: var(--s-shadow-input);
+  transition: box-shadow 0.1s ease, background-color 0.1s ease;
   overflow: hidden;
   box-sizing: border-box;
-  min-height: 36px;
+  min-height: 32px;
 }
 
 .sirius-input-box:hover:not(.sirius-input-box--disabled):not(.sirius-input-box--error) {
-  border-color: var(--s-color-input-border-hover);
+  box-shadow: var(--s-shadow-input-drop), 0 0 0 1px var(--s-color-input-border-hover);
 }
 
 .sirius-input-box:focus-within:not(.sirius-input-box--disabled):not(.sirius-input-box--error) {
-  border-color: #202020;
-  box-shadow: 0 0 0 1px #202020;
+  box-shadow: var(--s-shadow-input-drop), 0 0 0 2px #202020;
   outline: none;
 }
 
 /* État Désactivé */
 .sirius-input-box--disabled {
   background: var(--sirius-surface-active);
-  border-color: var(--sirius-border);
-  box-shadow: none;
+  box-shadow: 0 0 0 1px var(--sirius-border);
   cursor: not-allowed;
 }
 
 /* État Erreur (Rose clair + bordure rouge comme dans Figma) */
 .sirius-input-box--error {
   background: #fee8e7;
-  border-color: #c01025;
+  box-shadow: 0 0 0 1px #c01025;
 }
 
 .sirius-input-box--error:focus-within {
-  border-color: #c01025;
-  box-shadow: 0 0 0 1px #c01025;
+  box-shadow: 0 0 0 2px #c01025;
 }
 
 /* --- Éléments internes d'input --- */
 .sirius-input {
   width: 100%;
   height: 100%;
-  min-height: 34px;
-  padding: 7px 12px;
+  min-height: 32px;
+  padding: 6px 12px;
   border: none;
   background: transparent;
   font-family: inherit;
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--sirius-text);
-  line-height: 1.3;
+  line-height: 20px;
   box-sizing: border-box;
   outline: none;
   -webkit-tap-highlight-color: transparent;
 }
 
+.sirius-input:not(:placeholder-shown) {
+  font-weight: 450;
+}
+
 .sirius-input::placeholder {
-  color: var(--sirius-text-faint);
+  color: var(--s-color-text-secondary);
 }
 
 .sirius-input-box--disabled .sirius-input {
