@@ -27,3 +27,8 @@
 
 /* Les fenêtres et infobulles sont montées dans <body>, hors du décorateur. */
 body { font-family: var(--sirius-font); }
+
+/* app.css (socle d'application) pose un fond sombre sur <body>. Chargé une
+   fois par l'histoire Frame, il resterait pour toutes les autres : hors d'un
+   cadre d'application, l'aperçu garde son fond blanc. */
+body.sb-show-main:not(:has(.shell)) { background: #ffffff; }

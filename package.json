@@ -1,6 +1,6 @@
 {
   "name": "@kuroitamashi/sirius-ui",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Modern, high-performance Design System built with React and TypeScript.",
   "main": "./src/index.ts",
   "module": "./src/index.ts",
@@ -28,7 +28,8 @@
       "types": "./src/DatePicker/periods.ts",
       "import": "./src/DatePicker/periods.ts",
       "default": "./src/DatePicker/periods.ts"
-    }
+    },
+    "./app.css": "./src/Frame/app.css"
   },
   "files": [
     "src",

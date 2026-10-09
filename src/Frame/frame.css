@@ -1,0 +1,1471 @@
+/* ==========================================================================
+   Sirius Frame, le cadre d'une application SKS (barre latérale, rail, tiroir,
+   compagnon, menus du pied). Repris tel quel du dashboard marchand le
+   2026-10-09 : les classes gardent leurs noms (.shell, .sidebar-*, .main),
+   que les menus de chaque application (boutique, cloche) ciblent aussi.
+   ========================================================================== */
+
+/* --compagnon-w : largeur du panneau, pilotee par la poignee et memorisee
+   dans localStorage. La valeur ici n'est que le defaut du premier rendu. */
+/* Cadre a hauteur d'ecran : la fenetre ne defile pas, c'est le contenu qui
+   defile DANS son plan. Sans cela, le compagnon (et la sidebar) heritaient du
+   defilement de la page : des qu'une banniere s'ajoutait au-dessus de la
+   topbar, leur pied passait sous le bord bas de la fenetre et il fallait
+   scroller pour atteindre le champ de saisie. */
+.shell {
+  display: flex; flex-direction: column;
+  height: 100dvh; overflow: hidden;
+  background: var(--frame-bg);
+  --compagnon-w: 360px;
+}
+/* Pendant le glissement, aucune transition : sinon la poignee traine derriere
+   le curseur. */
+.shell[data-drag] .shell-body,
+.shell[data-drag] .compagnon-poignee,
+.shell[data-drag] .compagnon-inner { transition: none; }
+/* La troisieme colonne (compagnon) existe en permanence, a 0px quand il est
+   ferme : une colonne qui apparait n'a pas d'etat de depart a animer. */
+.shell-body {
+  display: grid; grid-template-columns: 240px 1fr 0px; flex: 1; min-height: 0;
+  position: relative;
+  background: var(--frame-bg);
+}
+/* Mode réglages (façon Shopify) : la sidebar principale reste, en rail
+   (ShellFrame l'impose), et la colonne des réglages se colle à côté, dans
+   .main. .main ne dessine donc plus le canevas blanc : c'est .settings-body
+   qui le fait, à droite de la colonne. Le compagnon n'a rien à faire ici. */
+.shell[data-settings] .compagnon,
+.shell[data-settings] .compagnon-poignee,
+.shell[data-settings] .compagnon-dock-wrapper {
+  display: none !important;
+}
+.shell[data-settings] .main {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  overflow: hidden;
+}
+.sidebar {
+  background: var(--sidebar-bg);
+  display: flex; flex-direction: column; padding: 14px 12px;
+  height: 100%; min-height: 0; overflow-y: auto;
+  color: var(--sidebar-text);
+  user-select: none;
+}
+.sidebar-top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 2px 4px 12px;
+}
+.sidebar-brand {
+  display: flex; align-items: center; gap: 10px;
+}
+.sidebar-brand-mark {
+  /* Le logo icône SKS (public/sks-icon.png), qui sert aussi de favicon */
+  width: 28px; height: 28px; object-fit: contain; display: block;
+}
+.sidebar-brand-text {
+  font-size: 14px; font-weight: var(--weight-semibold);
+  color: #ffffff; letter-spacing: -0.01em;
+}
+.sidebar-search {
+  width: 100%; display: flex; align-items: center; gap: 8px;
+  padding: 5px 10px; margin-bottom: 12px;
+  background: var(--sidebar-glass-field); box-shadow: var(--sidebar-field-edge);
+  border: none; border-radius: var(--radius-xl);
+  color: var(--sidebar-text-muted); cursor: pointer; text-align: left;
+  transition: all 0.15s ease;
+}
+.sidebar-search:hover {
+  background: var(--sidebar-glass-field); filter: brightness(1.15); color: #ffffff;
+}
+.sidebar-search svg { color: var(--sidebar-icon); flex-shrink: 0; }
+.sidebar-search:hover svg { color: #ffffff; }
+.sidebar-search-text { flex: 1; font-size: 13px; font-weight: var(--weight-regular); }
+.sidebar-search-kbd {
+  font-size: 11px; font-family: inherit; font-weight: var(--weight-medium);
+  padding: 2px 5px; border-radius: 4px;
+  background: none; border: none;
+  color: #a1a1aa; line-height: 1;
+}
+.sidebar-nav { flex: 1; }
+/* Carte mode visite (dans la sidebar, style Shopify épuré light mode sans bordure) */
+.sidebar-visite-card {
+  background: #f4f4f6;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+.sidebar-visite-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sidebar-visite-card-eyebrow {
+  font-size: 11px;
+  font-weight: var(--weight-medium);
+  color: #6b7280;
+  line-height: 1.3;
+}
+.sidebar-visite-card-name {
+  font-size: 13px;
+  font-weight: var(--weight-semibold);
+  color: #111827;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sidebar-visite-card-form {
+  margin: 0;
+}
+
+/* Réglages : ancré en bas, pas de barre séparatrice */
+.sidebar-reglages { padding-top: 4px; margin-bottom: 4px; }
+.sidebar-bottom {
+  margin-top: auto; padding-top: 8px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.sidebar-user-section {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  /* Pas de fond, façon Shopify : juste la boutique à gauche, la cloche à droite */
+  padding: 0;
+}
+.sidebar-menu-wrapper { flex: 1; min-width: 0; }
+.sidebar-store-pill {
+  display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; padding: 2px;
+}
+.sidebar-store-avatar {
+  width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0;
+  background: #ec4899; color: #ffffff; display: grid; place-items: center;
+  font-size: 10px; font-weight: var(--weight-semibold);
+}
+.sidebar-store-meta {
+  display: flex; align-items: center; gap: 6px; min-width: 0; flex: 1;
+}
+.sidebar-store-name {
+  font-size: 12px; font-weight: var(--weight-semibold); color: #ffffff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.sidebar-store-badge {
+  font-size: 10px; padding: 1px 4px; border-radius: 4px;
+  background: var(--sidebar-active); color: var(--sidebar-text-muted); line-height: 1.2;
+}
+.sidebar-bell-wrapper .topbar-bell {
+  color: var(--sidebar-text-muted); padding: 0;
+  width: var(--sidebar-row); height: var(--sidebar-row);
+  /* Survol en cercle parfait : on annule le superellipse de la sidebar */
+  border-radius: 50%; corner-shape: round;
+}
+/* Le nombre se pose sur le coin de la cloche au lieu de la recouvrir */
+.sidebar-bell-wrapper .topbar-bell-count {
+  top: -4px; right: -6px; border-color: var(--sidebar-bg); corner-shape: round;
+}
+.sidebar-bell-wrapper .topbar-bell:hover {
+  background: var(--sidebar-hover); color: #ffffff;
+}
+
+.sidebar-toggle {
+  display: grid; place-items: center; padding: 0; flex-shrink: 0;
+  width: var(--sidebar-row); height: var(--sidebar-row);
+  background: none; border: none; border-radius: 50%; color: var(--sidebar-text-muted);
+  cursor: pointer;
+}
+.sidebar-toggle:hover { background: var(--sidebar-hover); color: #ffffff; }
+/* Plus spécifique que « .sidebar * » qui pose le superellipse, sinon pas de cercle */
+.sidebar .sidebar-toggle { corner-shape: round; }
+.sidebar-section {
+  font-size: 11px; font-weight: var(--weight-semibold); letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--sidebar-text-faint); padding: 14px 10px 6px;
+}
+.sidebar-item {
+  display: flex; align-items: center; gap: 10px; height: var(--sidebar-row); padding: 0 10px;
+  border-radius: var(--radius-xl); color: var(--sidebar-text-muted); font-weight: var(--weight-medium);
+  font-size: var(--text-m); transition: background 0.15s ease, color 0.15s ease;
+  border: none; outline: none; background: transparent;
+}
+.sidebar-item svg { flex-shrink: 0; color: var(--sidebar-icon); }
+.sidebar-item:hover:not(.active):not(.disabled) {
+  background: var(--sidebar-hover); color: #ffffff;
+}
+.sidebar-item:hover:not(.active):not(.disabled) svg { color: #ffffff; }
+.sidebar-item.active {
+  background: var(--sidebar-glass);
+  color: #ffffff; font-weight: var(--weight-semibold);
+  box-shadow: var(--sidebar-glass-edge);
+}
+.sidebar-item.active svg { color: #ffffff; }
+/* Focus clavier sur le fond sombre : blanc plein, et pas 20 % de blanc, qui
+   donnait 1,6:1 sur #111215 (il faut 3:1). Posé à l'intérieur de l'élément
+   pour ne pas être rogné par le défilement de la nav. */
+.sidebar-item:focus-visible,
+.sidebar-subitem:focus-visible,
+.sidebar-search:focus-visible,
+.sidebar-toggle:focus-visible,
+.sidebar .shop-menu-trigger:focus-visible,
+.sidebar .topbar-bell:focus-visible {
+  outline: 2px solid var(--sidebar-text);
+  outline-offset: -2px;
+}
+.sidebar-item.disabled { cursor: default; }
+.sidebar-item .soon { margin-left: auto; font-size: var(--text-s); color: var(--sidebar-text-faint); }
+.sidebar-badge {
+  margin-left: auto; min-width: 18px; padding: 1px 6px;
+  background: rgba(245, 158, 11, 0.2); color: #fbbf24;
+  border-radius: 999px; text-align: center;
+  font-size: 11px; font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Groupe dépliable */
+.sidebar-group-btn { width: 100%; border: none; outline: none; background: none; text-align: left; cursor: pointer; }
+.sidebar-chevron { margin-left: auto; display: grid; place-items: center; transition: rotate 0.2s ease; }
+.sidebar-group.open .sidebar-chevron { rotate: 90deg; }
+.sidebar-subwrap {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows 0.22s ease;
+}
+.sidebar-group.open .sidebar-subwrap { grid-template-rows: 1fr; }
+.sidebar-sub {
+  display: grid; gap: 2px; overflow: hidden; min-height: 0;
+  margin-left: 14px; padding-left: 10px;
+  border-left: 1px solid var(--sidebar-border);
+  opacity: 0; transition: opacity 0.22s ease;
+}
+.sidebar-group.open .sidebar-sub { opacity: 1; }
+.sidebar-subitem {
+  display: flex; align-items: center; height: var(--sidebar-row); padding: 0 10px;
+  border-radius: var(--radius-xl); color: var(--sidebar-text-muted); font-weight: var(--weight-regular);
+  font-size: var(--text-m); transition: background 0.15s ease, color 0.15s ease;
+}
+.sidebar-subitem:hover { background: var(--sidebar-hover); color: #ffffff; }
+.sidebar-subitem.active {
+  background: var(--sidebar-glass); box-shadow: var(--sidebar-glass-edge);
+  color: #ffffff; font-weight: var(--weight-semibold);
+}
+.sidebar-subitem.disabled { display: flex; align-items: center; cursor: default; color: var(--sidebar-text-faint); }
+.sidebar-subitem.disabled:hover { background: none; }
+.sidebar-subitem.disabled .soon { margin-left: auto; font-size: var(--text-s); color: var(--sidebar-text-faint); }
+/* Topbar : bande sombre pleine largeur. Pas de bordure basse — le saut de
+   couleur separe mieux qu'un liseré, et c'est elle qui donne son aplomb au
+   cadre entier. */
+.topbar {
+  height: 64px; background: var(--frame); color: var(--frame-text);
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  gap: 12px; padding: 0 24px;
+  /* plus de sticky : le cadre ne defile plus, la topbar est simplement en
+     haut de la colonne et ne peut pas bouger. */
+  flex: none; z-index: 10;
+}
+.topbar-left { display: flex; align-items: center; gap: 12px; justify-self: start; min-width: 0; }
+.topbar-brand { display: flex; align-items: center; flex-shrink: 0; }
+/* Marque inversee : sur fond vert sombre, un carre vert disparaitrait. */
+.topbar-brand-mark {
+  width: 32px; height: 32px; border-radius: 8px; background: var(--frame-text);
+  color: var(--frame); display: grid; place-items: center; font-weight: var(--weight-semibold); font-size: var(--text-xs);
+  letter-spacing: 0.02em; flex-shrink: 0;
+}
+.topbar-right { display: flex; align-items: center; gap: 12px; justify-self: end; min-width: 0; }
+/* Champ pose sur le sombre : un voile de blanc plutot qu'une surface claire,
+   qui trouerait la bande. */
+.topbar-search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--frame-field); border: 1px solid var(--frame-field-border);
+  border-radius: var(--radius);
+  padding: 8px 12px; width: 380px; color: var(--frame-muted);
+}
+.topbar-search:focus-within,
+.topbar-search-trigger:hover { border-color: var(--frame-text); background: var(--frame-hover); }
+.topbar-search-trigger {
+  cursor: pointer;
+  text-align: left;
+  user-select: none;
+}
+.topbar-search-text {
+  flex: 1;
+  color: var(--frame-muted);
+  font-size: var(--text-m);
+}
+.topbar-search-kbd {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: var(--weight-medium);
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--frame-hover);
+  border: 1px solid var(--frame-field-border);
+  color: var(--frame-muted);
+  line-height: 1;
+}
+.topbar-search input {
+  border: none; background: none; outline: none; width: 100%;
+  color: var(--frame-text); font-size: var(--text-m);
+}
+.topbar-search input::placeholder { color: var(--frame-muted); }
+/* --- Boutique + compte fusionnes (ShopMenu) ---
+   Le bouton dit ou tu es, le menu dit qui tu es. */
+.shop-menu { position: relative; }
+.shop-menu-trigger {
+  display: flex; align-items: center; gap: 8px;
+  background: none; border: none; padding: 5px 10px 5px 5px;
+  border-radius: 999px; color: var(--frame-text);
+}
+.shop-menu-trigger:hover { background: var(--frame-hover); }
+.shop-menu-trigger > svg { color: var(--frame-muted); flex-shrink: 0; }
+.shop-menu-label {
+  font-size: var(--text-m); font-weight: var(--weight-semibold);
+  white-space: nowrap; max-width: 220px; overflow: hidden; text-overflow: ellipsis;
+}
+/* Pastille de la boutique : inversee comme la marque, pour la meme raison —
+   du vert sur du vert disparaitrait. Elle sert aussi dans le popover, sur
+   fond blanc cette fois, d'ou le fond vert plein la-bas. */
+.shop-menu-mark {
+  width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+  background: var(--frame-text); color: var(--frame);
+  display: grid; place-items: center;
+  font-size: var(--text-xs); font-weight: var(--weight-semibold); letter-spacing: 0.02em;
+}
+.shop-menu-pop {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 30;
+  /* Largeur fixe : sans plafond, un email long elargirait le popover au lieu
+     d'etre tronque. */
+  width: 320px; max-width: calc(100vw - 24px);
+  /* Meme materiau que la sidebar et la feuille des alertes */
+  background: #1c1c1c; color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px; box-shadow: 0 12px 32px rgb(0 0 0 / 0.45);
+  padding: 8px;
+}
+/* Boutique et compte au meme niveau : meme taille de pastille, meme corps de
+   texte, aucun fond par defaut. Seul un trait les separe. */
+.shop-menu-pop .shop-menu-mark { width: 36px; height: 36px; border-radius: var(--radius-l); }
+.shop-menu-lieu {
+  display: flex; align-items: center; gap: 12px; padding: 10px;
+}
+.shop-menu-lieu-nom {
+  font-size: var(--text-m); font-weight: var(--weight-semibold); color: #ffffff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.shop-menu-id {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 8px; padding: 10px; border-radius: var(--radius-xl);
+  color: inherit; text-decoration: none; position: relative;
+}
+/* Le trait entre boutique et compte, en retrait du padding pour ne pas
+   toucher le survol arrondi du compte */
+.shop-menu-id::before {
+  content: ""; position: absolute; top: -4px; left: 10px; right: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+a.shop-menu-id:hover { background: rgba(255, 255, 255, 0.08); }
+a.shop-menu-id:focus-visible { outline: 2px solid #ffffff; outline-offset: -2px; }
+.shop-menu-avatar {
+  width: 36px; height: 36px; border-radius: 999px; flex-shrink: 0;
+  background: #3a3a3a; color: #ffffff; display: grid; place-items: center;
+  font-size: var(--text-xs); font-weight: var(--weight-semibold);
+}
+.shop-menu-id-texte { display: grid; line-height: 1.35; min-width: 0; }
+.shop-menu-nom { font-size: var(--text-m); font-weight: var(--weight-semibold); color: #ffffff; }
+.shop-menu-email {
+  font-size: var(--text-s); color: #a1a1aa;
+  /* nowrap indispensable : un email a tiret offre un point de cesure, et
+     text-overflow ne s'applique qu'a une ligne unique. */
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.shop-menu-actions { padding-top: 4px; margin-top: 4px; }
+.shop-menu-action {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; background: none; border: none; text-align: left;
+  padding: 10px; border-radius: var(--radius-xl); cursor: pointer;
+  color: #ffffff; font-size: var(--text-m);
+}
+.shop-menu-action svg { flex-shrink: 0; }
+.shop-menu-action:hover { background: rgba(255, 255, 255, 0.08); color: #ffffff; }
+.shop-menu-actions form .shop-menu-action { color: #f87171; }
+.shop-menu-actions form .shop-menu-action:hover { background: rgba(248, 113, 113, 0.12); color: #fca5a5; }
+.shop-menu-action:focus-visible { outline: 2px solid #ffffff; outline-offset: -2px; }
+.topbar-ia {
+  background: none; border: none; color: var(--frame-muted);
+  display: grid; place-items: center; padding: 8px; border-radius: var(--radius);
+}
+.topbar-ia:hover { background: var(--frame-hover); color: var(--frame-text); }
+/* panneau ouvert : l'icone reste allumee, comme un onglet actif */
+.topbar-ia[aria-expanded='true'] { background: var(--frame-hover); color: var(--frame-text); }
+.topbar-bell {
+  position: relative; background: none; border: none; color: var(--frame-muted);
+  display: grid; place-items: center; padding: 8px; border-radius: var(--radius);
+}
+.topbar-bell:hover { background: var(--frame-hover); color: var(--frame-text); }
+.notif-menu { position: relative; }
+/* Le nombre, et non un point : un point rouge fixe a déjà menti une fois. */
+.topbar-bell-count {
+  position: absolute; top: 2px; right: 2px; min-width: 16px; height: 16px; padding: 0 4px;
+  border-radius: 999px; background: var(--down); color: #fff;
+  font-size: 11px; font-weight: var(--weight-semibold); line-height: 16px; text-align: center;
+  border: 1.5px solid var(--frame);
+}
+.notif-pop {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 30;
+  width: 360px; max-height: min(70vh, 560px);
+  display: flex; flex-direction: column;
+  background: #1c1c1c; color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px; box-shadow: 0 12px 32px rgb(0 0 0 / 0.45);
+  padding: 8px;
+}
+/* En-tête façon Shopify : titre à gauche, filtrer et tout lire à droite */
+.notif-liste { flex: 1; min-height: 0; overflow-y: auto; }
+.notif-tete { display: flex; align-items: center; gap: 4px; padding: 6px 6px 8px 10px; }
+.notif-tete h2 { margin: 0 auto 0 0; font-size: 16px; font-weight: var(--weight-semibold); color: #ffffff; }
+/* Au bureau la cloche est dans le pied de la sidebar, qui coupe tout
+   débordement : la feuille sort en fixe, posée à droite de la sidebar. */
+.sidebar-bottom .notif-pop { position: fixed; top: auto; bottom: 12px; left: 248px; right: auto; z-index: 80; }
+.shell[data-replie] .sidebar-bottom .notif-pop,
+html[data-sidebar-replie="true"] .sidebar-bottom .notif-pop { left: 68px; }
+.notif-icone {
+  display: grid; place-items: center; width: 36px; height: 36px; padding: 0;
+  background: none; border: none; border-radius: 999px; color: #a1a1aa; cursor: pointer;
+}
+.notif-icone:hover:not(:disabled), .notif-icone[aria-pressed="true"] { background: rgba(255, 255, 255, 0.08); color: #ffffff; }
+.notif-icone:disabled { opacity: 0.4; cursor: default; }
+.notif-filtres { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 10px 8px; }
+.notif-filtre {
+  padding: 4px 12px; border: none; border-radius: 999px; cursor: pointer;
+  background: rgba(255, 255, 255, 0.08); color: #d4d4d8; font-size: var(--text-m);
+}
+.notif-filtre:hover { background: rgba(255, 255, 255, 0.14); color: #ffffff; }
+.notif-filtre[aria-pressed="true"] { background: #ffffff; color: #111111; }
+.notif-zone + .notif-zone { border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 6px; padding-top: 6px; }
+.notif-zone ul { list-style: none; margin: 0; padding: 0; }
+.notif-zone-tete {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 10px;
+}
+.notif-zone-tete h3 { margin: 0; font-size: var(--text-m); font-weight: var(--weight-semibold); color: #d4d4d8; }
+.notif-compteur { font-size: var(--text-m); color: #a1a1aa; }
+.notif-ligne {
+  display: flex; align-items: flex-start; gap: 10px; padding: 8px 10px;
+  border-radius: 10px; color: #ffffff; text-decoration: none; font-size: var(--text-m);
+}
+.notif-ligne:hover { background: rgba(255, 255, 255, 0.06); color: #ffffff; }
+.notif-ligne svg { flex-shrink: 0; color: #a1a1aa; }
+.notif-icone:focus-visible, .notif-filtre:focus-visible, .notif-ligne:focus-visible { outline: 2px solid #ffffff; outline-offset: -2px; }
+/* Vide : un bloc gris posé dans la feuille, comme chez Shopify */
+.notif-vide {
+  margin: 0 2px 2px; padding: 28px 20px; border-radius: 12px; background: #262626;
+  text-align: center; font-size: var(--text-m); line-height: 1.5; color: #a1a1aa;
+}
+/* Mobile : feuille pleine largeur sous la topbar, pas un popover qui déborde. */
+@media (max-width: 767px) {
+  .topbar { position: relative; }
+  .notif-menu { position: static; }
+  .notif-pop { top: 100%; left: 0; right: 0; width: auto; border-radius: 0 0 var(--radius-l) var(--radius-l); }
+}
+/* Le contenu est une île flottante blanche posée sur le cadre sombre */
+.main {
+  display: flex; flex-direction: column; min-width: 0;
+  background: var(--surface); border-radius: 16px;
+  margin: 0 12px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  min-height: 0; overflow-y: auto;
+  position: relative;
+}
+/* Compagnon fermé : la gouttière de droite n'a plus de raison d'être, le
+   contenu va jusqu'au bord de l'écran, comme chez Shopify. Les coins de
+   droite restent arrondis, comme ceux de gauche. */
+.shell:not([data-compagnon]) .main { margin-right: 0; }
+
+.mobile-menu-trigger {
+  display: none;
+}
+@media (max-width: 767px) {
+  /* Bouton flottant rond en bas à gauche, comme l'admin Shopify mobile, à
+     portée du pouce. Fond sombre de la sidebar, icône claire, pas de bordure
+     (bouton icône : seul le fond change au survol). Ombre décalée vers la
+     droite et le bas. La marge du bas suit la barre d'accueil de l'iPhone. */
+  .mobile-menu-trigger {
+    display: inline-flex; align-items: center; justify-content: center;
+    position: fixed; left: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 50;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--sidebar-bg); color: #ffffff; border: none;
+    cursor: pointer;
+    box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.28), 1px 2px 4px rgba(0, 0, 0, 0.18);
+    transition: background-color 0.15s ease;
+  }
+  .mobile-menu-trigger:hover { background: var(--sidebar-active); }
+  .main {
+    margin: 8px;
+    border-radius: 12px;
+  }
+}
+
+/* --- Compagnon IA : troisieme colonne de la grille ---
+   Il pousse le contenu au lieu de le recouvrir : on doit pouvoir lire la page
+   et parler au compagnon en meme temps. Contrairement a la sidebar, il garde
+   une bordure et un fond blanc — la sidebar EST le cadre, lui est un panneau
+   rapporte, et doit se lire comme tel. */
+/* La colonne elle-meme ne porte aucun decor : elle cadre et rogne. Le decor
+   vit sur `compagnon-inner`, qui garde sa largeur pendant que la colonne
+   s'ouvre. */
+.compagnon {
+  overflow: hidden; min-width: 0;
+  height: 100%;
+}
+/* Carte posee sur le gris du cadre, façon Shopify : une gouttiere laisse le
+   fond reapparaitre entre le contenu et le panneau, et les coins gauches sont
+   arrondis. A fleur du bord droit — un coin arrondi cote fenetre n'aurait rien
+   a border. */
+.compagnon-inner {
+  position: relative;
+  display: flex; flex-direction: column;
+  height: calc(100% - 24px); min-height: 0; margin: 12px 0;
+  width: var(--compagnon-w);
+  background: var(--surface);
+  border: 1px solid var(--border); border-right: none;
+  border-radius: var(--radius-l) 0 0 var(--radius-l);
+  /* ferme : hors champ a droite. La colonne l'ouvre, ceci le fait glisser. */
+  translate: 100% 0;
+  transition: translate 260ms ease;
+}
+.shell[data-compagnon] .compagnon-inner { translate: 0 0; }
+/* Poignee de redimensionnement : elle occupe TOUTE la gouttiere, plus 2px de
+   part et d'autre, sur toute la hauteur de la page. C'est l'espace entre le
+   contenu et le panneau qu'on attrape, pas un liseré sur le panneau.
+   Transparente au repos : c'est le curseur qui l'annonce. */
+.compagnon-poignee {
+  position: absolute; top: 0; bottom: 0; z-index: 2;
+  right: calc(var(--compagnon-w) - 2px); width: 16px;
+  background: none; border: none; padding: 0;
+  cursor: col-resize; touch-action: none;
+}
+.compagnon-poignee::after {
+  content: ''; position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: 2px; height: 28px; border-radius: 999px; background: var(--text-faint);
+  opacity: 0; transition: opacity 140ms ease;
+}
+.compagnon-poignee:hover::after, .compagnon-poignee:focus-visible::after { opacity: 1; }
+.compagnon-poignee:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+.compagnon-tete {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 12px 12px 16px; border-bottom: 1px solid var(--border);
+}
+.compagnon-titre {
+  display: flex; align-items: center; gap: 8px;
+  font-size: var(--text-m); font-weight: var(--weight-semibold); color: var(--text);
+}
+.compagnon-titre svg { color: var(--primary); }
+.compagnon-badge {
+  font-size: var(--text-s); font-weight: var(--weight-semibold);
+  color: var(--primary); background: var(--primary-pale);
+  padding: 2px 8px; border-radius: 999px;
+}
+.compagnon-fermer { margin-left: auto; }
+/* Corps centre : c'est une annonce, pas une conversation — rien a faire
+   defiler, donc rien a aligner en haut. */
+.compagnon-corps {
+  flex: 1; overflow-y: auto;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; padding: 24px; text-align: center;
+}
+.compagnon-glyphe {
+  display: grid; place-items: center; width: 56px; height: 56px;
+  border-radius: 999px; background: var(--primary-pale); color: var(--primary);
+}
+.compagnon-accroche { font-size: var(--text-l); font-weight: var(--weight-semibold); color: var(--text); }
+.compagnon-texte { font-size: var(--text-m); color: var(--text-muted); max-width: 30ch; }
+.compagnon-pied { padding: 12px; border-top: 1px solid var(--border); }
+/* Champ desactive : il montre la forme de ce qui vient. `disabled` et non
+   `readonly`, pour que le clavier ne l'atteigne pas. */
+.compagnon-champ {
+  width: 100%; padding: 10px 12px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text-faint); font-size: var(--text-m);
+  cursor: not-allowed;
+}
+/* Par défaut, toute page occupe la largeur disponible. Le plafonnement est un
+   choix explicite, jamais un défaut : on ajoute .page--narrow au cas par cas. */
+.page {
+  padding: 24px; display: grid; gap: 24px; align-content: start;
+  width: 100%;
+}
+/* Gouttière plus étroite sur tablette et téléphone. Ici et pas dans globals.css :
+   shell.css est chargé après, sa règle .page l'emportait et le 16 px ne
+   s'appliquait jamais. */
+@media (max-width: 1023.98px) { .page { padding: 16px; gap: 16px; } }
+/* Pages « thin » : tout ce qui n'est ni une table d'affichage, ni un tableau
+   de bord, ni de l'analytics. Un formulaire ou une fiche n'a rien a gagner a
+   s'etaler sur 2000 px ; une table, si. Voir
+   docs/superpowers/specs/2026-08-23-mise-en-page-thin-design.md */
+.page--thin { max-width: 1000px; margin-inline: auto; }
+
+/* Bouton menu : replie la sidebar en rail (desktop), ouvre le drawer (mobile) */
+.topbar-menu {
+  display: grid; place-items: center; padding: 8px; flex-shrink: 0;
+  background: none; border: none; border-radius: var(--radius); color: var(--frame-muted);
+}
+.topbar-menu:hover { background: var(--frame-hover); color: var(--frame-text); }
+
+/* ============================================================
+   Desktop >= 1024px : sidebar repliable en rail d'icônes 60px
+   ============================================================ */
+@media (min-width: 1024px) {
+  /* Le burger de la topbar est mobile-only (ouvre le drawer) */
+  .topbar-menu { display: none; }
+  .sidebar-foot { display: none; }
+
+  /* Animation de transition fluide de la grille du shell */
+  .shell-body { transition: grid-template-columns 240ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .shell[data-compagnon] .shell-body { grid-template-columns: 240px 1fr var(--compagnon-w); }
+  .shell[data-compagnon][data-replie] .shell-body { grid-template-columns: 60px 1fr var(--compagnon-w); }
+  .shell[data-replie] .shell-body { grid-template-columns: 60px 1fr 0px; }
+  html[data-sidebar-replie="true"] .shell-body { grid-template-columns: 60px 1fr 0px; }
+  html[data-sidebar-replie="true"] .shell[data-compagnon] .shell-body { grid-template-columns: 60px 1fr var(--compagnon-w); }
+
+  /* Ajustements de la sidebar en mode rail compact (style Shopify Polaris) */
+  .shell[data-replie] .sidebar,
+  html[data-sidebar-replie="true"] .sidebar {
+    padding: 10px 4px;
+    align-items: center;
+    overflow: visible;
+  }
+  .shell[data-replie] .sidebar-top,
+  html[data-sidebar-replie="true"] .sidebar-top {
+    flex-direction: column;
+    gap: 8px;
+    padding: 2px 0 10px;
+    width: 100%;
+    align-items: center;
+  }
+  .shell[data-replie] .sidebar-brand,
+  html[data-sidebar-replie="true"] .sidebar-brand {
+    display: none !important;
+  }
+
+  /* Le bouton toggle en haut : logo SKS par défaut, devient bouton toggle au survol */
+  .shell[data-replie] .sidebar-toggle,
+  html[data-sidebar-replie="true"] .sidebar-toggle {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin: 0;
+    /* Survol en cercle, comme sidebar dépliée */
+    border-radius: 50%;
+    corner-shape: round;
+    position: relative;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .shell[data-replie] .sidebar-toggle:hover,
+  html[data-sidebar-replie="true"] .sidebar-toggle:hover {
+    background: var(--sidebar-active);
+  }
+  .shell[data-replie] .sidebar-toggle-brand-slot,
+  html[data-sidebar-replie="true"] .sidebar-toggle-brand-slot {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+  .shell[data-replie] .sidebar-toggle-brand-slot *,
+  html[data-sidebar-replie="true"] .sidebar-toggle-brand-slot * {
+    pointer-events: none;
+  }
+  .shell[data-replie] .sidebar-toggle-brand-slot .sidebar-brand-mark,
+  html[data-sidebar-replie="true"] .sidebar-toggle-brand-slot .sidebar-brand-mark {
+    width: 28px;
+    height: 28px;
+    transition: opacity 0.15s ease;
+  }
+  .shell[data-replie] .sidebar-toggle-hover-icon,
+  html[data-sidebar-replie="true"] .sidebar-toggle-hover-icon {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    color: #ffffff;
+  }
+  .shell[data-replie] .sidebar-toggle:hover .sidebar-toggle-brand-slot .sidebar-brand-mark,
+  html[data-sidebar-replie="true"] .sidebar-toggle:hover .sidebar-toggle-brand-slot .sidebar-brand-mark {
+    opacity: 0;
+  }
+  .shell[data-replie] .sidebar-toggle:hover .sidebar-toggle-hover-icon,
+  html[data-sidebar-replie="true"] .sidebar-toggle:hover .sidebar-toggle-hover-icon {
+    opacity: 1;
+  }
+  /* En réglages, le logo ne déplie pas le rail : il ramène à l'accueil.
+     Il reste donc visible au survol, et son infobulle le dit. */
+  .shell[data-replie] .sidebar-toggle-fixe:hover .sidebar-toggle-brand-slot .sidebar-brand-mark,
+  html[data-sidebar-replie="true"] .sidebar-toggle-fixe:hover .sidebar-toggle-brand-slot .sidebar-brand-mark {
+    opacity: 1;
+  }
+  .shell[data-replie] .sidebar-toggle.sidebar-toggle-fixe:hover::after {
+    content: "Quitter les paramètres";
+  }
+  /* Tooltip au survol du bouton toggle replié avec raccourci Ctrl+B */
+  .shell[data-replie] .sidebar-toggle:hover::after {
+    content: "Agrandir le menu   Ctrl B";
+    position: absolute;
+    left: calc(100% + 20px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--sidebar-bg);
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: var(--weight-medium);
+    white-space: nowrap;
+    z-index: 9999;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Recherche repliée : bouton carré compact centré avec icône */
+  .shell[data-replie] .sidebar-search,
+  html[data-sidebar-replie="true"] .sidebar-search {
+    /* Même squircle que les liens du rail ; marge calée pour garder 43px
+       entre la loupe et Accueil, comme Shopify */
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    justify-content: center;
+    border-radius: var(--radius-rail);
+    corner-shape: superellipse(1.5);
+    margin-bottom: 13px;
+    position: relative;
+    /* comme Shopify : dans le rail, la loupe seule, sans champ */
+    background: transparent;
+    box-shadow: none;
+  }
+  .shell[data-replie] .sidebar-search:hover,
+  html[data-sidebar-replie="true"] .sidebar-search:hover {
+    background: var(--sidebar-hover);
+    filter: none;
+  }
+  .shell[data-replie] .sidebar-search:hover::after {
+    content: "Recherche   Ctrl K";
+    position: absolute;
+    left: calc(100% + 20px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--sidebar-bg);
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: var(--weight-medium);
+    white-space: nowrap;
+    z-index: 9999;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .shell[data-replie] .sidebar-search-text,
+  .shell[data-replie] .sidebar-search-kbd,
+  html[data-sidebar-replie="true"] .sidebar-search-text,
+  html[data-sidebar-replie="true"] .sidebar-search-kbd {
+    display: none;
+  }
+
+  /* Titres de section : simples lignes de séparation fines et compactes */
+  .shell[data-replie] .sidebar-section,
+  html[data-sidebar-replie="true"] .sidebar-section {
+    height: 1px;
+    padding: 0;
+    margin: 6px 4px;
+    background: rgba(255, 255, 255, 0.08);
+    color: transparent;
+    overflow: hidden;
+  }
+
+  /* Masquage des labels texte, pastilles 'bientôt' et chevrons */
+  .shell[data-replie] .sidebar-label,
+  .shell[data-replie] .sidebar-item .soon,
+  .shell[data-replie] .sidebar-chevron,
+  html[data-sidebar-replie="true"] .sidebar-label,
+  html[data-sidebar-replie="true"] .sidebar-item .soon,
+  html[data-sidebar-replie="true"] .sidebar-chevron {
+    display: none;
+  }
+
+  /* Les items de navigation compacts (style Shopify Polaris) */
+  .shell[data-replie] .sidebar-nav,
+  html[data-sidebar-replie="true"] .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    align-items: center;
+  }
+  .shell[data-replie] .sidebar-section-wrap,
+  html[data-sidebar-replie="true"] .sidebar-section-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+  }
+  .shell[data-replie] .sidebar-item,
+  html[data-sidebar-replie="true"] .sidebar-item {
+    justify-content: center;
+    padding: 0;
+    /* 28px + 2px d'écart : une icône tous les 30px, mesuré sur Shopify */
+    width: 32px;
+    height: 28px;
+    margin: 0;
+    border-radius: var(--radius-rail);
+    corner-shape: superellipse(1.5);
+    position: relative;
+  }
+  .shell[data-replie] .sidebar-item svg,
+  html[data-sidebar-replie="true"] .sidebar-item svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Tooltip flottant au survol pour les items simples */
+  .shell[data-replie] a.sidebar-item:hover::after,
+  .shell[data-replie] span.sidebar-item:hover::after {
+    content: attr(data-label);
+    position: absolute;
+    left: calc(100% + 20px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--sidebar-bg);
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: var(--weight-medium);
+    white-space: nowrap;
+    z-index: 9999;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Badge de notification transformé en pastille sur l'icône */
+  .shell[data-replie] .sidebar-badge,
+  html[data-sidebar-replie="true"] .sidebar-badge {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    transform: translate(15%, -15%);
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    background: #374151;
+    color: #ffffff;
+    border-radius: 999px;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    border: 1.5px solid var(--sidebar-bg, #0f0f0f);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    z-index: 2;
+  }
+
+  /* Sous-menus en popover flottant à côté du parent (au survol ou clic) */
+  .shell[data-replie] .sidebar-group,
+  html[data-sidebar-replie="true"] .sidebar-group {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .shell[data-replie] .sidebar-group-btn:hover::after,
+  html[data-sidebar-replie="true"] .sidebar-group-btn:hover::after {
+    content: none !important;
+  }
+  .shell[data-replie] .sidebar-subwrap,
+  html[data-sidebar-replie="true"] .sidebar-subwrap {
+    display: none !important;
+    grid-template-rows: 1fr;
+    position: absolute;
+    left: calc(100% + 12px);
+    /* -6px = padding de .sidebar-sub : le premier choix tombe pile sur la
+       ligne du parent */
+    top: -6px;
+    padding: 0;
+    z-index: 9999;
+  }
+  /* Pas la place en dessous (NavGroup le mesure) : le flyout monte, sa
+     dernière ligne alignée sur le parent */
+  .shell[data-replie] .sidebar-subwrap[data-vers-haut],
+  html[data-sidebar-replie="true"] .sidebar-subwrap[data-vers-haut] {
+    top: auto;
+    bottom: -6px;
+  }
+  /* Pont invisible entre le bouton parent et le flyout sous-menu pour fluidifier le passage de la souris */
+  .shell[data-replie] .sidebar-subwrap::before,
+  html[data-sidebar-replie="true"] .sidebar-subwrap::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    bottom: -12px;
+    left: -20px;
+    width: 24px;
+    background: transparent;
+  }
+  /* Ouvre le popover uniquement au survol du groupe en mode replié */
+  /* .open en plus du survol : au clavier, Entrée sur le parent ouvre le
+     flyout, sinon les sous-pages sont inatteignables sans souris */
+  .shell[data-replie] .sidebar-group:hover .sidebar-subwrap,
+  html[data-sidebar-replie="true"] .sidebar-group:hover .sidebar-subwrap,
+  .shell[data-replie] .sidebar-group.open .sidebar-subwrap,
+  html[data-sidebar-replie="true"] .sidebar-group.open .sidebar-subwrap {
+    display: grid !important;
+  }
+  .shell[data-replie] .sidebar-sub,
+  html[data-sidebar-replie="true"] .sidebar-sub {
+    margin: 0;
+    padding: 6px;
+    background: var(--sidebar-bg);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+    min-width: 160px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .shell[data-replie] .sidebar-subitem {
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--sidebar-text-muted);
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .shell[data-replie] .sidebar-subitem:hover {
+    background: var(--sidebar-active);
+    color: #ffffff;
+  }
+  .shell[data-replie] .sidebar-subitem.active {
+    background: var(--sidebar-glass);
+    box-shadow: var(--sidebar-glass-edge);
+    color: #ffffff;
+    font-weight: var(--weight-semibold);
+  }
+
+  /* En mode replié : Masquage total de la carte de visite de la boutique */
+  .shell[data-replie] .sidebar-visite-card,
+  html[data-sidebar-replie="true"] .sidebar-visite-card {
+    display: none !important;
+  }
+
+  /* Réglages et bas de sidebar en mode compact */
+  .shell[data-replie] .sidebar-reglages,
+  html[data-sidebar-replie="true"] .sidebar-reglages {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-bottom: 2px;
+  }
+  .shell[data-replie] .sidebar-bottom,
+  html[data-sidebar-replie="true"] .sidebar-bottom {
+    width: 100%;
+    align-items: center;
+    gap: 4px;
+    padding-top: 4px;
+  }
+  .shell[data-replie] .sidebar-user-section,
+  html[data-sidebar-replie="true"] .sidebar-user-section {
+    padding: 4px 0;
+    /* La cloche reste visible dans le rail, empilée au-dessus de la boutique */
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    width: 100%;
+    background: transparent;
+  }
+  .shell[data-replie] .sidebar-store-pill,
+  html[data-sidebar-replie="true"] .sidebar-store-pill {
+    padding: 0;
+    justify-content: center;
+  }
+  .shell[data-replie] .sidebar-store-avatar,
+  html[data-sidebar-replie="true"] .sidebar-store-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+  }
+  .shell[data-replie] .sidebar-store-meta,
+  html[data-sidebar-replie="true"] .sidebar-store-meta {
+    display: none;
+  }
+  /* Rail : la pastille seule, centrée, sans le nom */
+  .shell[data-replie] .sidebar-user-section .shop-menu-label,
+  html[data-sidebar-replie="true"] .sidebar-user-section .shop-menu-label { display: none; }
+  .shell[data-replie] .sidebar-user-section .shop-menu-trigger,
+  html[data-sidebar-replie="true"] .sidebar-user-section .shop-menu-trigger { margin: 0 auto; padding: 0 8px; }
+}
+
+/* ============================================================
+   Mobile < 1024px : sidebar en drawer off-canvas + topbar compacte
+   ============================================================ */
+@media (max-width: 1023.98px) {
+  .shell-body { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed; top: 0; bottom: 0; left: 0; z-index: 70;
+    width: 280px; max-width: 85vw;
+    transform: translateX(-100%); transition: transform 0.25s ease;
+  }
+  .shell[data-drawer] .sidebar { transform: none; box-shadow: 0 0 48px rgb(0 0 0 / 0.25); }
+  .sidebar nav { overflow-y: auto; flex: 1; }
+  .shell-overlay {
+    position: fixed; inset: 0; z-index: 60; border: none; cursor: default;
+    background: rgb(17 24 39 / 0.4); animation: shell-fade 160ms ease-out;
+  }
+
+  /* Pas de gouttiere ni de plan arrondi : sur 390px, 12px de marge de chaque
+     cote plus les 24px de padding de .page etoufferaient le contenu. */
+  .main { margin: 0; border-radius: 0; }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    gap: 8px;
+  }
+  .topbar-left {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .topbar-right {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  /* La recherche s'insère proprement entre la marque et les actions sans déborder */
+  .topbar-search {
+    flex: 1;
+    width: auto;
+    max-width: 280px;
+    min-width: 0;
+    padding: 7px 10px;
+    gap: 6px;
+    justify-content: flex-start;
+    cursor: pointer;
+  }
+  .topbar-search svg { flex-shrink: 0; }
+  .topbar-search-text {
+    flex: 1;
+    min-width: 0;
+    font-size: var(--text-s);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Pas de raccourci clavier ⌘K / Ctrl+K sur smartphone */
+  .topbar-search-kbd {
+    display: none !important;
+  }
+  .topbar-search input {
+    width: 100%;
+    min-width: 0;
+    font-size: var(--text-s);
+  }
+  /* la pilule se reduit a la pastille : pas la place pour le nom ni le chevron */
+  .shop-menu-label, .shop-menu-trigger > svg { display: none; }
+  .shop-menu-trigger { padding: 4px; }
+  /* l'IA cede sa place avant la cloche, qui porte de l'information reelle.
+     L'icone etant le seul moyen d'ouvrir le compagnon, il reste inatteignable
+     ici — assume : la grille n'a pas la place d'une troisieme colonne, et
+     l'acces mobile se traitera quand le compagnon existera vraiment. */
+  .topbar-ia { display: none; }
+  .compagnon { display: none; }
+}
+@keyframes shell-fade { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar, .sidebar-subwrap, .sidebar-sub, .sidebar-chevron { transition: none; }
+  /* le panneau s'ouvre alors d'un coup, sans glisser ni pousser */
+  .shell-body, .compagnon-inner { transition: none; }
+}
+
+/* --- Modale de recherche globale avec flou d'arrière-plan (Command Palette) --- */
+.search-modal-backdrop {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex; justify-content: center; align-items: flex-start;
+  padding-top: 12vh;
+  animation: searchFadeIn 0.15s ease-out;
+}
+@keyframes searchFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.search-modal-panel {
+  background: var(--surface);
+  width: min(640px, 92vw);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  animation: searchScaleIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes searchScaleIn {
+  from { opacity: 0; transform: scale(0.96) translateY(-8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.search-modal-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+}
+.search-modal-icon { color: var(--text-muted); flex-shrink: 0; }
+.search-modal-input {
+  flex: 1; border: none; outline: none; background: transparent;
+  font-size: 15px; color: var(--text); font-family: inherit;
+}
+.search-modal-input::placeholder { color: var(--text-faint); }
+.search-modal-close {
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.search-modal-close kbd {
+  font-size: 11px; padding: 2px 6px; border-radius: 4px;
+  background: var(--bg); border: 1px solid var(--border); color: var(--text-muted);
+}
+.search-modal-chips {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 18px; background: var(--bg); border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.search-modal-chip {
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 12px; font-weight: var(--weight-medium);
+  border: 1px solid var(--border); background: var(--surface);
+  color: var(--text-muted); cursor: pointer; transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.search-modal-chip:hover {
+  background: var(--bg); color: var(--text);
+}
+.search-modal-chip.active {
+  background: var(--text); color: var(--surface); border-color: var(--text);
+}
+.search-modal-body {
+  max-height: 380px; overflow-y: auto; padding: 10px 12px;
+}
+.search-modal-intro {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 36px 20px; text-align: center;
+}
+.search-modal-intro-title {
+  font-size: 14px; font-weight: var(--weight-semibold); color: var(--text);
+  margin-bottom: 4px;
+}
+.search-modal-intro-sub {
+  font-size: 12px; color: var(--text-muted);
+}
+.search-modal-list {
+  list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px;
+}
+.search-modal-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px; border-radius: 10px; cursor: pointer;
+  transition: background 0.1s ease;
+}
+.search-modal-item:hover,
+.search-modal-item.selected {
+  background: var(--bg);
+}
+.search-modal-item-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--surface); border: 1px solid var(--border);
+  display: grid; place-items: center; color: var(--text-muted); flex-shrink: 0;
+}
+.search-modal-item.selected .search-modal-item-icon {
+  color: var(--primary); border-color: var(--primary); background: var(--primary-pale);
+}
+.search-modal-item-content {
+  display: flex; flex-direction: column; min-width: 0; flex: 1;
+}
+.search-modal-item-title {
+  font-size: 13px; font-weight: var(--weight-semibold); color: var(--text);
+}
+.search-modal-item-desc {
+  font-size: 11px; color: var(--text-muted);
+}
+.search-modal-item-category {
+  font-size: 11px; color: var(--text-faint); margin-left: auto;
+}
+.search-modal-empty {
+  padding: 32px 16px; text-align: center; font-size: 13px; color: var(--text-muted);
+}
+.search-modal-fallback-btn {
+  margin-top: 8px; background: none; border: none; color: var(--primary);
+  font-size: 13px; font-weight: var(--weight-semibold); cursor: pointer;
+}
+.search-modal-fallback-btn:hover { text-decoration: underline; }
+.search-modal-footer {
+  display: flex; align-items: center; justify-content: flex-end; gap: 16px;
+  padding: 10px 18px; background: var(--bg); border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--text-muted);
+}
+.search-modal-hint kbd {
+  font-size: 10px; padding: 2px 5px; border-radius: 4px;
+  background: var(--surface); border: 1px solid var(--border); color: var(--text-muted);
+}
+
+/* --- Capsule flottante Compagnon IA (Sidekick Dock) --- */
+.compagnon-dock-wrapper {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  z-index: 40; pointer-events: none;
+}
+.compagnon-dock {
+  pointer-events: auto;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 0 16px; height: 42px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.16);
+  color: var(--text); cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.compagnon-dock:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
+  background: #ffffff;
+}
+.compagnon-dock.actif {
+  background: var(--sidebar-bg); color: #ffffff;
+  border-color: var(--sidebar-active); box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+}
+.compagnon-dock-icon {
+  display: grid; place-items: center;
+  color: #8b5cf6;
+}
+.compagnon-dock.actif .compagnon-dock-icon { color: #a78bfa; }
+.compagnon-dock-label {
+  font-size: 13px; font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+}
+.compagnon-dock-sep {
+  width: 1px; height: 16px; background: rgba(0, 0, 0, 0.1);
+}
+.compagnon-dock.actif .compagnon-dock-sep { background: rgba(255, 255, 255, 0.15); }
+.compagnon-dock-action {
+  display: grid; place-items: center; color: var(--text-muted);
+}
+.compagnon-dock.actif .compagnon-dock-action { color: rgba(255, 255, 255, 0.7); }
+.compagnon-dock-status-dot {
+  width: 6px; height: 6px; border-radius: 999px; background: #10b981;
+}
+
+/* Positionnement du popover ShopMenu quand logé dans la sidebar */
+.sidebar .shop-menu { position: relative; width: 100%; }
+.sidebar .shop-menu-trigger {
+  width: 100%; justify-content: flex-start;
+  color: #ffffff; padding: 6px 8px; border-radius: 8px;
+}
+.sidebar-user-section .shop-menu-trigger {
+  /* Le survol épouse la pastille et le nom, pas toute la largeur. Même
+     retrait que les liens, pour que la pastille s'aligne sur leurs icônes. */
+  width: auto; max-width: 100%; height: var(--sidebar-row); gap: 10px; justify-content: flex-start;
+  color: #ffffff; padding: 0 10px; border-radius: var(--radius-xl);
+}
+.sidebar-user-section .shop-menu-trigger > svg { display: none; }
+/* Pastille à la taille d'une icône de lien, comme chez Shopify */
+.sidebar-user-section .shop-menu-trigger .shop-menu-mark { width: 20px; height: 20px; border-radius: 6px; }
+.sidebar .shop-menu-trigger:hover { background: var(--sidebar-hover); }
+/* Au bureau, la sidebar coupe tout débordement : le menu sort en fixe,
+   posé à droite de la sidebar comme la feuille des alertes. */
+@media (min-width: 1024px) {
+  .sidebar .shop-menu-pop { position: fixed; top: auto; bottom: 12px; left: 248px; right: auto; z-index: 80; }
+  .shell[data-replie] .sidebar .shop-menu-pop,
+  html[data-sidebar-replie="true"] .sidebar .shop-menu-pop { left: 68px; }
+}
+
+/* --- Entrée de la sidebar au chargement ---
+   Chaque élément glisse depuis l'extérieur gauche, l'un après l'autre, et
+   tous restent flous jusqu'à ce que le dernier soit posé (façon Shopify). Ne joue qu'au montage : la sidebar vit
+   dans le layout, une navigation interne ne la remonte pas, donc l'animation
+   ne revient qu'au rechargement. `backwards` et pas `both` : une fois finie,
+   l'élément ne garde ni transform ni filter, qui créeraient un bloc
+   conteneur et décaleraient les flyouts du rail. La sidebar coupe en
+   overflow, c'est ce qui donne l'effet « sort de derrière le bord ». */
+/* Deux animations séparées. Le glissement est décalé élément par élément ;
+   le flou, lui, est le même pour tous et se lève d'un coup quand le dernier
+   élément arrive. La courbe du glissement freine fort : un élément paraît
+   posé vers 60 % de ses 520 ms, donc le dernier (rang 11, parti à 385 ms)
+   l'est à l'oeil vers 700 ms. Le flou se lève de 550 à 750 ms, pour être
+   net pile à ce moment. 550 / 750 = 73 %. Changer la durée du glissement,
+   le pas ou le nombre de rangs impose de recalculer ces deux chiffres. */
+@keyframes sidebar-glisse {
+  from { opacity: 0; transform: translateX(-24px); }
+}
+@keyframes sidebar-net {
+  0%, 73% { filter: blur(6px); }
+  100% { filter: blur(0); }
+}
+.sidebar-top,
+.sidebar-search,
+.sidebar-section,
+.sidebar-section-wrap > .sidebar-item,
+.sidebar-section-wrap > .sidebar-group,
+.sidebar-bottom > * {
+  animation:
+    sidebar-glisse 520ms cubic-bezier(0.22, 1, 0.36, 1) backwards,
+    sidebar-net 750ms ease-out backwards;
+  animation-delay: calc(var(--entree, 0) * 35ms), 0ms;
+}
+.sidebar-search { --entree: 1; }
+/* rang dans la nav : 2 pour le premier élément, puis +1 */
+.sidebar-section-wrap > :nth-child(1) { --entree: 2; }
+.sidebar-section-wrap > :nth-child(2) { --entree: 3; }
+.sidebar-section-wrap > :nth-child(3) { --entree: 4; }
+.sidebar-section-wrap > :nth-child(4) { --entree: 5; }
+.sidebar-section-wrap > :nth-child(5) { --entree: 6; }
+.sidebar-section-wrap > :nth-child(6) { --entree: 7; }
+.sidebar-section-wrap > :nth-child(7) { --entree: 8; }
+.sidebar-section-wrap > :nth-child(8) { --entree: 9; }
+.sidebar-section-wrap > :nth-child(9) { --entree: 10; }
+.sidebar-section-wrap > :nth-child(n + 10) { --entree: 11; }
+/* deuxième section (console) : elle suit la première au lieu de repartir à 2 */
+.sidebar-section-wrap + .sidebar-section-wrap > * { --entree: 4; }
+.sidebar-section-wrap + .sidebar-section-wrap > :nth-child(n + 4) { --entree: 6; }
+.sidebar-section-wrap + .sidebar-section-wrap > :nth-child(n + 6) { --entree: 8; }
+.sidebar-bottom > * { --entree: 9; }
+.sidebar-bottom > :last-child { --entree: 10; }
+/* En réglages, c'est la colonne des réglages qui fait l'entrée
+   (settings-modal.css) : la sidebar principale, en rail, reste immobile. */
+.shell[data-settings] :is(.sidebar-top, .sidebar-search, .sidebar-section,
+  .sidebar-section-wrap > .sidebar-item, .sidebar-section-wrap > .sidebar-group,
+  .sidebar-bottom > *) { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-top, .sidebar-search, .sidebar-section,
+  .sidebar-section-wrap > *, .sidebar-bottom > * { animation: none; }
+}
+
+/* ============================================================
+   Drawer mobile façon Shopify (< 1024px)
+   La sidebar prend presque tout l'écran et pousse le contenu, qui reste
+   visible en carte arrondie sur le bord droit. Réglages, cloche et compte
+   montent en tête (Sidebar.tsx), les entrées grossissent pour le pouce.
+   ============================================================ */
+@media (max-width: 1023.98px) {
+  .shell { --drawer-w: min(calc(100vw - 44px), 380px); }
+  .sidebar {
+    width: var(--drawer-w); max-width: none; padding: 16px 12px;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .shell[data-drawer] .sidebar { box-shadow: none; }
+  .main {
+    transform-origin: left center;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.3s ease;
+  }
+  /* Les bandes au-dessus du corps (démo, abonnement) partent avec le contenu */
+  .shell > :not(.shell-body) { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+  .shell[data-drawer] > :not(.shell-body) { transform: translateX(var(--drawer-w)); }
+  .shell[data-drawer] .main {
+    transform: translateX(var(--drawer-w));
+    border-radius: 32px 0 0 32px; overflow: hidden;
+  }
+  /* Le bouton flottant n'a plus de raison d'être une fois le menu ouvert */
+  .mobile-menu-trigger { transition: opacity 0.2s ease; }
+  .shell[data-drawer] .mobile-menu-trigger { opacity: 0; pointer-events: none; }
+  /* Le voile assombrit la carte poussée sans couvrir le drawer */
+  .shell-overlay { background: rgb(0 0 0 / 0.45); }
+
+  /* En-tête : logo seul à gauche, deux pilules à droite */
+  .sidebar-top { position: relative; padding: 0 0 16px 4px; gap: 8px; }
+  .sidebar-brand-text { display: none; }
+  .sidebar-brand-mark { width: 32px; height: 32px; }
+  .sidebar-top-actions { display: flex; align-items: center; gap: 6px; min-width: 0; }
+  .sidebar-pill {
+    display: flex; align-items: center; gap: 2px; min-width: 0;
+    height: 44px; padding: 2px; border-radius: 999px;
+    background: var(--sidebar-glass-field); box-shadow: var(--sidebar-glass-edge);
+  }
+  .sidebar-pill-btn,
+  .sidebar-pill .topbar-bell {
+    display: grid; place-items: center; width: 40px; height: 40px; padding: 0;
+    border-radius: 999px; color: #ffffff;
+  }
+  .sidebar-pill-btn:hover,
+  .sidebar-pill .topbar-bell:hover { background: var(--sidebar-hover); color: #ffffff; }
+  .sidebar-pill .topbar-bell-count { border-color: #3d3d3d; }
+  /* Pilule du compte : la pastille seule, le nom se lit dans le menu */
+  .sidebar-pill .shop-menu-trigger { padding: 4px; width: auto; border-radius: 999px; }
+  .sidebar-pill .shop-menu-trigger .shop-menu-mark { width: 36px; height: 36px; border-radius: 999px; background: #ec4899; color: #ffffff; }
+  /* En tête, le menu s'ouvre vers le bas sur toute la largeur du drawer,
+     comme la feuille des alertes. */
+  .sidebar-top .shop-menu { position: static; }
+  .sidebar-top .shop-menu-pop { position: absolute; top: 100%; bottom: auto; left: 0; right: 0; width: auto; max-width: none; }
+  .shop-menu-pop .shop-menu-lieu-nom, .shop-menu-pop .shop-menu-nom, .shop-menu-action { font-size: 16px; }
+  .shop-menu-pop .shop-menu-email { font-size: 14px; }
+  .shop-menu-action { padding: 12px; }
+  .sidebar-top .notif-menu { position: static; }
+  .sidebar-top .notif-pop { top: 100%; left: 0; right: 0; width: auto; border-radius: var(--radius-l); }
+  /* Un tiers de l'ancienne hauteur (75vh) : la liste défile, inutile de couvrir le menu */
+  .notif-pop { max-height: none; }
+  .notif-liste { max-height: 25dvh; }
+  /* Même échelle que les entrées du menu : 16 px, icônes 24 px, lignes au pouce */
+  .notif-pop { padding: 8px; }
+  .notif-zone-tete { padding: 10px 12px; }
+  .notif-tete h2 { font-size: 18px; }
+  .notif-icone { width: 44px; height: 44px; }
+  .notif-icone svg { width: 24px; height: 24px; }
+  .notif-filtre { padding: 8px 14px; font-size: 16px; }
+  .notif-zone-tete h3, .notif-compteur, .notif-vide { font-size: 16px; }
+  .notif-ligne { gap: 14px; padding: 12px; font-size: 16px; line-height: 1.35; border-radius: 12px; }
+  .notif-ligne svg { width: 24px; height: 24px; }
+
+  .sidebar-search { height: 48px; padding: 0 14px; gap: 10px; margin-bottom: 14px; border-radius: 14px; }
+  .sidebar-search-text { font-size: 16px; }
+  .sidebar-search-kbd { display: none; }
+
+  /* Icônes à 24 px comme l'admin Shopify mobile (20 px au bureau) */
+  .sidebar-item svg, .sidebar-search svg, .sidebar-pill-btn svg, .sidebar-pill .topbar-bell svg { width: 24px; height: 24px; }
+  .sidebar-item { gap: 14px; height: auto; padding: 11px 12px; border-radius: var(--radius-xl); font-size: 16px; color: #ffffff; }
+  .sidebar-item.active { font-weight: var(--weight-semibold); }
+
+  /* L'entrée (glissement décalé + flou) se rejoue à chaque ouverture : retirer
+     l'animation drawer fermé puis la reposer à l'ouverture la redémarre. */
+  .shell:not([data-drawer]) :is(.sidebar-top, .sidebar-search, .sidebar-section,
+    .sidebar-section-wrap > .sidebar-item, .sidebar-section-wrap > .sidebar-group,
+    .sidebar-bottom > *) { animation: none; }
+}
+@media (max-width: 1023.98px) and (prefers-reduced-motion: no-preference) {
+  .shell[data-drawer] :is(.sidebar-top, .sidebar-search, .sidebar-section,
+    .sidebar-section-wrap > .sidebar-item, .sidebar-section-wrap > .sidebar-group,
+    .sidebar-bottom > *) {
+    animation:
+      sidebar-glisse 520ms cubic-bezier(0.22, 1, 0.36, 1) backwards,
+      sidebar-net 750ms ease-out backwards;
+    animation-delay: calc(var(--entree, 0) * 35ms), 0ms;
+  }
+}
+@media (max-width: 1023.98px) and (prefers-reduced-motion: reduce) {
+  .main, .shell > :not(.shell-body) { transition: none; }
+}
+
+/* Coins « tendus » façon Shopify. corner-shape n'hérite pas, d'où le *.
+   Ignoré hors Chromium : on retombe sur le border-radius normal. */
+.sidebar,
+.sidebar * {
+  corner-shape: superellipse(1.333);
+}

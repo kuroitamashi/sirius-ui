@@ -128,7 +128,8 @@ const preview: Preview = {
           style={{
             color: 'var(--sirius-text)',
             fontFamily: 'var(--sirius-font)',
-            padding: 32,
+            // Plein écran (un cadre d'application) : pas de marge autour.
+            padding: context.parameters.layout === 'fullscreen' ? 0 : 32,
             minWidth: 320,
           }}
         >
