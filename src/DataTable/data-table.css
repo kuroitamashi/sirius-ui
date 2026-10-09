@@ -273,6 +273,16 @@
   color: var(--s-color-text-link-hover);
 }
 
+/* Texte secondaire d'une cellule : dates, « +1 », « Aucune » */
+.sirius-data-table .sirius-data-table__subdued {
+  color: var(--sirius-text-faint);
+}
+
+/* Valeur en alerte : « 0 en stock » */
+.sirius-data-table .sirius-data-table__critical {
+  color: var(--s-color-text-critical-accent);
+}
+
 /* Troncature : appliquée au span intérieur, pas à la cellule */
 .sirius-data-table__truncate-text {
   max-width: 240px;

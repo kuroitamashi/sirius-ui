@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { SiriusDataTable, type ColumnContentType, type SortDirection } from './DataTable';
 import { SiriusBadge } from '../Badge/Badge';
 import { SiriusThumbnail } from '../Thumbnail/Thumbnail';
+import { SiriusButton } from '../Button/Button';
 
 const standardColumnContentTypes: ColumnContentType[] = [
   'text',
@@ -508,43 +509,59 @@ export const Commandes: Story = {
   ),
 };
 
-const produits = [
-  { nom: 'Sandales en cuir de Ngaye', statut: 'actif', stock: 0, variantes: 3, categorie: 'Sandales', canaux: 4, type: 'chaussures' },
-  { nom: 'Boubou bazin riche brodé', statut: 'actif', stock: 49, categorie: 'Boubous', canaux: 3, type: 'vêtements' },
-  { nom: 'Robe wax Ankara', statut: 'actif', stock: 100, variantes: 5, categorie: 'Robes', canaux: 3, type: 'vêtements' },
-  { nom: 'Masque LED visage', statut: 'brouillon', stock: 20, canaux: 1, type: 'beauté' },
-  { nom: 'Thiouraye de Diourbel', statut: 'actif', stock: 18, categorie: 'Parfums', canaux: 3, type: 'beauté' },
-  { nom: 'Sac en raphia tressé', statut: 'archive', stock: 50, canaux: 1, type: 'accessoires' },
-];
-const badgeStatut: Record<string, React.ReactNode> = {
-  actif: <SiriusBadge tone="success">Actif</SiriusBadge>,
-  brouillon: <SiriusBadge tone="info">Brouillon</SiriusBadge>,
-  archive: <SiriusBadge tone="neutral">Archivé</SiriusBadge>,
-};
+const tuile = (texte: string, fond: string) =>
+  'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72"><rect width="72" height="72" fill="${fond}"/><text x="36" y="42" font-family="Arial" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">${texte}</text></svg>`);
 
-/** Liste des produits telle que l'admin de référence l'affiche : vignette,
-    statut, stock en rouge à zéro. Une ligne fait 48 px avec la vignette. */
+type Produit = { nom: string; image?: string; prix: number; prixEnPlus?: number; statut: 'published' | 'draft'; stock: number; variantes?: number; ventes: number; categorie: string; cree: string; maj: string };
+
+const produits: Produit[] = [
+  { nom: 'Samsung Galaxy A15', image: tuile('A15', '#14532d'), prix: 115000, prixEnPlus: 1, statut: 'published', stock: 18, variantes: 2, ventes: 16, categorie: 'Téléphones', cree: '14 mai 2026', maj: '28 juil. 2026' },
+  { nom: 'Tecno Spark 20 Pro', image: tuile('T20', '#1e3a8a'), prix: 90000, statut: 'published', stock: 7, ventes: 15, categorie: 'Téléphones', cree: '20 mai 2026', maj: '30 juin 2026' },
+  { nom: 'Infinix Hot 40i', image: tuile('H40', '#7c2d12'), prix: 70000, statut: 'published', stock: 0, ventes: 12, categorie: 'Téléphones', cree: '22 mai 2026', maj: '22 juil. 2026' },
+  { nom: 'Écouteurs JBL Tune 510BT', image: tuile('JBL', '#312e81'), prix: 25000, statut: 'published', stock: 34, variantes: 2, ventes: 17, categorie: 'Audio', cree: '2 juin 2026', maj: '2 juin 2026' },
+  { nom: 'Powerbank Romoss 20 000 mAh', image: tuile('R20', '#334155'), prix: 18000, statut: 'published', stock: 52, ventes: 7, categorie: 'Accessoires', cree: '5 juin 2026', maj: '10 juil. 2026' },
+  { nom: 'Xiaomi Redmi 13C', prix: 82000, statut: 'draft', stock: 12, ventes: 0, categorie: 'Téléphones', cree: '1 juil. 2026', maj: '1 juil. 2026' },
+  { nom: 'Chargeur rapide USB-C 25W', image: tuile('25W', '#475569'), prix: 8000, statut: 'published', stock: 0, ventes: 0, categorie: 'Accessoires', cree: '18 juin 2026', maj: '19 juil. 2026' },
+  { nom: 'Casque Bluetooth Anker Q20', prix: 22000, statut: 'draft', stock: 9, ventes: 0, categorie: 'Audio', cree: '6 juil. 2026', maj: '6 juil. 2026' },
+];
+
+/** La liste des produits du dashboard, avec le style de l'admin de référence :
+    vignette, prix et nombre de prix en plus, statut, stock en rouge à zéro,
+    dates grisées, menu « … » en bout de ligne. */
 export const Produits: Story = {
   render: () => (
     <SiriusDataTable
       selectable
-      columnContentTypes={['text', 'text', 'text', 'text', 'text', 'numeric', 'text']}
-      headings={['', 'Produit', 'Statut', 'Stock', 'Catégorie', 'Canaux', 'Type de produit']}
+      rowIds={produits.map((p) => p.nom)}
+      onRowClick={(i) => alert(`Ouvrir ${produits[i].nom}`)}
+      columnContentTypes={['text', 'numeric', 'text', 'text', 'text', 'text', 'text', 'text', 'text']}
+      headings={['Produit', 'Prix', 'Statut', 'Stock', 'Ventes 30 j', 'Catégorie', 'Créé le', 'Mis à jour', '']}
+      sortable={[true, true, false, true, true, true, true, true, false]}
       rows={produits.map((p) => [
-        <SiriusThumbnail key="v" alt={p.nom} />,
-        <span key="n" style={{ fontWeight: 550 }}>{p.nom}</span>,
-        badgeStatut[p.statut],
-        <span key="s">
-          <span style={p.stock === 0 ? { color: 'var(--s-color-text-critical-accent)' } : undefined}>{p.stock} en stock</span>
+        <span key="n" style={{ display: 'inline-flex', alignItems: 'center', gap: 12 }}>
+          <SiriusThumbnail source={p.image} alt={p.nom} />
+          <span style={{ fontWeight: 650 }}>{p.nom}</span>
+        </span>,
+        <span key="p">
+          {fcfa(p.prix)}
+          {p.prixEnPlus ? <span className="sirius-data-table__subdued"> +{p.prixEnPlus}</span> : null}
+        </span>,
+        <SiriusBadge key="s" kind={p.statut} />,
+        <span key="st">
+          <span className={p.stock === 0 ? 'sirius-data-table__critical' : undefined}>{p.stock} en stock</span>
           {p.variantes ? ` pour ${p.variantes} variantes` : ''}
         </span>,
-        p.categorie ?? '',
-        p.canaux,
-        p.type,
+        p.ventes,
+        p.categorie,
+        <span key="c" className="sirius-data-table__subdued">{p.cree}</span>,
+        <span key="m" className="sirius-data-table__subdued">{p.maj}</span>,
+        <span key="a" onClick={(e) => e.stopPropagation()}>
+          <SiriusButton variant="plain" iconOnly icon="menu-horizontal" ariaLabel={`Actions pour ${p.nom}`} />
+        </span>,
       ])}
       bulkActions={{
-        promotedActions: [{ content: 'Modifier les produits' }, { content: 'Mettre en ligne' }],
-        actions: [{ content: 'Archiver' }, { content: 'Supprimer les produits', destructive: true }],
+        promotedActions: [{ content: 'Mettre en ligne' }, { content: 'Passer en brouillon' }],
+        actions: [{ content: 'Modifier la catégorie' }, { content: 'Supprimer les produits', destructive: true }],
       }}
     />
   ),
