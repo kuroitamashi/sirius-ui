@@ -148,3 +148,6 @@ export type {
   AutocompleteSection,
   AutocompleteAction,
 } from './Autocomplete';
+
+export { SiriusFilters, Filters } from './Filters';
+export type { SiriusFiltersProps, SiriusFilterDescriptor, SiriusAppliedFilter } from './Filters';

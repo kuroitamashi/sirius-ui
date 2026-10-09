@@ -1,0 +1,171 @@
+/* ==========================================================================
+   Sirius Filters, la barre de recherche et de filtres d'une liste
+   Liste de suggestions d'après l'admin de référence (capture du 2026-10-09) :
+   fenêtre blanche à ombre popover, lignes de 28 px, ligne active grisée
+   avec la touche « Entrée ».
+   ========================================================================== */
+
+.sirius-filters {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--sirius-text);
+}
+
+.sirius-filters__barre {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sirius-filters__recherche {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Le SearchField garde ses marges de champ de formulaire : ici, aucune. */
+.sirius-filters__recherche > .sirius-field { margin: 0; }
+
+/* --- Liste de suggestions --- */
+.sirius-filters__suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: var(--s-z-index-popover);
+  box-sizing: border-box;
+  width: min(260px, 100%);
+  max-height: 312px; /* dix lignes et demie : la suivante dépasse, on devine le défilement */
+  overflow-y: auto;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--sirius-surface, #ffffff);
+  border-radius: var(--s-border-radius-300);
+  box-shadow: var(--s-shadow-popover);
+  animation: sirius-filters-in 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+@keyframes sirius-filters-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sirius-filters__suggestion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 28px;
+  padding: 0 6px;
+  border-radius: var(--s-border-radius-200);
+  cursor: pointer;
+  user-select: none;
+}
+
+.sirius-filters__suggestion--actif {
+  background: var(--s-color-bg-surface-selected);
+}
+
+.sirius-filters__touche {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 4px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px var(--s-color-border);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--s-color-text-secondary);
+}
+
+/* --- Pastilles --- */
+.sirius-filters__pastilles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.sirius-filters__pastille-wrap { position: relative; }
+
+.sirius-filters__pastille {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  border-radius: var(--s-border-radius-200);
+  border: 1px dashed var(--s-color-border-hover);
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.sirius-filters__pastille--appliquee {
+  border: 1px solid transparent;
+  background: var(--s-color-bg-fill-secondary);
+}
+
+.sirius-filters__pastille-bouton,
+.sirius-filters__pastille-retirer {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 26px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.sirius-filters__pastille-bouton { padding: 0 6px 0 10px; border-radius: inherit; }
+.sirius-filters__pastille--appliquee .sirius-filters__pastille-bouton { padding-right: 2px; }
+.sirius-filters__pastille-retirer { padding: 0 4px; border-radius: 6px; }
+
+.sirius-filters__pastille:hover:not(:has(:disabled)) { background: var(--s-color-bg-surface-hover); }
+.sirius-filters__pastille--appliquee:hover:not(:has(:disabled)) { background: var(--s-color-bg-fill-secondary-hover); }
+
+.sirius-filters__pastille-bouton:focus-visible,
+.sirius-filters__pastille-retirer:focus-visible,
+.sirius-filters__effacer:focus-visible {
+  outline: 2px solid var(--sirius-primary);
+  outline-offset: 1px;
+}
+
+.sirius-filters button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* --- Fenêtre d'une pastille --- */
+.sirius-filters__fenetre {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: var(--s-z-index-popover);
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  box-sizing: border-box;
+  min-width: 220px;
+  padding: 12px;
+  background: var(--sirius-surface, #ffffff);
+  border-radius: var(--s-border-radius-300);
+  box-shadow: var(--s-shadow-popover);
+  animation: sirius-filters-in 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.sirius-filters__effacer {
+  padding: 4px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--s-color-text-secondary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.sirius-filters__fenetre .sirius-filters__effacer { margin-left: -6px; }
+
+.sirius-filters__effacer:hover:not(:disabled) {
+  background: var(--s-color-bg-surface-hover);
+  color: var(--sirius-text);
+}
