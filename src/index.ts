@@ -150,4 +150,6 @@ export type {
 } from './Autocomplete';
 
 export { SiriusFilters, Filters } from './Filters';
-export type { SiriusFiltersProps, SiriusFilterDescriptor, SiriusAppliedFilter } from './Filters';
+export type {
+  SiriusFiltersProps, SiriusFilterDescriptor, SiriusFilterChoice, SiriusFilterValue, SiriusFiltersValue,
+} from './Filters';
