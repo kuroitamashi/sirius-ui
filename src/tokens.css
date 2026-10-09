@@ -181,6 +181,44 @@
      (16 - 6 de marge) ; Mouhamadou le veut plus prononcé, comme la référence. */
   --s-border-radius-option-item: var(--s-border-radius-300);   /* 12px */
 
+  /* --- Espacements ---
+     Deux étages (relevé du 2026-10-09, --p-space-* renommés en --s-) :
+     1. l'échelle, le suffixe vaut des quarts de pixel (400 = 16px) ;
+     2. les rôles, mêmes valeurs que la référence. Les échelles --p-width-* et
+        --p-height-* de la référence sont identiques à celle-ci : pas recopiées,
+        prendre --s-space-* pour une largeur ou une hauteur aussi. */
+  --s-space-0: 0rem;
+  --s-space-025: .0625rem;  /* 1px */
+  --s-space-050: .125rem;   /* 2px */
+  --s-space-100: .25rem;    /* 4px */
+  --s-space-150: .375rem;   /* 6px */
+  --s-space-200: .5rem;     /* 8px */
+  --s-space-250: .625rem;   /* 10px */
+  --s-space-300: .75rem;    /* 12px */
+  --s-space-400: 1rem;      /* 16px */
+  --s-space-500: 1.25rem;   /* 20px */
+  --s-space-600: 1.5rem;    /* 24px */
+  --s-space-700: 1.75rem;   /* 28px */
+  --s-space-800: 2rem;      /* 32px */
+  --s-space-1000: 2.5rem;   /* 40px */
+  --s-space-1200: 3rem;     /* 48px */
+  --s-space-1600: 4rem;     /* 64px */
+  --s-space-2000: 5rem;     /* 80px */
+  --s-space-2400: 6rem;     /* 96px */
+  --s-space-2800: 7rem;     /* 112px */
+  --s-space-3200: 8rem;     /* 128px */
+
+  --s-space-card-padding: var(--s-space-400);
+  --s-space-card-gap: var(--s-space-400);
+  --s-space-button-group-gap: var(--s-space-200);
+  --s-space-table-cell-padding: var(--s-space-150);
+  --s-space-badge-padding-inline: var(--s-space-150);
+  --s-space-badge-padding-inline-large: var(--s-space-200);
+  --s-space-badge-icon-padding-inline-start: var(--s-space-100);
+  --s-space-choice-size: .875rem;      /* case à cocher et bouton radio, 14px */
+  --s-space-choice-margin: var(--s-space-025);
+  --s-height-field-min-block-size: 1.875rem;  /* champ, 30px */
+
   /* --- Transitions --- */
   --sirius-transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
 }
