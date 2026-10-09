@@ -1,0 +1,98 @@
+/* ==========================================================================
+   Sirius CalloutCard
+   Gabarit relevé sur Polaris (storybook.polaris.shopify.dev, 2026-10-09) :
+   padding 16, titre 13/650 puis 8px, texte 13/450, boutons 8px dessous
+   (12px ici, nos pilules font 32px et non 28) et 8px entre eux,
+   illustration de 100px à 20px du texte, croix 28x28 et contenu décalé de 44px quand elle est là. Ici la croix est l'icône seule standard de
+   Sirius (32x32, icône 20), donc le contenu est décalé de 50px.
+   Direction Sirius : coins de 16px, biseau plus l'ombre courte des cartes de
+   l'accueil, aucune border (le biseau ferait un trait doublé), boutons en
+   pilule de 32px pour porter des icônes de 20px.
+   ========================================================================== */
+
+.sirius-callout-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+  border-radius: var(--sirius-radius-xl, 16px);
+  background: var(--sirius-surface, #ffffff);
+  box-shadow:
+    var(--sirius-shadow-bevel),
+    0 1px 1px rgb(0 0 0 / 0.04),
+    0 3px 8px -2px rgb(0 0 0 / 0.12);
+  color: var(--sirius-text, #202223);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 450;
+  line-height: 20px;
+  box-sizing: border-box;
+  /* L'illustration se cache selon la largeur de la carte, pas de l'écran :
+     posée dans une colonne étroite des réglages, elle n'a pas la place. */
+  container-type: inline-size;
+}
+
+.sirius-callout-card--dismissible {
+  padding-right: 50px;
+}
+/* 20px entre l'illustration et la croix, comme chez Polaris */
+.sirius-callout-card--dismissible .sirius-callout-card__illustration {
+  margin-right: 12px;
+}
+
+.sirius-callout-card__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sirius-callout-card__title {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 20px;
+  color: var(--sirius-text, #202223);
+  /* Un Badge à côté du titre reste centré sur la ligne */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.sirius-callout-card__body {
+  color: var(--sirius-text-subdued, #6d7175);
+}
+.sirius-callout-card__body > :first-child { margin-top: 0; }
+.sirius-callout-card__body > :last-child { margin-bottom: 0; }
+
+.sirius-callout-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.sirius-callout-card__illustration {
+  flex-shrink: 0;
+  width: 100px;
+  height: auto;
+  display: block;
+}
+
+/* Croix : 32x32 à 10px du haut et du bord, logée dans le rayon de 16px du
+   coin ; sans illustration, elle tombe pile sur la ligne du titre (26px) */
+.sirius-callout-card__dismiss.sirius-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: var(--sirius-text-subdued, #6d7175);
+}
+.sirius-callout-card__dismiss.sirius-btn:hover:not(:disabled) {
+  color: var(--sirius-text, #202223);
+}
+
+@container (max-width: 420px) {
+  .sirius-callout-card__illustration {
+    display: none;
+  }
+}

@@ -62,6 +62,9 @@ export type { SiriusMomoFieldProps } from './MomoField/MomoField';
 export { SiriusBanner } from './Banner/Banner';
 export type { SiriusBannerProps, SiriusBannerTone, SiriusBannerLayout, SiriusBannerAction } from './Banner/Banner';
 
+export { SiriusCalloutCard } from './CalloutCard/CalloutCard';
+export type { SiriusCalloutCardProps, SiriusCalloutCardAction } from './CalloutCard/CalloutCard';
+
 export { SiriusSpinner } from './Spinner/Spinner';
 export type { SiriusSpinnerProps } from './Spinner/Spinner';
 
