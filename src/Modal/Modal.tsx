@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Icon } from '../Icon/Icon';
 import { SiriusButton } from '../Button/Button';
 import './modal.css';
@@ -52,8 +52,15 @@ export interface SiriusModalProps {
    * (fidèle à la présentation des composants Figma et à la vitrine Sirius)
    */
   inline?: boolean;
+  /**
+   * Pied de page libre, à la place de primaryAction / secondaryActions,
+   * quand les boutons dépendent d'un état (envoi en cours, étape suivante).
+   */
+  footer?: React.ReactNode;
   className?: string;
 }
+
+const FOCUSABLE = 'input:not([disabled]), button:not([disabled]), select:not([disabled]), textarea:not([disabled]), [href]';
 
 export function SiriusModal({
   title = 'Title',
@@ -64,28 +71,43 @@ export function SiriusModal({
   primaryAction,
   secondaryActions,
   inline = false,
+  footer,
   className = '',
 }: SiriusModalProps) {
-  // Gestion de la touche Échap
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && onClose) {
-        onClose();
-      }
-    },
-    [onClose]
-  );
+  const boxRef = useRef<HTMLDivElement>(null);
+  // onClose change à chaque rendu du parent : dans les dépendances de l'effet,
+  // chaque frappe relancerait l'effet et remettrait le focus au début.
+  const onCloseRef = useRef(onClose);
+  useEffect(() => { onCloseRef.current = onClose; });
 
+  // Échap ferme ; à l'ouverture le focus va au premier champ (la croix s'il
+  // n'y en a aucun), Tab ne sort jamais de la fenêtre, et le focus revient à
+  // l'élément d'origine à la fermeture.
   useEffect(() => {
-    if (!inline && open) {
-      document.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.removeEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = '';
-      };
-    }
-  }, [inline, open, handleKeyDown]);
+    if (inline || !open) return;
+    const previous = document.activeElement as HTMLElement | null;
+    const box = boxRef.current;
+    (box?.querySelector<HTMLElement>('.sirius-modal__body :is(input, textarea, button, select):not([disabled])')
+      ?? box?.querySelector<HTMLElement>('button:not([disabled]), [href]'))?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && onCloseRef.current) { e.preventDefault(); onCloseRef.current(); return; }
+      if (e.key !== 'Tab') return;
+      const targets = boxRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE);
+      if (!targets?.length) return;
+      const first = targets[0];
+      const last = targets[targets.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+      previous?.focus();
+    };
+  }, [inline, open]);
 
   if (!inline && !open) {
     return null;
@@ -103,6 +125,8 @@ export function SiriusModal({
         .join(' ')}
       role={inline ? undefined : 'dialog'}
       aria-modal={inline ? undefined : 'true'}
+      aria-label={typeof title === 'string' ? title : undefined}
+      ref={boxRef}
     >
       {/* ─── En-tête : Titre + Bouton de fermeture ─── */}
       <div className="sirius-modal__header">
@@ -125,7 +149,8 @@ export function SiriusModal({
       </div>
 
       {/* ─── Pied de page : Actions alignées à droite ─── */}
-      {(primaryAction || (secondaryActions && secondaryActions.length > 0)) && (
+      {footer && <div className="sirius-modal__footer"><div className="sirius-modal__actions">{footer}</div></div>}
+      {!footer && (primaryAction || (secondaryActions && secondaryActions.length > 0)) && (
         <div className="sirius-modal__footer">
           <div className="sirius-modal__actions">
             {secondaryActions?.map((action, idx) => (
