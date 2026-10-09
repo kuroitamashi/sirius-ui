@@ -19,6 +19,9 @@
   --sirius-border-focus: #00824c;    /* Focus ring */
 
   /* --- Typographie & Textes --- */
+  /* Police SKS : déclarée par l'application (@font-face SKS-Inter), les
+     composants héritent. Repli système si elle n'est pas chargée. */
+  --sirius-font: 'SKS-Inter', system-ui, sans-serif;
   --sirius-text: #202223;            /* Texte principal haute lisibilité Sirius */
   --sirius-text-subdued: #6d7175;    /* Texte secondaire / libellés */
   --sirius-text-faint: #8c9196;      /* Texte tertiaire / métadonnées */

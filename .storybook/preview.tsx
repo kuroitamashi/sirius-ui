@@ -1,6 +1,7 @@
 import React, { StrictMode } from 'react';
 import type { Preview } from '@storybook/react-vite';
 import '../src/styles.css';
+import './preview.css';
 
 /**
  * Les tailles d'ecran sur lesquelles Sen Kheweul Store doit tenir.
@@ -125,7 +126,7 @@ const preview: Preview = {
         <div
           style={{
             color: 'var(--sirius-text)',
-            fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+            fontFamily: 'var(--sirius-font)',
             padding: 32,
             minWidth: 320,
           }}

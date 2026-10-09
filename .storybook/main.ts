@@ -7,6 +7,8 @@ const config: StorybookConfig = {
   // Le zoom, le plein ecran, le lien direct et le selecteur de viewport sont
   // deja dans le coeur de Storybook 10, aucun addon a ajouter pour eux.
   addons: ['@storybook/addon-a11y'],
+  // Les fichiers de la police SKS, servis sous /fonts comme dans le dashboard.
+  staticDirs: [{ from: './fonts', to: '/fonts' }],
   // Aucune donnee d'usage n'est envoyee a Storybook.
   core: { disableTelemetry: true },
   // Les tableaux de props sont lus dans les interfaces TypeScript des

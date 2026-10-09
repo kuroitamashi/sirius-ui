@@ -48,7 +48,7 @@
 }
 
 .sirius-pagination__label {
-  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, Helvetica, sans-serif;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 400;
   color: var(--sirius-text, #202223);
