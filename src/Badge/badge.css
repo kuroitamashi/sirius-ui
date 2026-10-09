@@ -2,7 +2,7 @@
    Sirius Badge, calqué sur le Badge de Shopify Polaris (histoire « All »).
    Valeurs relevées dans le navigateur sur storybook.polaris.shopify.dev.
    Attention aux noms : chez Polaris, warning est ORANGE et attention JAUNE.
-   Graisse : 550 partout, sauf neutral et magic (450) et new (700).
+   Graisse : 450 pour tous les tons (choix SKS, Polaris varie de 450 à 700).
    ========================================================================== */
 
 .sirius-badge {
@@ -13,7 +13,7 @@
   font-family: inherit;
   /* 12/16 comme le texte bodySm de Polaris : 16 + 2x2 de padding = 20px. */
   font-size: 12px;
-  font-weight: 550;
+  font-weight: 450;
   line-height: 16px;
   white-space: nowrap;
   box-sizing: border-box;
@@ -54,7 +54,6 @@
   --sirius-badge-accent: #616161;
   background: rgba(0, 0, 0, 0.06);
   color: #616161;
-  font-weight: 450;
 }
 .sirius-badge--info {
   --sirius-badge-accent: #0094d5;
@@ -85,13 +84,11 @@
   --sirius-badge-accent: #616161;
   background: rgba(0, 0, 0, 0.06);
   color: #616161;
-  font-weight: 700;
 }
 .sirius-badge--magic {
   --sirius-badge-accent: #5700d1;
   background: #e9e5ff;
   color: #5700d1;
-  font-weight: 450;
 }
 .sirius-badge--read-only {
   --sirius-badge-accent: #8a8a8a;
