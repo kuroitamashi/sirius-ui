@@ -85,7 +85,8 @@ function Liste(props: Pick<SiriusBulkActionsProps, 'promotedActions' | 'actions'
 const PRODUITS: SiriusBulkActionsProps['promotedActions'] = [
   { content: 'Mettre en ligne', onAction: () => {} },
   { content: 'Passer en brouillon', onAction: () => {} },
-  { content: 'Supprimer', destructive: true, onAction: () => {} },
+  // Destructive : le composant la range lui-même dans le menu, jamais en bouton.
+  { content: 'Supprimer', destructive: true, icon: 'delete', onAction: () => {} },
 ];
 
 /** Écran Produits. Coche et décoche pour voir la barre vivre. */
@@ -95,8 +96,12 @@ export const Defaut: Story = {
     <Liste
       promotedActions={PRODUITS}
       actions={[
-        { content: 'Changer de catégorie', icon: 'collection' },
-        { content: 'Exporter la sélection', icon: 'export' },
+        [{ content: 'Archiver', icon: 'archive' }],
+        [
+          { content: 'Ajouter à une collection', icon: 'collection' },
+          { content: "Retirer d'une collection", icon: 'collection' },
+        ],
+        [{ content: 'Exporter la sélection', icon: 'export' }],
       ]}
     />
   ),

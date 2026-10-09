@@ -40,10 +40,13 @@ export interface SiriusBulkActionsProps {
    */
   onToggleAll: (selectAll: boolean) => void;
   /** Actions affichées en boutons, dans l'ordre. Celles qui ne tiennent pas
-      en largeur passent d'elles-mêmes dans le menu « … ». */
+      en largeur passent d'elles-mêmes dans le menu « … ». Une action
+      destructive n'est jamais affichée en bouton : elle va dans le menu. */
   promotedActions?: (SiriusBulkAction | SiriusBulkActionMenu)[];
-  /** Actions rangées d'emblée dans le menu « … ». */
-  actions?: SiriusBulkAction[];
+  /** Actions rangées d'emblée dans le menu « … ». Une liste simple, ou une
+      liste de groupes séparés par un trait (ex. archiver/supprimer, puis
+      catégories, puis export). */
+  actions?: SiriusBulkAction[] | SiriusBulkAction[][];
   /** Libellé du compteur. Défaut : « 3 sélectionnés ». */
   label?: (count: number) => string;
   /**
@@ -71,10 +74,10 @@ const versItem = (a: SiriusBulkAction): SiriusActionListItemDescriptor => ({
 
 const libelleParDefaut = (n: number) => `${n} sélectionné${n > 1 ? 's' : ''}`;
 
-/* Écarts relevés sur la maquette : 12px entre les boutons, 16px entre le
-   compteur et le premier bouton. */
-const GAP = 12;
-const GAP_SELECTION = 16;
+/* Écarts serrés, comme sur l'admin Shopify : 4px entre les boutons, 8px
+   entre le compteur et le premier bouton. */
+const GAP = 4;
+const GAP_SELECTION = 8;
 
 /**
  * Barre d'actions groupées, calquée sur les BulkActions de Polaris.
@@ -96,7 +99,26 @@ export function SiriusBulkActions({
   const gaucheRef = useRef<HTMLDivElement>(null);
   const droiteRef = useRef<HTMLDivElement>(null);
   const mesureRef = useRef<HTMLDivElement>(null);
-  const [visibles, setVisibles] = useState(promotedActions.length);
+  /* Règle Shopify : une action destructive (supprimer…) ne s'affiche jamais
+     en bouton, on ne doit pas pouvoir la déclencher d'un clic distrait. Elle
+     va à la fin du premier groupe du menu, en rouge. */
+  const enAvant = promotedActions.filter((a) => isMenu(a) || !a.destructive);
+  const destructives = promotedActions.filter(
+    (a): a is SiriusBulkAction => !isMenu(a) && !!a.destructive
+  );
+  const groupes: SiriusBulkAction[][] =
+    actions.length === 0
+      ? []
+      : Array.isArray(actions[0])
+        ? (actions as SiriusBulkAction[][]).map((g) => [...g])
+        : [[...(actions as SiriusBulkAction[])]];
+  if (destructives.length) {
+    if (groupes.length) groupes[0].push(...destructives);
+    else groupes.push(destructives);
+  }
+  const nbMenu = groupes.reduce((n, g) => n + g.length, 0);
+
+  const [visibles, setVisibles] = useState(enAvant.length);
 
   /* Combien de boutons tiennent : on mesure une copie invisible de tous les
      boutons, puis on garde ceux qui rentrent dans la place laissée par le
@@ -119,7 +141,7 @@ export function SiriusBulkActions({
       let total = 0;
       let n = 0;
       for (let i = 0; i < largeurs.length; i++) {
-        const reste = largeurs.length - (i + 1) + actions.length;
+        const reste = largeurs.length - (i + 1) + nbMenu;
         // Le « … » n'occupe de la place que s'il reste quelque chose à y ranger.
         const besoin = total + largeurs[i] + (i > 0 ? GAP : 0) + (reste > 0 ? GAP + plus : 0);
         if (besoin > dispo) break;
@@ -132,12 +154,12 @@ export function SiriusBulkActions({
     const ro = new ResizeObserver(calculer);
     ro.observe(barre);
     return () => ro.disconnect();
-  }, [promotedActions, actions.length, selectedCount, showSelected]);
+  }, [promotedActions, nbMenu, selectedCount, showSelected]);
 
   if (selectedCount <= 0) return null;
 
-  const affichees = promotedActions.slice(0, visibles);
-  const debordees = promotedActions.slice(visibles);
+  const affichees = enAvant.slice(0, visibles);
+  const debordees = enAvant.slice(visibles);
 
   /* Le menu « … » : d'abord les boutons qui n'ont pas tenu, dans leur ordre,
      puis les actions secondaires. */
@@ -145,7 +167,7 @@ export function SiriusBulkActions({
   const directes = debordees.filter((a): a is SiriusBulkAction => !isMenu(a)).map(versItem);
   if (directes.length) sections.push({ items: directes });
   debordees.filter(isMenu).forEach((m) => sections.push({ title: m.title, items: m.actions.map(versItem) }));
-  if (actions.length) sections.push({ items: actions.map(versItem) });
+  groupes.forEach((g) => sections.push({ items: g.map(versItem) }));
 
   const toutCoche = selectedCount >= totalCount;
 
@@ -248,7 +270,7 @@ export function SiriusBulkActions({
 
       {/* Copie invisible pour mesurer la largeur de chaque bouton. */}
       <div ref={mesureRef} className="sirius-bulk-actions__mesure" aria-hidden="true">
-        {promotedActions.map((a, i) =>
+        {enAvant.map((a, i) =>
           isMenu(a) ? (
             <SiriusButton key={i} variant="plain" size="slim" disclosure tabIndex={-1} className="sirius-bulk-actions__btn">
               {a.title}

@@ -3,7 +3,7 @@
    Barre grise de 40px qui prend la place de l'en-tête de la table : case,
    compteur-menu, puis les actions collées à gauche en pilules grises pleines,
    et à droite l'interrupteur « Afficher la sélection ». Mesures relevées sur
-   la maquette de Mouhamadou.
+   la maquette de Mouhamadou, écarts resserrés à 4px entre les boutons.
    ========================================================================== */
 
 .sirius-bulk-actions {
@@ -28,7 +28,7 @@
 .sirius-bulk-actions__gauche {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
   min-width: 0;
 }
 
@@ -48,7 +48,7 @@
 .sirius-bulk-actions__actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 4px;
   min-width: 0;
 }
 
@@ -128,7 +128,7 @@
   top: 0;
   left: 0;
   display: flex;
-  gap: 12px;
+  gap: 4px;
   visibility: hidden;
   pointer-events: none;
   height: 0;
