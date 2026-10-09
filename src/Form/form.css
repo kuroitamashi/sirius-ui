@@ -302,38 +302,57 @@
   opacity: 0.6;
 }
 
+/* Interrupteur SKS (2026-10-09) : piste blanche cerclée de gris, pouce en
+   pilule écrasée (plus large que haute) gris foncé. Activé : piste noire,
+   pouce blanc poussé à droite. Proportions reprises d'une maquette de
+   Mouhamadou : le pouce n'est pas un rond, c'est ce qui fait son charme. */
 .sirius-switch {
   position: relative;
-  width: 36px;
+  box-sizing: border-box;
+  width: 32px;
   height: 20px;
-  border-radius: 12px;
-  background: #c9cccf;
-  transition: background-color 0.15s ease;
+  border: 1px solid #b5b5b5;
+  border-radius: 9999px;
+  background: #ffffff;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
   flex-shrink: 0;
 }
 
 .sirius-switch--checked {
-  background: #202020;
+  background: #303030;
+  border-color: #303030;
 }
 
 .sirius-switch--disabled {
-  background: #e4e5e7;
+  background: #f3f3f3;
+  border-color: #e3e3e3;
 }
 
 .sirius-switch__thumb {
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 3px;
+  left: 3px;
   width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+  height: 12px;
+  border-radius: 9999px;
+  background: #616161;
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), background-color 0.15s ease;
 }
 
 .sirius-switch--checked .sirius-switch__thumb {
-  transform: translateX(16px);
+  transform: translateX(8px);
+  background: #ffffff;
+}
+.sirius-switch--disabled .sirius-switch__thumb {
+  background: #c9c9c9;
+}
+/* Activé mais inactif : on doit encore lire qu'il est activé */
+.sirius-switch--checked.sirius-switch--disabled {
+  background: #c9c9c9;
+  border-color: #c9c9c9;
+}
+.sirius-switch--checked.sirius-switch--disabled .sirius-switch__thumb {
+  background: #ffffff;
 }
 
 /* --------------------------------------------------------------------------
