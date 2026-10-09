@@ -243,6 +243,10 @@
   --s-shadow-input: var(--s-shadow-input-drop), 0 0 0 1px #00000021;
   /* case à cocher et radio : même recette, liseré plus marqué à 20 % (--p-shadow-input-strong) */
   --s-shadow-input-strong: var(--s-shadow-input-drop), 0 0 0 1px #00000033;
+  /* case cochée : pastille noire légèrement bombée, liseré intérieur et reflet
+     blanc en haut (--p-shadow-choice-checked, relevé du 2026-10-09) */
+  --s-shadow-choice-checked: 0 .0625rem .0625rem -.03125rem #00000021, inset 0 0 0 .03125rem #00000066, inset 0 .09375rem .125rem -.0625rem #ffffff6b;
+  --s-color-bg-fill-brand-accent: #101010;
   --s-color-button-gradient-bg-fill: radial-gradient(50% 50% at 50% 0%, #ffffff33 0%, #ffffff00 100%), radial-gradient(49.59% 37.11% at 50.41% 101.56%, #ffffff26 0%, #ffffff00 66.46%);
   --s-color-button-primary-text: #ffffff;
   --s-color-button-primary-text-hover: #dddddd;
