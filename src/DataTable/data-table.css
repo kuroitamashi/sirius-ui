@@ -190,8 +190,22 @@
   box-shadow: inset 0 1px 0 var(--s-color-border-secondary);
 }
 
-.sirius-data-table--hoverable tbody .sirius-data-table__row:hover {
+/* Survol relevé sur l'admin de référence : la ligne s'arrondit à 10 px et le
+   trait disparaît au-dessus et en dessous d'elle */
+.sirius-data-table--hoverable tbody .sirius-data-table__row:hover > td {
+  box-shadow: none;
+}
+.sirius-data-table--hoverable tbody .sirius-data-table__row:not(.sirius-data-table__row--selected, .sirius-data-table__row--success, .sirius-data-table__row--warning, .sirius-data-table__row--critical, .sirius-data-table__row--subdued, .sirius-data-table__row--disabled):hover > td {
   background-color: var(--s-color-bg-surface-hover);
+}
+.sirius-data-table--hoverable tbody .sirius-data-table__row:hover + tr > td {
+  box-shadow: none;
+}
+.sirius-data-table--hoverable tbody .sirius-data-table__row:hover > td:first-child {
+  border-radius: var(--s-border-radius-element) 0 0 var(--s-border-radius-element);
+}
+.sirius-data-table--hoverable tbody .sirius-data-table__row:hover > td:last-child {
+  border-radius: 0 var(--s-border-radius-element) var(--s-border-radius-element) 0;
 }
 
 .sirius-data-table__row--clickable {
