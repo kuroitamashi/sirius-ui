@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Sirius MomoField, la carte du compagnon IA
+   Rayon repris du champ Sidekick de l'admin Shopify (2026-10-09) :
+   --sidekick-field-border-radius = 750 - 100, soit 1.625rem (26px).
+   Ombre --s-shadow-100, sans border. La largeur suit le parent.
+   ========================================================================== */
+
+.sirius-momo-field {
+  --momo-field-border-radius: calc(var(--s-border-radius-750) - var(--s-border-radius-100));
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100px;
+  border-radius: var(--momo-field-border-radius);
+  background: var(--sirius-surface, #ffffff);
+  box-shadow: var(--s-shadow-100);
+  color: var(--sirius-text, #202223);
+  font-size: 13px;
+  line-height: 20px;
+}

@@ -11,6 +11,7 @@
 @import './Card/card.css';
 @import './Badge/badge.css';
 @import './Banner/banner.css';
+@import './MomoField/momo-field.css';
 @import './Spinner/spinner.css';
 @import './MetricCard/metric-card.css';
 @import './Accordion/accordion.css';

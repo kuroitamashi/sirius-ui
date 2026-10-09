@@ -56,6 +56,9 @@ export type {
 export { SiriusBadge } from './Badge/Badge';
 export type { SiriusBadgeProps, SiriusBadgeTone, SiriusBadgePip } from './Badge/Badge';
 
+export { SiriusMomoField } from './MomoField/MomoField';
+export type { SiriusMomoFieldProps } from './MomoField/MomoField';
+
 export { SiriusBanner } from './Banner/Banner';
 export type { SiriusBannerProps, SiriusBannerTone, SiriusBannerLayout, SiriusBannerAction } from './Banner/Banner';
 
