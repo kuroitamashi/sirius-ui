@@ -67,7 +67,7 @@ const preview: Preview = {
     viewport: { options: VIEWPORTS },
     backgrounds: {
       options: {
-        app: { name: 'Fond application', value: '#f6f6f7' },
+        app: { name: 'Fond application', value: '#ffffff' },
         surface: { name: 'Surface carte', value: '#ffffff' },
         sombre: { name: 'Sombre neutre', value: '#0d0d0d' },
       },
@@ -83,7 +83,7 @@ const preview: Preview = {
 
   initialGlobals: {
     // fond blanc par défaut (2026-10-09) : les tableaux se posent à même la page blanche
-    backgrounds: { value: 'surface' },
+    backgrounds: { value: 'app' },
     viewport: { value: undefined, isRotated: false },
     grid: 'off',
   },

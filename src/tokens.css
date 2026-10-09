@@ -55,8 +55,9 @@
   --s-color-button-primary-text-critical: #ffffff;
 
   /* --- Surfaces & Plans de fond --- */
-  /* Fond de page : aucun jeton relevé ne le donne, valeur gardée. */
-  --sirius-bg-app: #f6f6f7;
+  /* Fond de page blanc (décidé le 2026-10-09, comme l'admin de référence) :
+     les tableaux s'y posent à plat, leur bande d'en-tête #f7f7f7 s'y voit. */
+  --sirius-bg-app: #ffffff;
   --sirius-surface: var(--s-color-bg-surface);
   --sirius-surface-hover: var(--s-color-bg-surface-hover);
   --sirius-surface-subdued: var(--s-color-bg-surface-secondary);
