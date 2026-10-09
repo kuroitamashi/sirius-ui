@@ -1,151 +1,138 @@
 /* ==========================================================================
-   Sirius Badge - Complete Sirius UI Matrix Recreation
-   Tones: neutral, info, success, attention, warning, critical, wave, om
-   Styles: subdued (pastel), strong (solid), pips (filled, hollow, slash), icons
+   Sirius Badge, calqué sur le Badge de Shopify Polaris (histoire « All »).
+   Valeurs relevées dans le navigateur sur storybook.polaris.shopify.dev.
+   Attention aux noms : chez Polaris, warning est ORANGE et attention JAUNE.
+   Graisse : 550 partout, sauf neutral et magic (450) et new (700).
    ========================================================================== */
 
 .sirius-badge {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 3px 10px;
-  border-radius: 9999px;
+  padding: 2px 8px;
+  border-radius: 8px;
   font-family: inherit;
+  /* 12/16 comme le texte bodySm de Polaris : 16 + 2x2 de padding = 20px. */
   font-size: 12px;
   font-weight: 550;
-  line-height: 1.35;
+  line-height: 16px;
   white-space: nowrap;
-  letter-spacing: 0.01em;
-  border: 1px solid transparent;
   box-sizing: border-box;
   user-select: none;
-  transition: all 0.12s ease;
+  background: rgba(0, 0, 0, 0.06);
+  color: #616161;
 }
 
-/* --- Pip (Puces de statut) --- */
-.sirius-badge__pip {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
+.sirius-badge--large {
+  padding: 4px 8px;
 }
 
-.sirius-badge__pip--filled {
-  background: currentColor;
-}
-
-.sirius-badge__pip--hollow {
-  border: 1.5px solid currentColor;
-  background: transparent;
-  width: 5px;
-  height: 5px;
-}
-
-.sirius-badge__pip--slashed {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1.5px solid currentColor;
-  position: relative;
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-.sirius-badge__pip--slashed::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1.5px;
-  background: currentColor;
-  transform: rotate(-45deg);
-}
-
+/* Pastille de progression ou icône : 20px. En medium, elle mange le padding
+   gauche et déborde de 2px en haut et en bas, comme chez Polaris, pour que le
+   badge garde ses 20px de haut. */
 .sirius-badge__icon {
-  display: grid;
-  place-items: center;
+  display: inline-flex;
   flex-shrink: 0;
+  margin: -2px 0 -2px -8px;
+  /* Couleur d'accent du ton (plus vive que le texte), posée sur `color` :
+     les icônes Sirius peignent en currentColor. */
+  color: var(--sirius-badge-accent, currentColor);
 }
-
 .sirius-badge__icon svg {
-  width: 13px;
-  height: 13px;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+.sirius-badge--large .sirius-badge__icon {
+  margin: 0 4px 0 -2px;
 }
 
 /* ==========================================================================
-   TONES - Sirius Subdued (Pastel doux, haute lisibilité)
+   Tons (subdued, par défaut)
    ========================================================================== */
-
-/* 1. Neutral / Default */
 .sirius-badge--neutral,
 .sirius-badge--subdued {
-  background: #e4e5e7;
-  color: #4a4d50;
+  --sirius-badge-accent: #616161;
+  background: rgba(0, 0, 0, 0.06);
+  color: #616161;
+  font-weight: 450;
 }
-
-/* 2. Info (Blue) */
 .sirius-badge--info {
-  background: #dbeafe;
-  color: #0b4c8c;
+  --sirius-badge-accent: #0094d5;
+  background: #d5ebff;
+  color: #003a5a;
 }
-
-/* 3. Success (Mint / Green) */
 .sirius-badge--success {
-  background: #cbf5db;
-  color: #085e33;
+  --sirius-badge-accent: #047b5d;
+  background: #affebf;
+  color: #014b40;
 }
-
-/* 4. Attention (Amber / Orange) */
-.sirius-badge--attention {
-  background: #fde5c7;
-  color: #794a00;
-}
-
-/* 5. Warning (Yellow) */
 .sirius-badge--warning {
-  background: #fef08a;
-  color: #634700;
+  --sirius-badge-accent: #b28400;
+  background: #ffd6a4;
+  color: #5e4200;
 }
-
-/* 6. Critical (Red / Rose) */
+.sirius-badge--attention {
+  --sirius-badge-accent: #998a00;
+  background: #ffeb78;
+  color: #4f4700;
+}
 .sirius-badge--critical {
-  background: #fdd4ce;
-  color: #8c1d18;
+  --sirius-badge-accent: #e22c38;
+  background: #fed1d7;
+  color: #8e0b21;
+}
+.sirius-badge--new {
+  --sirius-badge-accent: #616161;
+  background: rgba(0, 0, 0, 0.06);
+  color: #616161;
+  font-weight: 700;
+}
+.sirius-badge--magic {
+  --sirius-badge-accent: #5700d1;
+  background: #e9e5ff;
+  color: #5700d1;
+  font-weight: 450;
+}
+.sirius-badge--read-only {
+  --sirius-badge-accent: #8a8a8a;
+  background: transparent;
+  color: #616161;
+}
+.sirius-badge--enabled {
+  --sirius-badge-accent: #047b5d;
+  background: rgba(0, 0, 0, 0.06);
+  color: #303030;
 }
 
 /* ==========================================================================
-   TONES - Sirius Strong (Couleurs vives pleines avec texte blanc)
+   Tons forts (variant="strong") : pastille et icône prennent la couleur du texte
    ========================================================================== */
+.sirius-badge.sirius-badge--strong {
+  --sirius-badge-accent: currentColor;
+}
 .sirius-badge--strong.sirius-badge--neutral {
-  background: #4a4d50;
+  background: #4a4a4a;
   color: #ffffff;
 }
-
 .sirius-badge--strong.sirius-badge--info {
-  background: #0284c7;
-  color: #ffffff;
+  background: #91d0ff;
+  color: #002133;
 }
-
 .sirius-badge--strong.sirius-badge--success {
-  background: #147d48;
-  color: #ffffff;
+  background: #047b5d;
+  color: #fafffb;
 }
-
-.sirius-badge--strong.sirius-badge--attention {
-  background: #f59e0b;
-  color: #ffffff;
-}
-
 .sirius-badge--strong.sirius-badge--warning {
-  background: #ffea00;
-  color: #202223;
+  background: #ffb800;
+  color: #251a00;
 }
-
+.sirius-badge--strong.sirius-badge--attention {
+  background: #ffe600;
+  color: #332e00;
+}
 .sirius-badge--strong.sirius-badge--critical {
-  background: #d72c0d;
-  color: #ffffff;
+  background: #c70a24;
+  color: #fffafb;
 }
 
 /* ==========================================================================
@@ -154,7 +141,6 @@
 .sirius-badge--wave {
   background: #e0f4fe;
   color: #0284c7;
-  font-weight: 600;
 }
 .sirius-badge--strong.sirius-badge--wave {
   background: #00b2fe;
@@ -164,7 +150,6 @@
 .sirius-badge--orange_money {
   background: #ffedd5;
   color: #ea580c;
-  font-weight: 600;
 }
 .sirius-badge--strong.sirius-badge--orange_money {
   background: #ff6600;
@@ -175,5 +160,4 @@
 .sirius-badge--cash_on_delivery {
   background: #fef3c7;
   color: #b45309;
-  font-weight: 600;
 }
