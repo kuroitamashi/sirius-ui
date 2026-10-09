@@ -12,15 +12,11 @@ const CSS = `
   background: #ffffff;
 }
 .labo-home-card {
-  --card-expand-duration: .35s;
-  --card-expand-ease: cubic-bezier(.34, 1.8, .64, 1);
-  --card-content-ease: cubic-bezier(.25, .46, .45, .94);
-  --card-removal-duration: .4s;
   position: relative;
   width: 100%;
   border-radius: var(--s-border-radius-home-card);
   box-shadow: var(--s-shadow-home-card);
-  transition: box-shadow var(--card-expand-duration) var(--card-content-ease);
+  transition: box-shadow var(--s-motion-home-card-expand-duration) var(--s-motion-home-card-content-ease);
   display: grid;
   place-items: center;
   font-size: 13px;

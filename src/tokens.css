@@ -306,6 +306,35 @@
   --s-space-choice-margin: var(--s-space-025);
   --s-height-field-min-block-size: 1.875rem;  /* champ, 30px */
 
-  /* --- Transitions --- */
-  --sirius-transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
+  /* --- Animations (--p-motion-*, relevé du 2026-10-09) ---
+     Les @keyframes de la référence (spin, pulse, fade-in, bounce, appear-*)
+     ne se relèvent pas avec les jetons : Sirius garde les siens (sirius-spin). */
+  --s-motion-duration-0: 0ms;
+  --s-motion-duration-50: 50ms;
+  --s-motion-duration-100: 100ms;
+  --s-motion-duration-150: 150ms;
+  --s-motion-duration-200: 200ms;
+  --s-motion-duration-250: 250ms;
+  --s-motion-duration-300: 300ms;
+  --s-motion-duration-350: 350ms;
+  --s-motion-duration-400: 400ms;
+  --s-motion-duration-450: 450ms;
+  --s-motion-duration-500: 500ms;
+  --s-motion-duration-5000: 5000ms;
+  --s-motion-ease: cubic-bezier(.25, .1, .25, 1);
+  --s-motion-ease-in: cubic-bezier(.42, 0, 1, 1);
+  --s-motion-ease-out: cubic-bezier(.19, .91, .38, 1);
+  --s-motion-ease-in-out: cubic-bezier(.42, 0, .58, 1);
+  --s-motion-ease-out-emphasized: cubic-bezier(.2, .8, 0, 1);
+  --s-motion-linear: cubic-bezier(0, 0, 1, 1);
+
+  /* Rôles : cartes de l'accueil (variables locales de la référence). La
+     courbe d'ouverture dépasse 1 : la carte rebondit un peu en s'ouvrant. */
+  --s-motion-home-card-expand-duration: var(--s-motion-duration-350);
+  --s-motion-home-card-removal-duration: var(--s-motion-duration-400);
+  --s-motion-home-card-expand-ease: cubic-bezier(.34, 1.8, .64, 1);
+  --s-motion-home-card-content-ease: cubic-bezier(.25, .46, .45, .94);
+
+  /* Ancien nom : sa courbe n'existe pas dans la référence, gardée telle quelle. */
+  --sirius-transition: all var(--s-motion-duration-150) cubic-bezier(0.2, 0, 0, 1);
 }
