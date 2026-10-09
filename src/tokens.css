@@ -120,6 +120,22 @@
   --s-shadow-toast: 0rem .125rem .25rem -.0625rem #00000014, 0rem .25rem .5rem -.125rem #00000014, 0rem .5rem 1rem -.25rem #00000014, 0rem 1rem 2rem -.5rem #00000014, 0rem 2rem 4rem -1rem #00000014, 0rem 4rem 8rem -2rem #00000014, 0rem 0rem 0rem .0625rem #00000014;
   --s-shadow-button: none;
 
+  /* --- Peinture vernie des boutons pleins (--p-shadow-button-primary et
+     --p-color-button-gradient-bg-fill, relevé du 2026-10-09). La recette de la
+     référence se lit en trois morceaux : 4 ombres portées, un liseré intérieur
+     de la couleur du fond, 2 reflets blancs. Le liseré change avec la couleur
+     du bouton, donc il se compose dans button.css (--sirius-btn-tint) ; les
+     deux autres morceaux sont fixes et vivent ici. --- */
+  --s-shadow-button-primary-drop: 0rem .0625rem .03125rem -.03125rem #00000021, 0rem .0625rem .125rem -.03125rem #00000021, 0rem .25rem .375rem -.125rem #00000021, 0rem .125rem .1875rem -.09375rem #00000021;
+  --s-shadow-button-primary-shine: inset 0rem 0rem .25rem .125rem #ffffff1a, inset 0rem 0rem .75rem -.375rem #ffffffbf;
+  --s-shadow-button-primary: var(--s-shadow-button-primary-drop), inset 0rem 0rem .25rem .0625rem #101010, var(--s-shadow-button-primary-shine);
+  --s-color-button-gradient-bg-fill: radial-gradient(50% 50% at 50% 0%, #ffffff33 0%, #ffffff00 100%), radial-gradient(49.59% 37.11% at 50.41% 101.56%, #ffffff26 0%, #ffffff00 66.46%);
+  --s-color-button-primary-bg: #101010;
+  --s-color-button-primary-bg-hover: #0a0a0a;
+  --s-color-button-primary-bg-active: #0a0a0a;
+  --s-color-button-primary-text: #ffffff;
+  --s-color-button-primary-text-hover: #dddddd;
+
   /* Anciens noms, gardés pour ne rien casser : ils pointent vers ces valeurs. */
   --sirius-shadow-card: var(--s-shadow-100);
   --sirius-shadow-bevel: var(--s-shadow-bevel-100);
