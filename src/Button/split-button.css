@@ -98,7 +98,7 @@
   position: absolute;
   top: calc(100% + 4px);
   right: 0;
-  z-index: var(--sirius-z-popover, 1000);
+  z-index: var(--s-z-index-popover);
   animation: sirius-popover-enter 0.12s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

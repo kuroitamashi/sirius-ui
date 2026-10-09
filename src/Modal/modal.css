@@ -125,7 +125,7 @@
 .sirius-modal-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: var(--s-z-index-overlay);
   background-color: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);

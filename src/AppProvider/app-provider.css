@@ -9,7 +9,7 @@
 /* Zone réservée aux portails de popovers, modales et menus déroulants */
 #sirius-portals-container {
   position: relative;
-  z-index: 9999;
+  z-index: var(--s-z-index-overlay);
 }
 
 /* Zone invisible dédiée aux annonces vocales pour lecteurs d'écran */

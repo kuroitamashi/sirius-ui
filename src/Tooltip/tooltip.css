@@ -11,7 +11,7 @@
 /* Bulle d'info-bulle blanche */
 .sirius-tooltip-bubble {
   position: absolute;
-  z-index: 9999;
+  z-index: var(--s-z-index-overlay);
   background-color: #ffffff;
   color: var(--sirius-text);
   padding: 6px 14px;

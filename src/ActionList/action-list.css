@@ -30,7 +30,7 @@
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
-  z-index: 1000;
+  z-index: var(--s-z-index-popover);
   box-shadow: var(--sirius-shadow-popover);
   animation: sirius-popover-in 0.15s cubic-bezier(0.2, 0, 0, 1);
 }

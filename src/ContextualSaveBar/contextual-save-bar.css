@@ -8,7 +8,7 @@
   bottom: 20px;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: var(--s-z-index-sticky);
   display: flex;
   justify-content: center;
   pointer-events: none;

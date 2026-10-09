@@ -306,6 +306,41 @@
   --s-space-choice-margin: var(--s-space-025);
   --s-height-field-min-block-size: 1.875rem;  /* champ, 30px */
 
+  /* --- Plans d'empilement (z-index) ---
+     1. Échelle de la référence (--p-z-index-*), relevée le 2026-10-09.
+     2. Rôles de Sirius, aux valeurs que les composants avaient déjà : les
+        passer sur l'échelle de la référence changerait l'ordre face aux
+        z-index propres au dashboard. À aligner le jour où le dashboard aussi
+        prend ces rôles. Les z-index internes à un composant (1, 2, 5...)
+        restent en dur, ils ne se comparent qu'entre eux. */
+  --s-z-index-0: auto;
+  --s-z-index-1: 100;
+  --s-z-index-2: 400;
+  --s-z-index-3: 510;
+  --s-z-index-4: 512;
+  --s-z-index-5: 513;
+  --s-z-index-6: 514;
+  --s-z-index-7: 515;
+  --s-z-index-8: 516;
+  --s-z-index-9: 517;
+  --s-z-index-10: 518;
+  --s-z-index-11: 519;
+  --s-z-index-12: 520;
+  --s-z-index-sticky: 100;     /* barre d'enregistrement, en-tête de tableau collant */
+  --s-z-index-popover: 1000;   /* menus et listes d'actions */
+  --s-z-index-overlay: 9999;   /* fenêtres, infobulles, conteneur des portails */
+
+  /* --- Points de rupture (--p-breakpoints-*) ---
+     Une variable CSS ne se lit pas dans @media : ces valeurs servent de
+     référence et au JavaScript. À recopier telles quelles dans les @media.
+     Écarts connus, laissés tels quels : Card et AccountConnection basculent à
+     600px, ContextualSaveBar à 640px et 1024px. */
+  --s-breakpoints-xs: 0rem;
+  --s-breakpoints-sm: 30.625rem;  /* 490px */
+  --s-breakpoints-md: 48rem;      /* 768px */
+  --s-breakpoints-lg: 65rem;      /* 1040px */
+  --s-breakpoints-xl: 90rem;      /* 1440px */
+
   /* --- Animations (--p-motion-*, relevé du 2026-10-09) ---
      Les @keyframes de la référence (spin, pulse, fade-in, bounce, appear-*)
      ne se relèvent pas avec les jetons : Sirius garde les siens (sirius-spin). */
