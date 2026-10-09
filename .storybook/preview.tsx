@@ -82,7 +82,8 @@ const preview: Preview = {
   },
 
   initialGlobals: {
-    backgrounds: { value: 'app' },
+    // fond blanc par défaut (2026-10-09) : les tableaux se posent à même la page blanche
+    backgrounds: { value: 'surface' },
     viewport: { value: undefined, isRotated: false },
     grid: 'off',
   },

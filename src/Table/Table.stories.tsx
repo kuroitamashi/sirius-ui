@@ -48,8 +48,6 @@ const meta = {
   component: SiriusTable,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
-  // le tableau se pose sur la surface blanche de la page, sans carte
-  decorators: [(Story) => <div style={{ background: '#ffffff', padding: 16, borderRadius: 16 }}><Story /></div>],
   args: { columns, data: commandes },
 } satisfies Meta<typeof SiriusTable<Commande>>;
 
