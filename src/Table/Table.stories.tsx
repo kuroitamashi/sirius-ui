@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
 import { SiriusTable } from './Table';
 import { SiriusBadge } from '../Badge/Badge';
 
@@ -14,6 +15,8 @@ const commandes: Commande[] = [
   { numero: '#1042', cliente: 'Awa Diop', paiement: 'wave', statut: 'payee', total: 24000 },
   { numero: '#1043', cliente: 'Modou Fall', paiement: 'orange_money', statut: 'a_traiter', total: 8500 },
   { numero: '#1044', cliente: 'Fatou Sow', paiement: 'cash_on_delivery', statut: 'en_attente', total: 14900 },
+  { numero: '#1045', cliente: 'Ousmane Ndiaye', paiement: 'wave', statut: 'payee', total: 14900 },
+  { numero: '#1046', cliente: 'Aminata Ba', paiement: 'orange_money', statut: 'a_traiter', total: 32500 },
 ];
 
 const fcfa = (n: number) => `${n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} FCFA`;
@@ -57,7 +60,7 @@ export const AvecPagination: Story = {
     pagination: {
       hasPrevious: false,
       hasNext: true,
-      label: '1 a 3 sur 47',
+      label: '1 à 5 sur 47',
       onNext: () => {},
       onPrevious: () => {},
     },
@@ -80,3 +83,60 @@ export const LignesCliquables: Story = {
 export const Embarque: Story = {
   args: { embedded: true },
 };
+
+const getRowId = (row: Commande) => row.numero;
+
+/** Cases à cocher : dès qu'une ligne est cochée, la barre d'actions groupées
+    recouvre l'en-tête, et cliquer une ligne la coche au lieu de l'ouvrir. */
+export const AvecSelection: Story = {
+  render: () => (
+    <SiriusTable<Commande>
+      columns={columns}
+      data={commandes}
+      getRowId={getRowId}
+      selectable
+      onRowClick={(row) => alert(`Ouvrir ${row.numero}`)}
+      bulkActions={{
+        promotedActions: [{ content: 'Marquer comme préparées' }, { content: 'Imprimer les bons' }],
+        actions: [{ content: 'Archiver' }, { content: 'Annuler les commandes', destructive: true }],
+      }}
+    />
+  ),
+};
+
+export const LignesTeintees: Story = {
+  render: () => (
+    <SiriusTable<Commande>
+      columns={columns}
+      data={commandes}
+      getRowId={getRowId}
+      selectable
+      rowTone={(row) => ({ '#1042': 'success', '#1043': 'warning', '#1044': 'critical', '#1045': 'subdued' } as const)[row.numero]}
+      isRowDisabled={(row) => row.numero === '#1046'}
+    />
+  ),
+};
+
+export const Triable: Story = {
+  render: () => {
+    const [sort, setSort] = useState<{ key: string; dir: 'ascending' | 'descending' }>({ key: 'total', dir: 'descending' });
+    const sorted = [...commandes].sort((a, b) => {
+      const x = (a as any)[sort.key], y = (b as any)[sort.key];
+      return (x > y ? 1 : x < y ? -1 : 0) * (sort.dir === 'ascending' ? 1 : -1);
+    });
+    return (
+      <SiriusTable<Commande>
+        columns={columns.map((c) => (['numero', 'cliente', 'total'].includes(c.key) ? { ...c, sortable: true } : c))}
+        data={sorted}
+        getRowId={getRowId}
+        sortColumn={sort.key}
+        sortDirection={sort.dir}
+        onSort={(key, dir) => setSort({ key, dir })}
+      />
+    );
+  },
+};
+
+export const Chargement: Story = { args: { loading: true, loadingLabel: 'Chargement des commandes…' } };
+
+export const Rayures: Story = { args: { zebra: true } };

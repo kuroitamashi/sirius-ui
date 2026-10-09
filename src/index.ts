@@ -87,7 +87,7 @@ export { SiriusDivider } from './Divider/Divider';
 export type { SiriusDividerProps } from './Divider/Divider';
 
 export { SiriusTable } from './Table/Table';
-export type { SiriusTableProps, SiriusTableColumn, SiriusTablePagination } from './Table/Table';
+export type { SiriusTableProps, SiriusTableColumn, SiriusTablePagination, SiriusTableSortDirection, SiriusTableRowTone } from './Table/Table';
 
 export { SiriusDataTable, DataTable } from './DataTable';
 export type {
