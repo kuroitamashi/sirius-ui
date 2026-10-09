@@ -1,9 +1,9 @@
 /* ==========================================================================
    Sirius Button
-   Les boutons pleins (vert, noir, rouge) sont vernis comme ceux de l'admin
-   de référence : deux reflets blancs en dégradé, un liseré intérieur de la
+   Seul le bouton vert est verni, comme le bouton plein de l'admin de
+   référence : deux reflets blancs en dégradé, un liseré intérieur de la
    couleur du fond, deux lueurs blanches et quatre ombres portées fines.
-   Le blanc et les boutons nus restent plats. Seule la couleur de fond
+   Tous les autres restent plats (décidé le 2026-10-09). Seule la couleur de fond
    change au survol et à l'appui. La hauteur reste la nôtre, 32 px, plus
    confortable au doigt que les 28 px de la référence. La bordure de 1px
    reste sur toutes les variantes pour que tous les boutons gardent
@@ -58,58 +58,30 @@
 }
 
 /* --------------------------------------------------------------------------
-   Vernis des boutons pleins. Chaque variante ne donne que sa teinte
-   (--sirius-btn-tint) et ses fonds ; le liseré intérieur reprend la teinte,
-   comme la référence le fait pour son bouton rouge. La bordure reste
-   transparente et le fond la recouvre (background-origin), sinon le dégradé
-   se répète sur le pixel du bord.
+   Primary (vert SKS, l'action principale), le seul bouton verni.
+   La bordure reste transparente et le fond la recouvre (background-origin),
+   sinon le dégradé se répète sur le pixel du bord.
    -------------------------------------------------------------------------- */
-.sirius-btn--primary,
-.sirius-btn--secondary,
-.sirius-btn--dark,
-.sirius-btn--contrast,
-.sirius-btn--destructive {
-  border-color: transparent;
+.sirius-btn--primary {
+  background-color: #00633a;
   background-image: var(--s-color-button-gradient-bg-fill);
   background-origin: border-box;
+  border-color: transparent;
   box-shadow:
     var(--s-shadow-button-primary-drop),
-    inset 0 0 .25rem .0625rem var(--sirius-btn-tint),
+    inset 0 0 .25rem .0625rem #00633a,
     var(--s-shadow-button-primary-shine);
   color: var(--s-color-button-primary-text);
 }
-/* le texte grisé au survol vient de la référence ; forcé ici sinon
+/* texte grisé au survol, comme la référence ; forcé ici sinon
    a:hover { color: var(--primary) } l'emporte sur un bouton-lien */
-.sirius-btn--primary:hover:not(:disabled),
-.sirius-btn--secondary:hover:not(:disabled),
-.sirius-btn--dark:hover:not(:disabled),
-.sirius-btn--contrast:hover:not(:disabled),
-.sirius-btn--destructive:hover:not(:disabled) {
-  border-color: transparent;
+.sirius-btn--primary:hover:not(:disabled) {
+  background-color: #005431;
   color: var(--s-color-button-primary-text-hover);
 }
-
-/* Primary (vert SKS, l'action principale) */
-.sirius-btn--primary {
-  --sirius-btn-tint: #00703f;
-  background-color: #00703f;
+.sirius-btn--primary:active:not(:disabled) {
+  background-color: #004427;
 }
-.sirius-btn--primary:hover:not(:disabled) { background-color: #006036; }
-.sirius-btn--primary:active:not(:disabled) { background-color: #004d2c; }
-
-/* Secondary (noir, celui de la référence) */
-.sirius-btn--secondary,
-.sirius-btn--dark,
-.sirius-btn--contrast {
-  --sirius-btn-tint: var(--s-color-button-primary-bg);
-  background-color: var(--s-color-button-primary-bg);
-}
-.sirius-btn--secondary:hover:not(:disabled),
-.sirius-btn--dark:hover:not(:disabled),
-.sirius-btn--contrast:hover:not(:disabled) { background-color: var(--s-color-button-primary-bg-hover); }
-.sirius-btn--secondary:active:not(:disabled),
-.sirius-btn--dark:active:not(:disabled),
-.sirius-btn--contrast:active:not(:disabled) { background-color: var(--s-color-button-primary-bg-active); }
 
 /* --------------------------------------------------------------------------
    Default / Tertiary (blanc à bordure)
@@ -163,11 +135,20 @@
    Destructive (rouge plein, action irréversible)
    -------------------------------------------------------------------------- */
 .sirius-btn--destructive {
-  --sirius-btn-tint: #bc2200;
   background-color: #bc2200;
+  border-color: #bc2200;
+  color: #ffffff;
 }
-.sirius-btn--destructive:hover:not(:disabled) { background-color: #aa1b00; }
-.sirius-btn--destructive:active:not(:disabled) { background-color: #8a1500; }
+.sirius-btn--destructive:hover:not(:disabled) {
+  background-color: #aa1b00;
+  border-color: #aa1b00;
+  color: #ffffff;
+}
+.sirius-btn--destructive:active:not(:disabled) {
+  background-color: #8a1500;
+  border-color: #8a1500;
+  color: #ffffff;
+}
 
 .sirius-btn--destructive-plain {
   background-color: transparent;

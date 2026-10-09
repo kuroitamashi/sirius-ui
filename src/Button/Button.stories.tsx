@@ -16,7 +16,6 @@ type Story = StoryObj<typeof meta>;
 const VARIANTS = [
   ['default', 'Par défaut (Blanc à bordure)'],
   ['primary', 'Primaire (Vert SKS signature)'],
-  ['secondary', 'Noir (rare, contraste fort)'],
   ['plain', 'Nu (Lien discret)'],
   ['destructive', 'Destructeur (Rouge plein)'],
   ['destructive-plain', 'Destructeur nu'],
@@ -85,7 +84,6 @@ export const Toutes: Story = {
 
 export const ParDefaut: Story = { args: { variant: 'default' } };
 export const Primaire: Story = { args: { variant: 'primary' } };
-export const Noir: Story = { args: { variant: 'secondary' } };
 export const Nu: Story = { args: { variant: 'plain' } };
 export const Destructeur: Story = { args: { variant: 'destructive' } };
 export const DestructeurNu: Story = { args: { variant: 'destructive-plain' } };
@@ -144,9 +142,6 @@ export const MenuDeroulantDisclosure: Story = {
       <SiriusButton variant="default" disclosure>
         Plus d'actions (Blanc)
       </SiriusButton>
-      <SiriusButton variant="secondary" disclosure>
-        Actions groupées (Noir)
-      </SiriusButton>
       <SiriusButton variant="primary" disclosure>
         Options principales (Vert)
       </SiriusButton>
@@ -159,26 +154,12 @@ export const MenuDeroulantDisclosure: Story = {
 
 /**
  * Boutons scindés (Split Button standard Polaris) :
- * Conforme à la capture d'écran Polaris avec le bouton noir (Save) et le bouton blanc (Save),
+ * Conforme à la capture d'écran Polaris avec le bouton blanc (Save),
  * ainsi que la déclinaison verte Sen-Kheweul Store. Le chevron ouvre un menu d'actions interactif.
  */
 export const Split: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
-      {/* 1. Bouton scindé noir (Save) - conforme capture Polaris */}
-      <SiriusSplitButton
-        variant="secondary"
-        primaryAction={{
-          content: 'Save',
-          onAction: () => alert('Action Save exécutée (Noir tactile)'),
-        }}
-        actions={[
-          { content: 'Save and continue editing', onAction: () => alert('Save and continue') },
-          { content: 'Save as draft', onAction: () => alert('Save as draft') },
-          { content: 'Duplicate product', onAction: () => alert('Duplicate product') },
-        ]}
-      />
-
       {/* 2. Bouton scindé blanc (Save) - conforme capture Polaris */}
       <SiriusSplitButton
         variant="default"

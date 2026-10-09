@@ -70,14 +70,6 @@
   z-index: 1;
 }
 
-/* Divider pour bouton Secondary (Noir) */
-.sirius-split-button--secondary .sirius-split-button__divider,
-.sirius-split-button--dark .sirius-split-button__divider,
-.sirius-split-button--contrast .sirius-split-button__divider {
-  background-color: #121212;
-  box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.12);
-}
-
 /* Divider pour bouton Primary (Vert SKS) */
 .sirius-split-button--primary .sirius-split-button__divider,
 .sirius-split-button--brand .sirius-split-button__divider,

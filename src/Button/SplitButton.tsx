@@ -53,7 +53,6 @@ export interface SiriusSplitButtonProps {
 
   /**
    * Variante de couleur Sirius UI :
-   * - 'secondary' : Noir tactile (comme dans la capture Polaris)
    * - 'default'   : Blanc avec bordure biseautée
    * - 'primary'   : Vert SKS signature
    * - 'destructive', etc.

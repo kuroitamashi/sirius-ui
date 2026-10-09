@@ -8,11 +8,8 @@ export interface SiriusButtonProps {
   children?: React.ReactNode;
   variant?:
     | 'primary'
-    | 'secondary'
     | 'default'
     | 'tertiary'
-    | 'dark'
-    | 'contrast'
     | 'plain'
     | 'destructive'
     | 'destructive-plain';
