@@ -65,6 +65,7 @@ export const SiriusButton = React.forwardRef<
   type = 'button',
   className = '',
   ariaLabel,
+  pill: _pill,
   ...rest
 }, ref) {
   const classes = [
