@@ -72,7 +72,7 @@ export function SiriusFilters({
   const racine = useRef<HTMLDivElement>(null);
   const champ = useRef<HTMLInputElement>(null);
   const liste = useRef<HTMLUListElement>(null);
-  const etiquettes = useRef<Record<string, HTMLButtonElement | null>>({});
+  const etiquettes = useRef<Record<string, HTMLSpanElement | null>>({});
   const [suggestions, setSuggestions] = useState(false);
   const [actif, setActif] = useState(0);
   // Le filtre dont la fenêtre est ouverte. Pendant ce temps, le texte tapé
@@ -151,6 +151,11 @@ export function SiriusFilters({
     onChange(values.length ? { ...value, [f.key]: { ...actuel, values } } : reste);
   };
 
+  const retirer = (k: string) => {
+    const { [k]: _, ...reste } = value;
+    onChange(reste);
+  };
+
   const choisirOperateur = (f: SiriusFilterDescriptor, negated: boolean) => {
     // Sans valeur, l'opérateur n'a rien à porter : on le gardera au premier choix.
     if (value[f.key]) onChange({ ...value, [f.key]: { ...value[f.key], negated } });
@@ -173,8 +178,7 @@ export function SiriusFilters({
     }
     // Effacer dans un champ vide retire la dernière étiquette.
     if (e.key === 'Backspace' && texte === '' && !filtreOuvert && appliques.length) {
-      const { [appliques[appliques.length - 1].key]: _, ...reste } = value;
-      onChange(reste);
+      retirer(appliques[appliques.length - 1].key);
       return;
     }
     if (!listeOuverte) {
@@ -221,19 +225,35 @@ export function SiriusFilters({
               const v = value[f.key];
               const valeurs = resume(f);
               return (
-                <button
+                <span
                   key={f.key}
                   ref={e => { etiquettes.current[f.key] = e; }}
-                  type="button"
-                  tabIndex={-1}
-                  disabled={disabled}
                   className={`sirius-filters__etiquette${ouvert === f.key ? ' sirius-filters__etiquette--ouverte' : ''}`}
-                  aria-expanded={ouvert === f.key}
-                  onMouseDown={e => { e.preventDefault(); if (ouvert === f.key) fermerFenetre(); else ouvrir(f.key); }}
                 >
-                  <span className="sirius-filters__etiquette-nom">{f.label} {v?.negated ? "n'est pas" : 'est'}</span>
-                  {valeurs && <span className="sirius-filters__etiquette-valeurs">{valeurs}</span>}
-                </button>
+                  <button
+                    type="button"
+                    tabIndex={-1}
+                    disabled={disabled}
+                    className="sirius-filters__etiquette-ouvrir"
+                    aria-expanded={ouvert === f.key}
+                    onMouseDown={e => { e.preventDefault(); if (ouvert === f.key) fermerFenetre(); else ouvrir(f.key); }}
+                  >
+                    <span className="sirius-filters__etiquette-nom">{f.label} {v?.negated ? "n'est pas" : 'est'}</span>
+                    {valeurs && <span className="sirius-filters__etiquette-valeurs">{valeurs}</span>}
+                  </button>
+                  {valeurs && !disabled && (
+                    // Dans le segment bleu, visible au survol : retire le filtre entier.
+                    <button
+                      type="button"
+                      className="sirius-filters__etiquette-retirer"
+                      aria-label={`Retirer le filtre ${f.label}`}
+                      onMouseDown={e => e.preventDefault()}
+                      onClick={() => { retirer(f.key); if (ouvert === f.key) fermerFenetre(); }}
+                    >
+                      <Icon name="x" size={12} />
+                    </button>
+                  )}
+                </span>
               );
             })}
             <input
