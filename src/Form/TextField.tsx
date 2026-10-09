@@ -11,7 +11,7 @@ export interface SiriusTextFieldProps {
   labelHidden?: boolean;
   /** Lien à droite du libellé (« Ajouter un code »). */
   labelAction?: { content: string; onAction?: () => void; url?: string };
-  details?: string;
+  details?: React.ReactNode;
   /** Un texte affiche le message ; `true` rougit le champ seul, le message est ailleurs. */
   error?: string | boolean;
   value?: string;
