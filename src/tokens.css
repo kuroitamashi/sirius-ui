@@ -41,6 +41,12 @@
   --s-color-bg-fill-secondary: #ebebeb;
   --s-color-bg-fill-secondary-hover: #dddddd;
   --s-color-bg-fill-secondary-active: #d0d0d0;
+  /* Bouton rouge (--p-color-button-primary-*-critical). Couleurs seules : la
+     référence le vernit, Sirius le garde plat (choix du 2026-10-09). */
+  --s-color-button-primary-bg-critical: #d82019;
+  --s-color-button-primary-bg-critical-hover: #ce1f18;
+  --s-color-button-primary-bg-critical-active: #b31a14;
+  --s-color-button-primary-text-critical: #ffffff;
 
   /* --- Surfaces & Plans de fond --- */
   /* Fond de page : aucun jeton relevé ne le donne, valeur gardée. */

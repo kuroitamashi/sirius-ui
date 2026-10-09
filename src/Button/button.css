@@ -155,19 +155,16 @@
    Destructive (rouge plein, action irréversible)
    -------------------------------------------------------------------------- */
 .sirius-btn--destructive {
-  background-color: #bc2200;
-  border-color: #bc2200;
-  color: #ffffff;
+  background-color: var(--s-color-button-primary-bg-critical);
+  border-color: transparent;
+  color: var(--s-color-button-primary-text-critical);
 }
 .sirius-btn--destructive:hover:not(:disabled) {
-  background-color: #aa1b00;
-  border-color: #aa1b00;
-  color: #ffffff;
+  background-color: var(--s-color-button-primary-bg-critical-hover);
+  color: var(--s-color-button-primary-text-critical);
 }
 .sirius-btn--destructive:active:not(:disabled) {
-  background-color: #8a1500;
-  border-color: #8a1500;
-  color: #ffffff;
+  background-color: var(--s-color-button-primary-bg-critical-active);
 }
 
 .sirius-btn--destructive-plain {
