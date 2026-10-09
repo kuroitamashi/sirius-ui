@@ -119,6 +119,11 @@
   --s-shadow-container: 0rem 0rem .125rem 0rem rgba(0, 0, 0, .24), 0rem .125rem .75rem 0rem #00000005, 0rem .25rem 1rem 0rem #00000005, 0rem .25rem 3rem 0rem #00000005;
   --s-shadow-toast: 0rem .125rem .25rem -.0625rem #00000014, 0rem .25rem .5rem -.125rem #00000014, 0rem .5rem 1rem -.25rem #00000014, 0rem 1rem 2rem -.5rem #00000014, 0rem 2rem 4rem -1rem #00000014, 0rem 4rem 8rem -2rem #00000014, 0rem 0rem 0rem .0625rem #00000014;
   --s-shadow-button: none;
+  /* Cartes de l'accueil (relevé du 2026-10-09 sur l'accueil de référence, où
+     elles portent une variable locale --card-shadow, absente des --p-*). Liseré
+     de 1px, reflet blanc au-dessus, ombre courte dessous ; plus haute au survol. */
+  --s-shadow-home-card: 0 .5625rem .625rem -.5rem #00000021, 0 -.125rem .25rem #ffffff80, 0 .125rem .0625rem -.0625rem #0000000d, 0 0 0 .0625rem #00000012;
+  --s-shadow-home-card-hover: 0 1.5rem 1.5rem -.625rem #00000040, 0 .1875rem .1875rem -.09375rem #00000005, 0 .125rem .125rem -.0625rem #00000005, 0 0 0 .0625rem #0000000f;
 
   /* --- Peinture vernie du bouton vert (--p-shadow-button-primary et
      --p-color-button-gradient-bg-fill, relevé du 2026-10-09). La recette de la
@@ -170,6 +175,7 @@
   --s-border-radius-control: var(--s-border-radius-300);       /* champs, 12px */
   --s-border-radius-control-inner: var(--s-border-radius-200); /* dans un champ, 8px */
   --s-border-radius-dialog: 1.5rem;                            /* fenêtres, 24px, hors échelle dans la référence aussi */
+  --s-border-radius-home-card: 1.5rem;                         /* cartes de l'accueil, 24px */
   --s-border-radius-popover: var(--s-border-radius-400);       /* menus, 16px */
   /* Lignes de menu : 10px épouserait exactement le coin de la fenêtre
      (16 - 6 de marge) ; Mouhamadou le veut plus prononcé, comme la référence. */
