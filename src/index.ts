@@ -153,3 +153,12 @@ export { SiriusFilters, Filters } from './Filters';
 export type {
   SiriusFiltersProps, SiriusFilterDescriptor, SiriusFilterChoice, SiriusFilterValue, SiriusFiltersValue,
 } from './Filters';
+
+export {
+  SiriusFrame, useSiriusFrame, SiriusSidebar,
+  COMPAGNON_LARGEUR_MIN, COMPAGNON_LARGEUR_MAX, COMPAGNON_LARGEUR_DEFAUT,
+} from './Frame';
+export type {
+  SiriusFrameProps, SiriusFrameContext, SiriusFrameLink,
+  SiriusSidebarProps, SiriusNavItem, SiriusNavSubItem, SiriusNavSection,
+} from './Frame';

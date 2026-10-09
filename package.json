@@ -23,7 +23,8 @@
       "default": "./src/Button/index.ts"
     },
     "./styles.css": "./src/styles.css",
-    "./tokens.css": "./src/tokens.css"
+    "./tokens.css": "./src/tokens.css",
+    "./app.css": "./src/Frame/app.css"
   },
   "files": [
     "src",

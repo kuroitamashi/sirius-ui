@@ -1,0 +1,210 @@
+/* ==========================================================================
+   Sirius, socle d'une application (dashboard marchand, console interne)
+   Repris tel quel du dashboard marchand le 2026-10-09 : jetons du cadre et
+   de la barre latérale, échelle de texte, reset, barre de défilement, corps
+   de page. À importer une fois, en tête du globals.css de l'application,
+   après tokens.css. Les polices (@font-face) restent dans l'application :
+   leurs fichiers vivent dans son dossier public/.
+   ========================================================================== */
+
+:root {
+  /* Deux plans, pas un seul.
+
+     --frame-bg  LE CADRE. Fond du shell, de la sidebar et des gouttières.
+                 C'est le plan du fond ; rien n'y est pose directement.
+     --canvas    LE CONTENU. Fond des pages, pose sur le cadre comme une
+                 surface arrondie.
+     --bg        UN CRAN SOUS LE BLANC. Fond de survol sur les surfaces
+                 blanches (menus, lignes de tableau, boutons secondaires) et
+                 fond des badges neutres.
+
+     Les deux roles tenaient dans un seul jeton, et le fond de page ne pouvait
+     donc pas s'eclaircir sans affadir tous les survols. Ils sont separes
+     depuis le 2026-08-26.
+
+     Le cadre reste plus soutenu que le contenu : c'est ce qui rend visible le
+     rayon du contenu. Deux gris identiques ne se separent pas. */
+  --frame-bg: #0b0c0e;
+  --canvas: #f8f9fa;
+  --bg: #f1f1f1;
+  --surface: #ffffff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --text-muted: #4b5563;
+  --text-faint: #9ca3af;
+  --primary: #00824C;
+  --primary-pale: #ecfdf5;
+  --up: #16a34a;
+  --down: #dc2626;
+  --amber: #b45309;   --amber-pale: #fef3c7;
+  --blue: #1d4ed8;    --blue-pale: #dbeafe;
+  --red: #b91c1c;     --red-pale: #fee2e2;
+  --green: #15803d;   --green-pale: #dcfce7;
+  --bg-active: #f3f4f6; /* tuile métrique sélectionnée (design Figma) */
+
+  /* Sidebar sombre unifiée façon nouveau Shopify */
+  --sidebar-bg: #0a0a0a;
+  --sidebar-hover: #1a1a1a;
+  --sidebar-active: #232323;
+  --sidebar-border: #202020;
+  /* gris neutre, plus fade que les libellés : le contraste façon Shopify */
+  --sidebar-icon: #7f7f7f;
+  /* Relief « verre » façon Shopify, valeurs relevées au pixel : dégradé
+     plus sombre au centre, liseré clair en haut, plus discret en bas. Pas
+     de transparence ni de flou, le fond derrière est uni. */
+  --sidebar-glass: linear-gradient(180deg, #2d2d2d, #252525 50%, #2b2b2b);
+  --sidebar-glass-field: linear-gradient(180deg, #404040, #383838 50%, #3e3e3e);
+  /* Contour de 1px relevé au pixel sur Shopify : à peine plus clair que le
+     fond en haut et sur les côtés, presque invisible en bas */
+  --sidebar-glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(255, 255, 255, 0.05), inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+  /* Relevé au pixel sur la recherche de Shopify, même logique que glass-edge */
+  --sidebar-field-edge: inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(255, 255, 255, 0.05), inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+  --sidebar-text: #f3f4f6;
+  --sidebar-text-muted: #9ca3af;
+  --sidebar-text-faint: #606674;
+  --sidebar-danger: #f87171;
+
+  /* --- Cadre sombre (topbar) ---
+     Le vert de la marque descendu en luminosité jusqu'à porter du blanc pur
+     sans effort. Assez sombre pour donner son aplomb au cadre, assez vert pour
+     rester SKS. Le --primary saturé reste un accent, il ne remplit pas de
+     surface. */
+  --frame: #043d28;
+  --frame-text: #ffffff;
+  --frame-muted: rgb(255 255 255 / 0.72);
+  --frame-hover: rgb(255 255 255 / 0.10);
+  --frame-field: rgb(255 255 255 / 0.12);
+  --frame-field-border: rgb(255 255 255 / 0.18);
+  /* Barre de defilement : le pouce est un jeton a lui, parce qu'il ne suit
+     aucun des autres — ni bordure ni texte. Gris neutre, assez present pour
+     etre attrape, assez discret pour ne pas dessiner une colonne le long de
+     chaque panneau. */
+  --scroll-thumb: #a6a6a6;
+  --scroll-thumb-hover: #8a8a8a;
+  --radius: 8px;
+  --radius-l: 10px;
+  --radius-xl: 12px;
+  /* Élément du rail replié : squircle relevé au pixel sur Shopify */
+  --radius-rail: 14px;
+  /* Hauteur d'une ligne de navigation des sidebars (desktop) */
+  --sidebar-row: 30px;
+  --font: 'SKS-Inter', system-ui, sans-serif;
+  /* a large et l à queue sur le fichier latin-ext aussi, comme la landing */
+  font-feature-settings: 'cv05' 1, 'cv11' 1;
+
+  /* Échelle typographique — alignée sur le design system de Shopify (Polaris).
+     Valeurs relevées le 2026-08-22 dans @shopify/polaris-tokens et la feuille
+     compilée de Polaris, pas de mémoire. Jamais de px hors tokens.
+
+     RÈGLE — le contenu se distingue de ce qui l'entoure :
+
+       --text-m  CONTENU. Ce que le marchand lit pour lui-même : corps de
+                 texte, cellules de tableau, champs, boutons, navigation.
+                 C'est le défaut ; dans le doute, c'est celui-là.
+       --text-s  SECONDAIRE. Ce qui nomme, qualifie ou compte le contenu sans
+                 être le contenu : en-têtes de colonnes, badges, textes
+                 d'aide, libellés de métriques, compteurs, variations.
+       --text-xs MICRO-LIBELLÉ EN CAPITALES uniquement (les capitales se
+                 lisent plus grandes qu'elles ne sont). Rien d'autre.
+
+     Tout le reste est de la hiérarchie de titre : --h1 / --h2 / --text-xl. */
+  --text-xs: 11px;   /* Polaris bodyXs — capitales espacées seulement */
+  --text-s: 12px;    /* Polaris bodySm / headingXs — texte secondaire */
+  --text-m: 13px;    /* Polaris bodyMd — défaut : contenu */
+  --text-l: 14px;    /* Polaris bodyLg / headingMd — réservé */
+  --text-xl: 24px;   /* Polaris headingXl — chiffres des métriques et tuiles */
+  --h1: 24px;        /* Polaris headingXl */
+  --h2: 20px;        /* Polaris headingLg */
+
+  /* Trois graisses seulement, décidé par Mouhamadou le 2026-10-06 : le
+     calage +50 de Polaris (450 / 550 / 650 / 700) rendait le dashboard trop
+     gras. Pas de 700 : le titre le plus fort est en 600. */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* Smart Line Height ACSS */
+  --leading-heading: calc(4px + 2ex);
+  --leading-text: calc(6px + 2ex);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* --- Barre de defilement, partout ---
+   Celle de l'admin Shopify, mesuree au pixel : pouce arrondi de 4px, gris
+   #a6a6a6, a 6px du bord, sans piste. La largeur declaree (16px) est la
+   GOUTTIERE : la bordure transparente de 6px, avec `background-clip:
+   content-box`, laisse le pouce de 4px centre dedans.
+
+   Piege : des que `scrollbar-width` ou `scrollbar-color` est pose, Chrome
+   ignore les `::-webkit-scrollbar` et dessine sa barre fine native (pouce de
+   6px colle au bord). Ces deux proprietes sont donc reservees a Firefox, qui
+   n'a pas les pseudo-elements. */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) transparent;
+  }
+}
+*::-webkit-scrollbar { width: 16px; height: 16px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb);
+  border: 6px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover { background-color: var(--scroll-thumb-hover); }
+/* Sans cela le carre entre les deux barres reste peint en gris systeme. */
+*::-webkit-scrollbar-corner { background: transparent; }
+body {
+  background: var(--frame-bg);
+  color: var(--text-muted);
+  font-family: var(--font);
+  font-size: var(--text-m);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-text);
+}
+/* Une seule famille : les titres n'ont plus de police à eux, seulement une
+   couleur et une graisse. `.num` garde sa règle pour les chiffres alignés. */
+h1, h2, h3, .num { color: var(--text); }
+/* Chiffres tabulaires : dans une colonne de montants en FCFA, les unités
+   doivent tomber les unes sous les autres. Inter fournit le jeu.
+   Toujours sur une seule ligne (jamais de coupure prix / FCFA sur 2 lignes). */
+.num { font-variant-numeric: tabular-nums; white-space: nowrap !important; }
+h1, h2, h3 { line-height: var(--leading-heading); }
+h1 { font-size: var(--h1); font-weight: var(--weight-semibold); }
+h2 { font-size: var(--h2); font-weight: var(--weight-semibold); }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+input { font: inherit; }
+
+/* Effet rouleau, comme un compteur qui tourne : au survol (ou au focus
+   clavier) de l'élément .roll-host, le premier mot sort par le haut en se
+   floutant et le second entre par le bas en devenant net. Les deux mots sont
+   dans la même case de grille (elle prend la largeur du plus long), la case
+   coupe ce qui dépasse. Sert au « Paramètres → Retour » des réglages et aux
+   en-têtes de sous-menu du sélecteur de période. */
+.roll { display: grid; overflow: hidden; }
+.roll-a, .roll-b {
+  grid-area: 1 / 1;
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.32s ease,
+    filter 0.32s ease;
+}
+.roll-b { transform: translateY(100%); opacity: 0; filter: blur(4px); }
+.roll-host:hover .roll-a,
+.roll-host:focus-visible .roll-a { transform: translateY(-100%); opacity: 0; filter: blur(4px); }
+.roll-host:hover .roll-b,
+.roll-host:focus-visible .roll-b { transform: translateY(0); opacity: 1; filter: blur(0); }
+@media (prefers-reduced-motion: reduce) {
+  .roll-a, .roll-b { transition: opacity 0.15s ease; transform: none !important; filter: none !important; }
+}
+
+/* Lu par les lecteurs d'écran, invisible à l'œil. Sert aux messages d'état
+   (chargement) dont l'équivalent visuel est un squelette, muet par nature. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
