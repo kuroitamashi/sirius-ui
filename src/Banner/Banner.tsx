@@ -147,7 +147,7 @@ export function SiriusBanner({
                 <button
                   type="button"
                   onClick={secondaryAction.onAction}
-                  className="sirius-btn sirius-btn--secondary sirius-btn--slim"
+                  className="sirius-btn sirius-btn--default sirius-btn--slim"
                 >
                   {secondaryAction.content}
                 </button>
@@ -198,7 +198,7 @@ export function SiriusBanner({
                 <button
                   type="button"
                   onClick={action.onAction}
-                  className="sirius-btn sirius-btn--secondary sirius-btn--slim"
+                  className="sirius-btn sirius-btn--default sirius-btn--slim"
                 >
                   {action.content}
                 </button>
@@ -269,7 +269,7 @@ export function SiriusBanner({
               <button
                 type="button"
                 onClick={action.onAction}
-                className="sirius-btn sirius-btn--secondary sirius-btn--slim"
+                className="sirius-btn sirius-btn--default sirius-btn--slim"
               >
                 {action.content}
               </button>

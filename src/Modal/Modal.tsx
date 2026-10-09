@@ -131,7 +131,7 @@ export function SiriusModal({
             {secondaryActions?.map((action, idx) => (
               <SiriusButton
                 key={idx}
-                variant="secondary"
+                variant="default"
                 onClick={action.onAction}
                 loading={action.loading}
                 disabled={action.disabled}

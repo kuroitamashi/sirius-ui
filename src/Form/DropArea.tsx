@@ -114,7 +114,7 @@ export const DropArea: React.FC<DropAreaProps> = ({
         type="button"
         tabIndex={-1}
         disabled={disabled}
-        className="sirius-btn sirius-btn--secondary"
+        className="sirius-btn sirius-btn--default"
         style={{ pointerEvents: 'none', minHeight: '32px', fontSize: '13px' }}
       >
         {buttonText}

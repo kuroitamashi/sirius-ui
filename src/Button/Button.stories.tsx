@@ -14,9 +14,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const VARIANTS = [
+  ['default', 'Par défaut (Blanc à bordure)'],
   ['primary', 'Primaire (Vert SKS signature)'],
-  ['secondary', 'Secondaire (Noir)'],
-  ['default', 'Par défaut / Tertiaire (Blanc à bordure)'],
+  ['secondary', 'Noir (rare, contraste fort)'],
   ['plain', 'Nu (Lien discret)'],
   ['destructive', 'Destructeur (Rouge plein)'],
   ['destructive-plain', 'Destructeur nu'],
@@ -83,9 +83,9 @@ export const Toutes: Story = {
   render: () => <Matrice />,
 };
 
-export const Primaire: Story = { args: { variant: 'primary' } };
-export const Secondaire: Story = { args: { variant: 'secondary' } };
 export const ParDefaut: Story = { args: { variant: 'default' } };
+export const Primaire: Story = { args: { variant: 'primary' } };
+export const Noir: Story = { args: { variant: 'secondary' } };
 export const Nu: Story = { args: { variant: 'plain' } };
 export const Destructeur: Story = { args: { variant: 'destructive' } };
 export const DestructeurNu: Story = { args: { variant: 'destructive-plain' } };
@@ -105,8 +105,8 @@ export const Tailles: Story = {
 export const IconeSeule: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-      <SiriusButton variant="secondary" iconOnly ariaLabel="Ajouter" icon="plus" />
-      <SiriusButton variant="secondary" iconOnly ariaLabel="Modifier" icon="edit" />
+      <SiriusButton variant="default" iconOnly ariaLabel="Ajouter" icon="plus" />
+      <SiriusButton variant="default" iconOnly ariaLabel="Modifier" icon="edit" />
       <SiriusButton variant="destructive-plain" iconOnly ariaLabel="Supprimer" icon="delete" />
       <SiriusButton variant="plain" iconOnly ariaLabel="Fermer" icon="croix" />
     </div>
@@ -122,7 +122,7 @@ export const AvecIconeEtTexte: Story = {
       <SiriusButton variant="primary" icon="plus">
         Ajouter un produit
       </SiriusButton>
-      <SiriusButton variant="secondary" icon="import">
+      <SiriusButton variant="default" icon="import">
         Importer CSV
       </SiriusButton>
       <SiriusButton variant="default" icon="export">
@@ -229,7 +229,7 @@ export const SelectDisclosure: Story = {
 export const EtatDesactive: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8 }}>
-      {(['primary', 'secondary', 'plain', 'destructive'] as const).map((v) => (
+      {(['default', 'primary', 'plain', 'destructive'] as const).map((v) => (
         <SiriusButton key={v} variant={v} disabled>
           {v}
         </SiriusButton>
@@ -241,7 +241,7 @@ export const EtatDesactive: Story = {
 export const EtatChargement: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8 }}>
-      {(['primary', 'secondary', 'destructive'] as const).map((v) => (
+      {(['default', 'primary', 'destructive'] as const).map((v) => (
         <SiriusButton key={v} variant={v} loading>
           Enregistrement
         </SiriusButton>
@@ -259,7 +259,7 @@ export const PleineLargeur: Story = {
 export const Lien: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8 }}>
-      <SiriusButton variant="secondary" href="#produits">Voir les produits</SiriusButton>
+      <SiriusButton variant="default" href="#produits">Voir les produits</SiriusButton>
       <SiriusButton variant="plain" href="https://senkheweulstore.com" external>
         Ouvrir la vitrine
       </SiriusButton>

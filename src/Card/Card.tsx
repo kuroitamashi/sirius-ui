@@ -54,7 +54,7 @@ export interface SiriusCardProps {
   footer?: React.ReactNode;
   /** Action principale de pied de page (bouton primary aligné à droite) */
   primaryFooterAction?: SiriusCardAction;
-  /** Actions secondaires de pied de page (boutons secondary à gauche de l'action principale) */
+  /** Actions secondaires de pied de page (boutons blancs à gauche de l'action principale) */
   secondaryFooterActions?: SiriusCardAction[];
   className?: string;
 }
@@ -151,7 +151,7 @@ export function SiriusCard({
                   key={idx}
                   variant={
                     act.variant ||
-                    (act.destructive ? 'destructive-plain' : 'secondary')
+                    (act.destructive ? 'destructive-plain' : 'default')
                   }
                   onClick={act.onClick || act.onAction}
                   loading={act.loading}

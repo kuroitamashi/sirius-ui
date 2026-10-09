@@ -88,14 +88,14 @@ export function SiriusAccountConnection({
 
   // Variante du bouton :
   // - Si spécifié explicitement dans action.variant, on l'utilise
-  // - Si connecté : secondary par défaut (ou destructive si demandé)
+  // - Si connecté : blanc (default) par défaut (ou destructive si demandé)
   // - Si non connecté : primary par défaut
   const buttonVariant: SiriusButtonProps['variant'] =
     action?.variant ||
     (action?.destructive
       ? 'destructive-plain'
       : connected
-      ? 'secondary'
+      ? 'default'
       : 'primary');
 
   const showAvatar = connected && (avatarUrl || initials);

@@ -36,8 +36,8 @@ export const Segmented: Story = {
       </SiriusButtonGroup>
 
       <SiriusButtonGroup variant="segmented">
-        <SiriusButton variant="secondary">Vue liste</SiriusButton>
-        <SiriusButton variant="secondary">Vue grille</SiriusButton>
+        <SiriusButton variant="default">Vue liste</SiriusButton>
+        <SiriusButton variant="default">Vue grille</SiriusButton>
       </SiriusButtonGroup>
     </div>
   ),

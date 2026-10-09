@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const InAPopover: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary" disclosure>
+      <SiriusButton variant="default" disclosure>
         More actions
       </SiriusButton>
     ),
@@ -42,7 +42,7 @@ export const InAPopover: Story = {
 export const WithIconsOrImage: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary" disclosure>
+      <SiriusButton variant="default" disclosure>
         More actions
       </SiriusButton>
     ),
@@ -67,7 +67,7 @@ export const WithIconsOrImage: Story = {
 export const WithAnIconAndASuffix: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary" disclosure>
+      <SiriusButton variant="default" disclosure>
         More actions
       </SiriusButton>
     ),
@@ -107,7 +107,7 @@ export const WithAnIconAndASuffix: Story = {
 export const WithSectionsAndDestructive: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary" disclosure>
+      <SiriusButton variant="default" disclosure>
         More actions
       </SiriusButton>
     ),
@@ -145,7 +145,7 @@ export const WithSectionsAndDestructive: Story = {
 export const WithHelpText: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary" disclosure>
+      <SiriusButton variant="default" disclosure>
         More actions
       </SiriusButton>
     ),
@@ -182,7 +182,7 @@ export const WithHelpText: Story = {
 export const ActionsCommandesSKS: Story = {
   args: {
     trigger: (
-      <SiriusButton variant="secondary" disclosure>
+      <SiriusButton variant="default" disclosure>
         Actions commande
       </SiriusButton>
     ),

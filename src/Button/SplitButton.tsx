@@ -84,7 +84,7 @@ export function SiriusSplitButton({
   sections,
   onDisclosureClick,
   disclosureAriaLabel = "Plus d'options",
-  variant = 'secondary',
+  variant = 'default',
   size = 'medium',
   disabled = false,
   loading = false,
