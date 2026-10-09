@@ -82,6 +82,9 @@
   --sirius-radius-base: 8px;
   --sirius-radius-lg: 12px;
   --sirius-radius-xl: 16px;          /* Fenêtres flottantes (menus, listes d'actions) */
+  /* Lignes d'un menu flottant. 10px épouserait exactement le coin de la
+     fenêtre (16 - 6 de marge) ; Mouhamadou le veut plus prononcé : 12px. */
+  --sirius-radius-item: 12px;
   --sirius-radius-full: 9999px;
 
   /* --- Transitions --- */

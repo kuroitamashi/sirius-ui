@@ -139,7 +139,7 @@
   align-items: center;
   gap: 10px;
   padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: var(--sirius-radius-item);
   background-color: #f6f6f7;
   cursor: pointer;
   transition: background-color 0.12s ease;
@@ -218,7 +218,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px 10px;
-  border-radius: 6px;
+  border-radius: var(--sirius-radius-item);
   font-size: 13px;
   color: var(--sirius-text, #202223);
   cursor: pointer;

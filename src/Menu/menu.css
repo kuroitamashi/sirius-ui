@@ -10,8 +10,9 @@
   z-index: 50;
   min-width: 200px;
   background: var(--sirius-surface);
-  border: 1px solid var(--sirius-border);
-  border-radius: var(--sirius-radius-lg);
+  /* Pas de border : l'ombre des fenêtres flottantes porte déjà son liseré. */
+  border: none;
+  border-radius: var(--sirius-radius-xl);
   box-shadow: var(--sirius-shadow-popover);
   padding: 6px;
   display: flex;
@@ -43,7 +44,7 @@
   font-size: 13px;
   font-weight: 500;
   color: var(--sirius-text);
-  border-radius: var(--sirius-radius-base);
+  border-radius: var(--sirius-radius-item);
   text-align: left;
   cursor: pointer;
   text-decoration: none;
