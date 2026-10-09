@@ -25,6 +25,14 @@ export { SiriusMenu } from './Menu/Menu';
 export type { SiriusMenuProps, SiriusMenuItem } from './Menu/Menu';
 
 export { SiriusActionList, ActionList } from './ActionList';
+
+export { SiriusBulkActions, BulkActions } from './BulkActions';
+export type {
+  SiriusBulkActionsProps,
+  SiriusBulkAction,
+  SiriusBulkActionMenu,
+  BulkActionsProps,
+} from './BulkActions';
 export type {
   SiriusActionListProps,
   SiriusActionListItemDescriptor,

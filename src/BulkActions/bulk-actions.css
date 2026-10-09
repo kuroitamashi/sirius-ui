@@ -1,0 +1,81 @@
+/* ==========================================================================
+   Sirius BulkActions, d'après les BulkActions de Polaris (IndexTable)
+   Barre de 40px : case et compteur à gauche, actions à droite, menu « … »
+   aligné sur le bord droit. Boutons Sirius en pilule (variante blanche).
+   ========================================================================== */
+
+.sirius-bulk-actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 40px;
+  padding: 6px 8px 6px 12px;
+  box-sizing: border-box;
+  background: var(--sirius-surface, #ffffff);
+  /* Reprend l'arrondi du conteneur : en tête d'une carte, le fond blanc ne
+     déborde pas sur ses coins. */
+  border-radius: inherit;
+  font-family: inherit;
+}
+
+.sirius-bulk-actions__selection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Le libellé de la case n'est lu que par les lecteurs d'écran : il ne doit
+   pas garder son écart de 10px, sinon le compteur s'éloigne de la case. */
+.sirius-bulk-actions__selection .sirius-checkbox-wrap {
+  gap: 0;
+}
+
+.sirius-bulk-actions__count {
+  font-size: 12px;
+  font-weight: 550;
+  line-height: 16px;
+  color: var(--sirius-text, #303030);
+  white-space: nowrap;
+}
+
+.sirius-bulk-actions__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Action destructive : bouton blanc, seul le texte passe au rouge */
+.sirius-bulk-actions__destructive.sirius-btn,
+.sirius-bulk-actions__destructive.sirius-btn:hover:not(:disabled) {
+  color: #8e0b21;
+}
+
+/* Copie hors écran qui sert à mesurer la largeur des boutons */
+.sirius-bulk-actions__mesure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: 8px;
+  visibility: hidden;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sirius-bulk-actions__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

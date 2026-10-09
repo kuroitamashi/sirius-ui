@@ -35,6 +35,11 @@
   animation: sirius-popover-in 0.15s cubic-bezier(0.2, 0, 0, 1);
 }
 
+.sirius-action-list--end {
+  left: auto;
+  right: 0;
+}
+
 @keyframes sirius-popover-in {
   from {
     opacity: 0;

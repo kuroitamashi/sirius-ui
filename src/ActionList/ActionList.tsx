@@ -57,6 +57,9 @@ export interface SiriusActionListProps {
   onOpenChange?: (open: boolean) => void;
   /** Ferme automatiquement le menu au clic sur un élément actif (défaut: true) */
   closeOnSelect?: boolean;
+  /** Bord du déclencheur sur lequel le menu s'aligne (défaut : 'start', à gauche).
+      'end' pour un déclencheur collé au bord droit, comme le « … » des actions groupées. */
+  placement?: 'start' | 'end';
   className?: string;
 }
 
@@ -68,6 +71,7 @@ export function SiriusActionList({
   open: controlledOpen,
   onOpenChange,
   closeOnSelect = true,
+  placement = 'start',
   className = '',
 }: SiriusActionListProps) {
   const [internalOpen, setInternalOpen] = useState(false);
@@ -226,7 +230,7 @@ export function SiriusActionList({
   };
 
   const listMarkup = (
-    <div className={`sirius-action-list ${trigger ? 'sirius-action-list--popover' : ''} ${className}`}>
+    <div className={`sirius-action-list ${trigger ? 'sirius-action-list--popover' : ''} ${trigger && placement === 'end' ? 'sirius-action-list--end' : ''} ${className}`}>
       {normalizedSections.map((section, sIdx) => (
         <div key={sIdx} className="sirius-action-list__section">
           {section.title && (
