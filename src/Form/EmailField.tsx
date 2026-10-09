@@ -40,7 +40,7 @@ export const EmailField: React.FC<EmailFieldProps> = ({
           isError ? 'sirius-input-box--error' : ''
         }`}
       >
-        <div className="sirius-input__icon"><Icon name="email" size={16} /></div>
+        <div className="sirius-input__icon"><Icon name="email" size={20} /></div>
 
         <input
           id={inputId}

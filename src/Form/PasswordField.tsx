@@ -57,7 +57,7 @@ export const PasswordField: React.FC<PasswordFieldProps> = ({
           className="sirius-password-toggle"
           aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
         >
-          {showPassword ? <Icon name="hide" size={18} /> : <Icon name="view" size={18} />}
+          {showPassword ? <Icon name="hide" size={20} /> : <Icon name="view" size={20} />}
         </button>
       </div>
 

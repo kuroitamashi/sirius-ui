@@ -114,7 +114,7 @@ export function SiriusModal({
             onClick={onClose}
             aria-label="Fermer"
           >
-            <Icon name="x" size={16} />
+            <Icon name="x" size={20} />
           </button>
         )}
       </div>

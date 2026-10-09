@@ -51,7 +51,7 @@ export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
  * - fill: "currentColor" (hérite des couleurs CSS, hover, états actifs et thèmes)
  * - Priorité aux nouvelles icônes Shopify Polaris avec fallback fluide sur Sirius UI.
  */
-export function Icon({ name, size = 16, className, style, ...props }: IconProps) {
+export function Icon({ name, size = 20, className, style, ...props }: IconProps) {
   const PolarisComp = POLARIS_MAP[name] || POLARIS_MAP[ICON_ALIASES[name]];
   if (PolarisComp) {
     return (

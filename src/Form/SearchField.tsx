@@ -57,7 +57,7 @@ export const SearchField: React.FC<SearchFieldProps> = ({
           isError ? 'sirius-input-box--error' : ''
         }`}
       >
-        <div className="sirius-input__icon"><Icon name="search" size={15} /></div>
+        <div className="sirius-input__icon"><Icon name="search" size={20} /></div>
 
         <input
           id={inputId}

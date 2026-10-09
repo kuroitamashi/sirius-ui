@@ -72,7 +72,7 @@ export const DateField: React.FC<DateFieldProps> = ({
           aria-label="Ouvrir le calendrier"
           disabled={disabled}
         >
-          <Icon name="calendar" size={16} />
+          <Icon name="calendar" size={20} />
         </button>
       </div>
 

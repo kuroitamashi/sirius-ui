@@ -63,10 +63,10 @@ import { Icon } from '../Icon/Icon';
 
 // Icônes officielles Sirius UI
 const ToneIcons: Record<SiriusBannerTone, React.ReactNode> = {
-  info: <Icon name="info" size={18} />,
-  success: <Icon name="check-circle" size={18} />,
-  warning: <Icon name="alert-triangle" size={18} />,
-  critical: <Icon name="alert-circle" size={18} />,
+  info: <Icon name="info" size={20} />,
+  success: <Icon name="check-circle" size={20} />,
+  warning: <Icon name="alert-triangle" size={20} />,
+  critical: <Icon name="alert-circle" size={20} />,
 };
 
 const CloseIcon = <Icon name="x" size={14} />;

@@ -125,7 +125,7 @@ export function SiriusActionList({
       return (
         <span className="sirius-action-list__icon">
           {typeof item.icon === 'string' ? (
-            <Icon name={item.icon as IconName} size={18} />
+            <Icon name={item.icon as IconName} size={20} />
           ) : (
             item.icon
           )}

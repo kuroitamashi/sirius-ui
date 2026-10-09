@@ -41,7 +41,7 @@ export function SiriusContextualSaveBar({
     >
       <div className={`sirius-savebar__card ${fullWidth ? 'sirius-savebar__card--full' : ''}`}>
         <div className="sirius-savebar__message">
-          <Icon name="alert-triangle" size={16} className="sirius-savebar__icon" />
+          <Icon name="alert-triangle" size={20} className="sirius-savebar__icon" />
           <span className="sirius-savebar__text">
             {isDefaultMessage ? (
               <>
