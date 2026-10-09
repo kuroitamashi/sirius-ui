@@ -51,6 +51,10 @@ export interface SiriusTextFieldProps {
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
+/* Attributs natifs du champ en plus (onKeyDown, inputMode, aria-label, min…), posés
+   sur l'<input>. */
+export type SiriusTextFieldRest = Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof SiriusTextFieldProps | 'prefix'>;
+
 export function SiriusTextField({
   label,
   labelHidden = false,
@@ -86,7 +90,8 @@ export function SiriusTextField({
   onChange,
   onBlur,
   onFocus,
-}: SiriusTextFieldProps) {
+  ...rest
+}: SiriusTextFieldProps & SiriusTextFieldRest) {
   const autoId = React.useId();
   const inputId = id || (name ? `field-${name}` : autoId);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -148,6 +153,7 @@ export function SiriusTextField({
         onFocus={handleFocus}
         aria-invalid={isError ? 'true' : undefined}
         aria-busy={loading || undefined}
+        {...rest}
       />
 
       {loading && (

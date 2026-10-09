@@ -1,6 +1,6 @@
 // TextField
 export { SiriusTextField, SiriusTextField as TextField } from './TextField';
-export type { SiriusTextFieldProps, SiriusTextFieldProps as TextFieldProps } from './TextField';
+export type { SiriusTextFieldProps, SiriusTextFieldProps as TextFieldProps, SiriusTextFieldRest } from './TextField';
 
 // PasswordField
 export { PasswordField, PasswordField as SiriusPasswordField } from './PasswordField';
