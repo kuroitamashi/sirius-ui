@@ -30,7 +30,9 @@
       }
     };
     if (!ps && e.style.length) out.push(bloc('style=""', decls(e.style)));
-    for (const s of document.styleSheets) { try { walk(s.cssRules, '', ''); } catch (err) { out.push('  /* illisible : ' + s.href + ' */'); } }
+    // Un composant web range ses règles dans son shadowRoot, pas dans document.styleSheets.
+    const root = e.getRootNode();
+    for (const s of [...(root.styleSheets || []), ...(root.adoptedStyleSheets || [])]) { try { walk(s.cssRules, '', ''); } catch (err) { out.push('  /* illisible : ' + s.href + ' */'); } }
     return out;
   };
   const r0 = pick.getBoundingClientRect();
