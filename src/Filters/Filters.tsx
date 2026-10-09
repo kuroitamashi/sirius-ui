@@ -108,8 +108,11 @@ export function SiriusFilters({
       setSuggestions(false);
       setOuvert(null);
     };
-    document.addEventListener('mousedown', fermer);
-    return () => document.removeEventListener('mousedown', fermer);
+    // En capture : avant que React ne redessine. Sinon la ligne cliquée a déjà
+    // quitté la page (suggestions remplacées par les valeurs), et le clic passe
+    // pour un clic à l'extérieur.
+    document.addEventListener('mousedown', fermer, true);
+    return () => document.removeEventListener('mousedown', fermer, true);
   }, []);
 
   useEffect(() => {
@@ -126,11 +129,12 @@ export function SiriusFilters({
   }, [ouvert, value]);
 
   const ouvrir = (k: string) => {
+    // Le focus d'abord : son onFocus rouvre les suggestions, la suite les referme.
+    champ.current?.focus();
     setOuvert(k);
     setRechercheValeur('');
     setSuggestions(false);
     setActif(0);
-    champ.current?.focus();
   };
 
   // Le texte tapé servait à trouver le filtre : il ne cherche pas de produit.
