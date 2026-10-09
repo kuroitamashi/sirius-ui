@@ -219,6 +219,10 @@
      bouton, il se compose donc dans button.css ; les autres morceaux vivent ici. --- */
   --s-shadow-button-primary-drop: 0rem .0625rem .03125rem -.03125rem #00000021, 0rem .0625rem .125rem -.03125rem #00000021, 0rem .25rem .375rem -.125rem #00000021, 0rem .125rem .1875rem -.09375rem #00000021;
   --s-shadow-button-primary-shine: inset 0rem 0rem .25rem .125rem #ffffff1a, inset 0rem 0rem .75rem -.375rem #ffffffbf;
+  /* Bouton blanc : pas de bordure, un liseré d'ombre à 7 % et un halo très
+     diffus. Relevé du 2026-10-09 sur la version récente de l'admin de référence
+     (--s-button-variant-secondary-box-shadow, absent des --p-*). */
+  --s-shadow-button-default: 0 0 0 1px #00000012, 0 2px 20px 0 #00000008, 0 5px 20px 0 #00000008, 0 8px 60px 0 #00000008;
   --s-color-button-gradient-bg-fill: radial-gradient(50% 50% at 50% 0%, #ffffff33 0%, #ffffff00 100%), radial-gradient(49.59% 37.11% at 50.41% 101.56%, #ffffff26 0%, #ffffff00 66.46%);
   --s-color-button-primary-text: #ffffff;
   --s-color-button-primary-text-hover: #dddddd;

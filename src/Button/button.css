@@ -84,14 +84,16 @@
 }
 
 /* --------------------------------------------------------------------------
-   Default / Tertiary (blanc à bordure)
+   Default / Tertiary (blanc, contour par l'ombre)
    -------------------------------------------------------------------------- */
 .sirius-btn--default,
 .sirius-btn--tertiary,
 .sirius-btn--outline,
 .sirius-btn--white {
   background-color: #ffffff;
-  border-color: var(--sirius-border-hover);
+  /* contour porté par l'ombre ; la bordure transparente garde les 32 px */
+  border-color: transparent;
+  box-shadow: var(--s-shadow-button-default);
   color: var(--sirius-text, #202223);
 }
 .sirius-btn--default:hover:not(:disabled),

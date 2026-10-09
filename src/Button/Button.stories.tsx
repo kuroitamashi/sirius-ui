@@ -14,7 +14,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const VARIANTS = [
-  ['default', 'Par défaut (Blanc à bordure)'],
+  ['default', 'Par défaut (Blanc)'],
   ['primary', 'Primaire (Vert SKS signature)'],
   ['plain', 'Nu (Lien discret)'],
   ['destructive', 'Destructeur (Rouge plein)'],
