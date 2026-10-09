@@ -112,7 +112,7 @@ export const WaveBusiness: Story = {
     },
     termsOfService: (
       <span>
-        Les paiements reçus via Wave sont reversés directement sur votre compte marchand.{' '}
+        Les paiements reçus via Wave sont reversés directement sur ton compte marchand.{' '}
         <a href="#wave">Voir le barème et la grille tarifaire</a>.
       </span>
     ),
@@ -177,7 +177,7 @@ export const Interactif: Story = {
         }}
         termsOfService={
           <span>
-            En connectant votre passerelle de paiement, vous acceptez les{' '}
+            En connectant ta passerelle de paiement, tu acceptes les{' '}
             <a href="#cgu">conditions générales d'utilisation</a>.
           </span>
         }

@@ -1,7 +1,6 @@
 .sirius-metric-card {
   background: var(--sirius-surface);
-  border: 1px solid var(--sirius-border);
-  border-radius: var(--sirius-radius-lg);
+  border-radius: var(--s-border-radius-container);
   box-shadow: var(--sirius-shadow-card);
   padding: 16px 18px;
   text-align: left;

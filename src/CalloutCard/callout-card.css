@@ -16,7 +16,7 @@
   align-items: center;
   gap: 20px;
   padding: 16px;
-  border-radius: var(--sirius-radius-xl, 16px);
+  border-radius: var(--s-border-radius-container);
   background: var(--sirius-surface, #ffffff);
   box-shadow:
     var(--sirius-shadow-bevel),
