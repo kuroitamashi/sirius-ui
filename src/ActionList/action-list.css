@@ -16,7 +16,7 @@
 .sirius-action-list {
   background: var(--sirius-surface);
   /* Pas de border : l'ombre porte déjà un liseré de 1px. Les deux ensemble
-     donnaient un trait de 2px, trop épais face à Shopify. */
+     donnaient un trait de 2px, trop épais face à la référence. */
   border: none;
   border-radius: var(--sirius-radius-xl);
   box-shadow: var(--sirius-shadow-card);

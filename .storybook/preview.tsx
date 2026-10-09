@@ -32,7 +32,7 @@ const VIEWPORTS = {
 } as const;
 
 /**
- * Superposition de grille. Shopify a ecrit un addon pour ca ; ici un
+ * Superposition de grille. Polaris a ecrit un addon pour ca ; ici un
  * decorateur de 25 lignes suffit, sans dependance. La grille est en position
  * fixe pour couvrir tout le cadre de l'apercu, et ne capte aucun clic.
  */

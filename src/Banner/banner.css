@@ -50,7 +50,7 @@
    DISPOSITION 1 : HEADER BAR (Barre supérieure unie + corps blanc)
    -------------------------------------------------------------------------- */
 .sirius-banner--layout-header {
-  border: 1px solid #d2d5d8;
+  border: 1px solid var(--sirius-border);
   overflow: hidden;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
@@ -122,7 +122,7 @@
 .sirius-banner__body-container {
   background: #ffffff;
   padding: 12px 14px;
-  color: #202223;
+  color: var(--sirius-text);
 }
 
 /* --------------------------------------------------------------------------
@@ -130,7 +130,7 @@
    -------------------------------------------------------------------------- */
 .sirius-banner--layout-card {
   background: #ffffff;
-  border: 1px solid #e1e3e5;
+  border: 1px solid var(--sirius-border);
   border-radius: 8px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   padding: 10px 14px;
@@ -170,7 +170,7 @@
    Fond teinté sans bordure, coins de 16px, padding de 16px. Tous les textes
    sont dans la teinte du ton, jamais en noir : titre très foncé, texte moyen,
    icône vive, bouton d'action sur une teinte un cran plus soutenue que le fond.
-   Info reprend les couleurs relevées sur l'admin Shopify ; les autres tons
+   Info reprend les couleurs relevées sur l'admin de référence ; les autres tons
    suivent les mêmes rapports.
    -------------------------------------------------------------------------- */
 .sirius-banner--layout-subdued {

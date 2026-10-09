@@ -35,10 +35,10 @@
 
 /* État Actif / Sélectionné (comme dans Figma) */
 .sirius-chip--selected {
-  background: #e4e5e7;
-  color: #202223;
+  background: var(--s-color-bg-fill-secondary);
+  color: var(--sirius-text);
   font-weight: 650;
-  border-color: #c9cccf;
+  border-color: var(--sirius-border-hover);
 }
 
 /* Variante Outline */

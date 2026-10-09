@@ -4,7 +4,7 @@
   gap: 8px;
 }
 
-/* Variante connectée / segmented (comme dans Shopify Polaris) */
+/* Variante connectée / segmented (comme dans Polaris) */
 .sirius-button-group--connected {
   gap: 0;
   border-radius: 999px;

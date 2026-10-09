@@ -42,10 +42,10 @@
 }
 
 .sirius-demo-resource-item:hover {
-  background-color: #f1f2f4;
+  background-color: var(--sirius-surface-active);
 }
 
 .sirius-demo-resource-item:active {
-  background-color: #e4e5e7;
+  background-color: var(--s-color-bg-fill-secondary);
 }
 

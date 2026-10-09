@@ -141,7 +141,7 @@ export function SiriusPageHeader({
 
           {/* Séparateur vers le titre : seulement après un fil d'Ariane.
               Sans fil d'Ariane, l'icône représente déjà la page (Produits,
-              Commandes…), comme dans l'admin Shopify : icône puis titre. */}
+              Commandes…), comme dans l'admin de référence : icône puis titre. */}
           {breadcrumbs && breadcrumbs.length > 0 && (
             <span className="sirius-page-header__separator">
               <Icon name="chevron-right" size={12} />

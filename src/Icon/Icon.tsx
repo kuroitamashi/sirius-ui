@@ -1,7 +1,7 @@
 import * as PolarisIcons from '@shopify/polaris-icons';
 import { SIRIUS_ICONS, ICON_ALIASES } from './sirius-icons';
 
-/** Mapping direct vers les nouvelles icônes officielles Shopify Polaris */
+/** Mapping direct vers les nouvelles icônes officielles Polaris */
 const POLARIS_MAP: Record<string, React.FunctionComponent<React.SVGProps<SVGSVGElement>>> = {
   // Navigation principale
   dashboard: PolarisIcons.HomeIcon,
@@ -46,10 +46,10 @@ export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 }
 
 /**
- * Composant Icon officiel basé sur les icônes Sirius UI & Shopify Polaris.
+ * Composant Icon officiel basé sur les icônes Sirius UI & Polaris.
  * - viewBox: 0 0 20 20
  * - fill: "currentColor" (hérite des couleurs CSS, hover, états actifs et thèmes)
- * - Priorité aux nouvelles icônes Shopify Polaris avec fallback fluide sur Sirius UI.
+ * - Priorité aux nouvelles icônes Polaris avec fallback fluide sur Sirius UI.
  */
 export function Icon({ name, size = 20, className, style, ...props }: IconProps) {
   const PolarisComp = POLARIS_MAP[name] || POLARIS_MAP[ICON_ALIASES[name]];

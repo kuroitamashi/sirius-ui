@@ -48,7 +48,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * 1. Default (Cas 1 de la capture Shopify Polaris) :
+ * 1. Default (Cas 1 de la capture Polaris) :
  * Titre « Sales by product », totaux affichés directement sous l'en-tête, montants alignés à droite.
  */
 export const Default: Story = {
@@ -68,7 +68,7 @@ export const Default: Story = {
 
 
 /**
- * 2. Sortable (Cas 2 de la capture Shopify Polaris) :
+ * 2. Sortable (Cas 2 de la capture Polaris) :
  * Colonnes triables avec indicateur de tri interactif (ex: tri sur 'Net sales').
  */
 export const Sortable: Story = {
@@ -113,7 +113,7 @@ export const Sortable: Story = {
 };
 
 /**
- * 3. With Footer (Cas 3 de la capture Shopify Polaris) :
+ * 3. With Footer (Cas 3 de la capture Polaris) :
  * Affiche un texte d'état ou de comptage en pied de tableau (« Showing 3 of 3 results »).
  */
 export const WithFooter: Story = {
@@ -130,7 +130,7 @@ export const WithFooter: Story = {
 };
 
 /**
- * 4. With Custom Totals Heading (Cas 4 de la capture Shopify Polaris) :
+ * 4. With Custom Totals Heading (Cas 4 de la capture Polaris) :
  * Ligne de totaux avec libellé personnalisé (« Total net sales ») placée en bas du tableau.
  */
 export const WithCustomTotalsHeading: Story = {
@@ -148,7 +148,7 @@ export const WithCustomTotalsHeading: Story = {
 };
 
 /**
- * 5. With Totals In Footer (Cas 5 de la capture Shopify Polaris) :
+ * 5. With Totals In Footer (Cas 5 de la capture Polaris) :
  * Les totaux sont déplacés en pied de tableau au lieu d'apparaître sous l'en-tête.
  */
 export const WithTotalsInFooter: Story = {
@@ -165,7 +165,7 @@ export const WithTotalsInFooter: Story = {
 };
 
 /**
- * 6. With Row Heading Links (Cas 6 de la capture Shopify Polaris) :
+ * 6. With Row Heading Links (Cas 6 de la capture Polaris) :
  * Les intitulés de la première colonne sont des liens hypertextes interactifs bleus.
  */
 export const WithRowHeadingLinks: Story = {
@@ -213,7 +213,7 @@ export const WithRowHeadingLinks: Story = {
 };
 
 /**
- * 7. With All Of Its Elements (Cas 7 de la capture Shopify Polaris) :
+ * 7. With All Of Its Elements (Cas 7 de la capture Polaris) :
  * Regroupe tous les éléments : titre, totaux en haut, liens sur les lignes, tri,
  * troncature d'intitulé avec ellipse et message de comptage en pied.
  */
@@ -266,7 +266,7 @@ export const WithAllOfItsElements: Story = {
 };
 
 /**
- * 8. With Column Spanning (Cas 8 de la capture Shopify Polaris) :
+ * 8. With Column Spanning (Cas 8 de la capture Polaris) :
  * Table avec colonnes fusionnées ou informations groupées.
  */
 export const WithColumnSpanning: Story = {
@@ -286,7 +286,7 @@ export const WithColumnSpanning: Story = {
 };
 
 /**
- * 9. With Fixed Columns (Cas 9 de la capture Shopify Polaris) :
+ * 9. With Fixed Columns (Cas 9 de la capture Polaris) :
  * Tableau large de 9 colonnes avec première colonne 'Product' figée lors du scroll horizontal.
  */
 export const WithFixedColumns: Story = {
@@ -337,7 +337,7 @@ export const WithFixedColumns: Story = {
 };
 
 /**
- * 10. With Increased Density And Zebra Striping (Cas 10 de la capture Shopify Polaris) :
+ * 10. With Increased Density And Zebra Striping (Cas 10 de la capture Polaris) :
  * Hauteur de ligne plus compacte et rayures zébrées alternées pour faciliter la lecture.
  */
 export const WithIncreasedDensityAndZebraStriping: Story = {
@@ -388,7 +388,7 @@ export const WithIncreasedDensityAndZebraStriping: Story = {
 };
 
 /**
- * 11. With Sticky Header Enabled (Cas 11 de la capture Shopify Polaris) :
+ * 11. With Sticky Header Enabled (Cas 11 de la capture Polaris) :
  * L'en-tête de colonnes reste figé au sommet lors du défilement vertical d'un grand nombre de résultats.
  */
 export const WithStickyHeaderEnabled: Story = {
@@ -438,7 +438,7 @@ export const WithStickyHeaderEnabled: Story = {
 
 
 /**
- * 12. With Pagination (Cas 12 de la capture Shopify Polaris) :
+ * 12. With Pagination (Cas 12 de la capture Polaris) :
  * Contrôle de pagination segmenté centré [ ‹ | › ] au bas du tableau.
  */
 export const WithPagination: Story = {

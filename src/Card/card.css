@@ -4,7 +4,7 @@
    ========================================================================== */
 
 /* Direction Sirius (2026-10-09) : coins de 20px (rôle container), pas de border, l'ombre
-   shadow-100 de l'admin Shopify porte seule le contour. */
+   shadow-100 de l'admin de référence porte seule le contour. */
 .sirius-card {
   background: var(--sirius-surface);
   border-radius: var(--s-border-radius-container);

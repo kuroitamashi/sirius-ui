@@ -74,7 +74,7 @@ const versItem = (a: SiriusBulkAction): SiriusActionListItemDescriptor => ({
 
 const libelleParDefaut = (n: number) => `${n} sélectionné${n > 1 ? 's' : ''}`;
 
-/* Écarts serrés, comme sur l'admin Shopify : 4px entre les boutons, 8px
+/* Écarts serrés, comme sur l'admin de référence : 4px entre les boutons, 8px
    entre le compteur et le premier bouton. */
 const GAP = 4;
 const GAP_SELECTION = 8;
@@ -99,7 +99,7 @@ export function SiriusBulkActions({
   const gaucheRef = useRef<HTMLDivElement>(null);
   const droiteRef = useRef<HTMLDivElement>(null);
   const mesureRef = useRef<HTMLDivElement>(null);
-  /* Règle Shopify : une action destructive (supprimer…) ne s'affiche jamais
+  /* Règle de référence : une action destructive (supprimer…) ne s'affiche jamais
      en bouton, on ne doit pas pouvoir la déclencher d'un clic distrait. Elle
      va à la fin du premier groupe du menu, en rouge. */
   const enAvant = promotedActions.filter((a) => isMenu(a) || !a.destructive);

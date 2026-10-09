@@ -6,7 +6,7 @@
 .sirius-table-container {
   width: 100%;
   background-color: #ffffff;
-  border: 1px solid #e1e3e5;
+  border: 1px solid var(--sirius-border);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
@@ -32,20 +32,20 @@
   text-align: left;
   font-size: 13px;
   line-height: 1.45;
-  color: #202223;
+  color: var(--sirius-text);
 }
 
 /* En-têtes */
 .sirius-table__header-row {
   background-color: #ffffff;
-  border-bottom: 1px solid #e1e3e5;
+  border-bottom: 1px solid var(--sirius-border);
 }
 
 .sirius-table__th {
   padding: 12px 16px;
   font-weight: 600;
   font-size: 13px;
-  color: #5c5f62;
+  color: var(--s-color-icon-secondary);
   white-space: nowrap;
   letter-spacing: -0.01em;
 }
@@ -57,7 +57,7 @@
 /* Lignes et cellules */
 .sirius-table__row {
   transition: background-color 0.1s ease;
-  border-bottom: 1px solid #f1f2f4;
+  border-bottom: 1px solid var(--sirius-surface-active);
 }
 
 .sirius-table__row:last-child {
@@ -65,7 +65,7 @@
 }
 
 .sirius-table__row:hover {
-  background-color: #f6f6f7;
+  background-color: var(--sirius-bg-app);
 }
 
 .sirius-table__row--clickable {
@@ -74,7 +74,7 @@
 
 .sirius-table__td {
   padding: 12px 16px;
-  color: #202223;
+  color: var(--sirius-text);
   vertical-align: middle;
 }
 
@@ -86,7 +86,7 @@
 .sirius-table__empty-cell {
   padding: 32px 16px;
   text-align: center;
-  color: #6d7175;
+  color: var(--sirius-text-subdued);
 }
 
 /* Pied de tableau avec pagination */
@@ -95,8 +95,8 @@
   align-items: center;
   justify-content: flex-start;
   padding: 10px 16px;
-  background-color: #f6f6f7;
-  border-top: 1px solid #e1e3e5;
+  background-color: var(--sirius-bg-app);
+  border-top: 1px solid var(--sirius-border);
   gap: 12px;
 }
 
@@ -104,7 +104,7 @@
   display: inline-flex;
   align-items: center;
   background-color: #ffffff;
-  border: 1px solid #c9cccf;
+  border: 1px solid var(--sirius-border-hover);
   border-radius: 8px;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
@@ -119,14 +119,14 @@
   height: 100%;
   border: none;
   background: transparent;
-  color: #202223;
+  color: var(--sirius-text);
   cursor: pointer;
   padding: 0;
   transition: background-color 0.12s ease;
 }
 
 .sirius-table__pagination-btn:hover:not(:disabled) {
-  background-color: #f1f2f4;
+  background-color: var(--sirius-surface-active);
 }
 
 .sirius-table__pagination-btn:disabled {
@@ -138,10 +138,10 @@
 .sirius-table__pagination-divider {
   width: 1px;
   height: 16px;
-  background-color: #e1e3e5;
+  background-color: var(--sirius-border);
 }
 
 .sirius-table__pagination-label {
   font-size: 12px;
-  color: #6d7175;
+  color: var(--sirius-text-subdued);
 }

@@ -8,13 +8,10 @@
   flex-direction: column;
   background-color: #ffffff;
   border-radius: var(--s-border-radius-dialog);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 8px 10px -6px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--s-shadow-dialog);
   overflow: hidden;
   font-family: inherit;
-  color: #202223;
+  color: var(--sirius-text);
   box-sizing: border-box;
   width: 100%;
   transition: transform 0.18s ease-out, opacity 0.18s ease-out;
@@ -40,9 +37,7 @@
 /* --- Mode inline (Vitrine Figma / Showcase) --- */
 .sirius-modal--inline {
   position: relative;
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.08),
-    0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--s-shadow-dialog);
 }
 
 /* --- En-tête --- */
@@ -51,7 +46,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid #e1e3e5;
+  border-bottom: 1px solid var(--sirius-border);
   background-color: #ffffff;
   min-height: 52px;
   box-sizing: border-box;
@@ -61,7 +56,7 @@
   margin: 0;
   font-size: 15px;
   font-weight: 650;
-  color: #202223;
+  color: var(--sirius-text);
   line-height: 1.35;
   letter-spacing: -0.01em;
 }
@@ -77,14 +72,14 @@
   border: none;
   background: transparent;
   border-radius: 6px;
-  color: #5c5f62;
+  color: var(--s-color-icon-secondary);
   cursor: pointer;
   transition: background-color 0.12s ease, color 0.12s ease;
 }
 
 .sirius-modal__close-btn:hover {
-  background-color: #f1f2f4;
-  color: #202223;
+  background-color: var(--sirius-surface-active);
+  color: var(--sirius-text);
 }
 
 .sirius-modal__close-btn:focus-visible {
@@ -95,7 +90,7 @@
 /* --- Corps --- */
 .sirius-modal__body {
   padding: 20px;
-  color: #202223;
+  color: var(--sirius-text);
   font-size: 14px;
   line-height: 1.5;
   flex: 1;
@@ -104,7 +99,7 @@
 
 .sirius-modal__content-placeholder {
   margin: 0;
-  color: #202223;
+  color: var(--sirius-text);
   font-size: 14px;
   line-height: 1.5;
 }
@@ -115,7 +110,7 @@
   align-items: center;
   justify-content: flex-end;
   padding: 14px 20px;
-  border-top: 1px solid #e1e3e5;
+  border-top: 1px solid var(--sirius-border);
   background-color: #ffffff;
   box-sizing: border-box;
 }

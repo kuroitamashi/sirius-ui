@@ -139,7 +139,7 @@ export const AvecTousLesElements: Story = {
 
       <SiriusCardSection>
         <div style={{ fontSize: '13px', color: 'var(--sirius-text-subdued)' }}>
-          <strong style={{ color: 'var(--sirius-text)' }}>Note :</strong> The sales reports are available only if your store is on the Shopify plan or higher.
+          <strong style={{ color: 'var(--sirius-text)' }}>Note :</strong> The sales reports are available only if your store is on the Pro plan or higher.
         </div>
       </SiriusCardSection>
     </SiriusCard>

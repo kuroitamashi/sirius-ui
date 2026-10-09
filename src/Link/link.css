@@ -1,5 +1,5 @@
 .sirius-link {
-  color: var(--sirius-info);
+  color: var(--s-color-text-link);
   font-weight: 550;
   text-decoration: none;
   display: inline-flex;
@@ -15,7 +15,7 @@
 
 .sirius-link:hover {
   text-decoration: underline;
-  color: #004c99;
+  color: var(--s-color-text-link-hover);
 }
 
 .sirius-link--subdued {

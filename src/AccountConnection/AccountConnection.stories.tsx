@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 /**
  * Vue d'ensemble avec les deux états côte à côte (Non connecté et Connecté),
- * exactement comme la vue "All" de Shopify Polaris.
+ * exactement comme la vue "All" de Polaris.
  */
 export const TousLesCas: Story = {
   render: () => (

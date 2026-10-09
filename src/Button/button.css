@@ -104,7 +104,7 @@
 .sirius-btn--outline,
 .sirius-btn--white {
   background-color: #ffffff;
-  border-color: #c9cccf;
+  border-color: var(--sirius-border-hover);
   color: var(--sirius-text, #202223);
 }
 .sirius-btn--default:hover:not(:disabled),

@@ -1,6 +1,6 @@
 /* ==========================================================================
    Sirius DataTable
-   Reproduction 1:1 pixel-perfect du composant DataTable de Shopify Polaris
+   Reproduction 1:1 pixel-perfect du composant DataTable de Polaris
    ========================================================================== */
 
 .sirius-data-table-wrapper {
@@ -134,12 +134,12 @@
    Standard Polaris : fond gris clair tamisé (#f7f7f8), texte gras (#202223)
    -------------------------------------------------------------------------- */
 .sirius-data-table__row--totals {
-  background-color: #f7f7f8;
+  background-color: var(--sirius-surface-subdued);
   font-weight: 600;
 }
 
 .sirius-data-table__row--totals td {
-  background-color: #f7f7f8;
+  background-color: var(--sirius-surface-subdued);
   border-bottom: 1px solid var(--sirius-border-subdued, #e1e3e5);
   color: var(--sirius-text, #202223);
   font-weight: 600;
@@ -185,7 +185,7 @@
 }
 
 .sirius-data-table--zebra.sirius-data-table--hoverable tbody tr.sirius-data-table__row--zebra-striped:hover {
-  background-color: #f1f2f4;
+  background-color: var(--sirius-surface-active);
 }
 
 /* Liens dans les lignes.
@@ -232,7 +232,7 @@
 }
 
 .sirius-data-table--fixed-first .sirius-data-table__row--totals td:first-child {
-  background-color: #f7f7f8;
+  background-color: var(--sirius-surface-subdued);
   z-index: 10;
 }
 
@@ -296,7 +296,7 @@
   width: 28px;
   height: 28px;
   background: #ffffff;
-  border: 1px solid #c9cccf;
+  border: 1px solid var(--sirius-border-hover);
   color: var(--sirius-text, #202223);
   cursor: pointer;
   outline: none;

@@ -283,7 +283,7 @@ export function SiriusBanner({
     </>
   );
 
-  /* Structure Shopify : l'icône et le titre sur une ligne, puis le texte et
+  /* Structure de référence : l'icône et le titre sur une ligne, puis le texte et
      les actions calés sur le bord gauche, sans retrait sous l'icône. Sans
      titre, c'est le texte qui prend place à côté de l'icône. */
   return (

@@ -1,6 +1,6 @@
 /**
  * Sirius UI - Autocomplete Styles
- * Conforme 1:1 aux spécifications Shopify Polaris
+ * Conforme 1:1 aux spécifications Polaris
  */
 
 .sirius-autocomplete {
@@ -42,7 +42,7 @@
 }
 
 .sirius-autocomplete__input-wrapper:hover {
-  border-color: #8c9196;
+  border-color: var(--s-color-input-border);
 }
 
 .sirius-autocomplete__input-wrapper--focused {
@@ -54,7 +54,7 @@
 .sirius-autocomplete__search-icon {
   width: 18px;
   height: 18px;
-  color: #8c9196;
+  color: var(--sirius-text-faint);
   flex-shrink: 0;
   display: block;
 }
@@ -71,7 +71,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background-color: #e4e5e7;
+  background-color: var(--s-color-bg-fill-secondary);
   color: var(--sirius-text, #202223);
   padding: 2px 8px;
   border-radius: 6px;
@@ -89,7 +89,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #5c5f62;
+  color: var(--s-color-icon-secondary);
   border-radius: 50%;
   width: 14px;
   height: 14px;
@@ -97,7 +97,7 @@
 
 .sirius-autocomplete__tag-remove:hover {
   background-color: rgba(0, 0, 0, 0.1);
-  color: #202223;
+  color: var(--sirius-text);
 }
 
 /* Champ texte réel */
@@ -113,7 +113,7 @@
 }
 
 .sirius-autocomplete__input::placeholder {
-  color: #6d7175;
+  color: var(--sirius-text-subdued);
 }
 
 /* Popover déroulant */
@@ -140,7 +140,7 @@
   gap: 10px;
   padding: 8px 12px;
   border-radius: var(--sirius-radius-item);
-  background-color: #f6f6f7;
+  background-color: var(--sirius-bg-app);
   cursor: pointer;
   transition: background-color 0.12s ease;
   margin-bottom: 6px;
@@ -181,14 +181,14 @@
 
 .sirius-autocomplete__action-help {
   font-size: 12px;
-  color: #6d7175;
+  color: var(--sirius-text-subdued);
   margin-top: 2px;
 }
 
 .sirius-autocomplete__action-badge {
   font-size: 11px;
-  background-color: #e4e5e7;
-  color: #202223;
+  background-color: var(--s-color-bg-fill-secondary);
+  color: var(--sirius-text);
   padding: 2px 6px;
   border-radius: 4px;
   font-weight: 500;
@@ -207,7 +207,7 @@
 .sirius-autocomplete__section-title {
   font-size: 12px;
   font-weight: 600;
-  color: #6d7175;
+  color: var(--sirius-text-subdued);
   padding: 8px 10px 4px 10px;
   margin: 0;
 }
@@ -228,11 +228,11 @@
 
 .sirius-autocomplete__option:hover,
 .sirius-autocomplete__option--highlighted {
-  background-color: #f1f2f4;
+  background-color: var(--sirius-surface-active);
 }
 
 .sirius-autocomplete__option--selected {
-  background-color: #f1f2f4;
+  background-color: var(--sirius-surface-active);
   font-weight: 500;
 }
 
@@ -246,7 +246,7 @@
 .sirius-autocomplete__checkbox {
   width: 16px;
   height: 16px;
-  border: 1px solid #c9cccf;
+  border: 1px solid var(--sirius-border-hover);
   border-radius: 4px;
   display: inline-flex;
   align-items: center;
@@ -257,8 +257,8 @@
 }
 
 .sirius-autocomplete__checkbox--checked {
-  background-color: #202223;
-  border-color: #202223;
+  background-color: var(--sirius-text);
+  border-color: var(--sirius-text);
   color: #ffffff;
 }
 
@@ -275,7 +275,7 @@
   padding: 16px;
   text-align: center;
   font-size: 13px;
-  color: #6d7175;
+  color: var(--sirius-text-subdued);
 }
 
 /* Chargement avec spinner */
@@ -289,8 +289,8 @@
 .sirius-autocomplete__spinner {
   width: 24px;
   height: 24px;
-  border: 2px solid #e1e3e5;
-  border-top-color: #202223;
+  border: 2px solid var(--sirius-border);
+  border-top-color: var(--sirius-text);
   border-radius: 50%;
   animation: sirius-spin 0.8s linear infinite;
 }

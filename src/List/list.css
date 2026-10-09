@@ -13,7 +13,7 @@
   font-family: inherit;
   font-size: 14px;
   line-height: 1.5;
-  color: #202223;
+  color: var(--sirius-text);
   box-sizing: border-box;
 }
 
@@ -28,11 +28,11 @@
 }
 
 .sirius-list__item {
-  color: #202223;
+  color: var(--sirius-text);
   padding-left: 4px;
 }
 
 .sirius-list__item::marker {
-  color: #202223;
+  color: var(--sirius-text);
   font-weight: 500;
 }

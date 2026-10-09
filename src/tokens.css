@@ -5,27 +5,63 @@
  */
 
 :root {
+  /* --- Couleurs de l'admin de référence (--p-color-*), renommées en --s-, relevé
+     du 2026-10-09 (reference/admin-tokens.css). La référence n'expose que
+     des rôles de couleur, pas de palette brute : on reprend les rôles dont
+     Sirius a l'usage. Les --sirius-* plus bas pointent vers eux. --- */
+  --s-color-text: #101010;
+  --s-color-text-secondary: #4a4a4a;
+  --s-color-text-tertiary: #606060;
+  --s-color-text-disabled: #a6a6a6;
+  --s-color-text-link: #1650d0;
+  --s-color-text-link-hover: #1347b9;
+  --s-color-text-critical-accent: #ce1f18;
+  --s-color-text-success-accent: #428e0b;
+  --s-color-text-caution-accent: #856400;
+  --s-color-text-info-accent: #008eb2;
+  --s-color-icon: #101010;
+  --s-color-icon-secondary: #606060;
+  --s-color-bg-surface: #ffffff;
+  --s-color-bg-surface-hover: #f7f7f7;
+  --s-color-bg-surface-secondary: #f7f7f7;
+  --s-color-bg-surface-active: #f2f2f2;
+  --s-color-bg-surface-critical: #ffe7e6;
+  --s-color-bg-surface-success: #e8fcd9;
+  --s-color-bg-surface-caution: #fff5c5;
+  --s-color-bg-surface-info: #d2f6fe;
+  --s-color-border: #dddddd;
+  --s-color-border-secondary: #f2f2f2;
+  --s-color-border-hover: #d0d0d0;
+  --s-color-border-critical-secondary: #f89996;
+  --s-color-border-success: #c2f59e;
+  --s-color-border-caution: #ffef9d;
+  --s-color-border-info: #8ce1f8;
+  --s-color-input-border: #8c8c8c;
+  --s-color-input-border-hover: #606060;
+  --s-color-bg-fill-secondary: #ebebeb;
+
   /* --- Surfaces & Plans de fond --- */
-  --sirius-bg-app: #f6f6f7;          /* Fond neutre Sirius UI */
-  --sirius-surface: #ffffff;         /* Surface des cartes et panneaux */
-  --sirius-surface-hover: #f9fafb;   /* Survol de surface blanche */
-  --sirius-surface-subdued: #f7f7f8; /* Fond secondaire doux */
-  --sirius-surface-active: #f1f2f4;  /* Fond d'élément sélectionné */
+  /* Fond de page : aucun jeton relevé ne le donne, valeur gardée. */
+  --sirius-bg-app: #f6f6f7;
+  --sirius-surface: var(--s-color-bg-surface);
+  --sirius-surface-hover: var(--s-color-bg-surface-hover);
+  --sirius-surface-subdued: var(--s-color-bg-surface-secondary);
+  --sirius-surface-active: var(--s-color-bg-surface-active);
 
   /* --- Bordures & Séparateurs --- */
-  --sirius-border: #e1e3e5;          /* Bordure fine standard Sirius */
-  --sirius-border-subdued: #ebecee;  /* Bordure très légère */
-  --sirius-border-hover: #c9cccf;    /* Bordure au survol */
-  --sirius-border-focus: #00824c;    /* Focus ring */
+  --sirius-border: var(--s-color-border);
+  --sirius-border-subdued: var(--s-color-border-secondary);
+  --sirius-border-hover: var(--s-color-border-hover);
+  --sirius-border-focus: #00824c;    /* Focus ring : vert SKS, pas le bleu de référence */
 
   /* --- Typographie & Textes --- */
   /* Police SKS : déclarée par l'application (@font-face SKS-Inter), les
      composants héritent. Repli système si elle n'est pas chargée. */
   --sirius-font: 'SKS-Inter', system-ui, sans-serif;
-  --sirius-text: #202223;            /* Texte principal haute lisibilité Sirius */
-  --sirius-text-subdued: #6d7175;    /* Texte secondaire / libellés */
-  --sirius-text-faint: #8c9196;      /* Texte tertiaire / métadonnées */
-  --sirius-text-disabled: #b5b5b5;   /* Texte désactivé */
+  --sirius-text: var(--s-color-text);
+  --sirius-text-subdued: var(--s-color-text-secondary);
+  --sirius-text-faint: var(--s-color-text-tertiary);
+  --sirius-text-disabled: var(--s-color-text-disabled);
 
   /* --- Couleurs de la Marque SKS & Accents --- */
   --sirius-primary: #00824c;         /* Vert SKS Signature */
@@ -35,21 +71,21 @@
   --sirius-primary-border: #bbf7d0;  /* Bordure verte douce */
 
   /* --- Couleurs d'États Sirius --- */
-  --sirius-success: #108043;
-  --sirius-success-surface: #edf7ed;
-  --sirius-success-border: #c3e6cb;
+  --sirius-success: var(--s-color-text-success-accent);
+  --sirius-success-surface: var(--s-color-bg-surface-success);
+  --sirius-success-border: var(--s-color-border-success);
 
-  --sirius-attention: #b98900;
-  --sirius-attention-surface: #fff8db;
-  --sirius-attention-border: #ffe885;
+  --sirius-attention: var(--s-color-text-caution-accent);
+  --sirius-attention-surface: var(--s-color-bg-surface-caution);
+  --sirius-attention-border: var(--s-color-border-caution);
 
-  --sirius-critical: #d72c0d;
-  --sirius-critical-surface: #fff4f2;
-  --sirius-critical-border: #fed3d1;
+  --sirius-critical: var(--s-color-text-critical-accent);
+  --sirius-critical-surface: var(--s-color-bg-surface-critical);
+  --sirius-critical-border: var(--s-color-border-critical-secondary);
 
-  --sirius-info: #0066cc;
-  --sirius-info-surface: #f0f7ff;
-  --sirius-info-border: #b8dbff;
+  --sirius-info: var(--s-color-text-info-accent);
+  --sirius-info-surface: var(--s-color-bg-surface-info);
+  --sirius-info-border: var(--s-color-border-info);
 
   /* --- Identité Paiements Locaux (Sénégal) --- */
   --sirius-wave: #00b2fe;
@@ -67,26 +103,32 @@
   --sirius-cod-text: #b45309;
   --sirius-cod-border: #fde68a;
 
-  /* --- Ombres Sirius --- */
-  --sirius-shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
-  /* Biseau façon Polaris (shadow-bevel-100) : un liseré INTÉRIEUR, gris clair
-     en haut, plus foncé en bas, d'où l'impression d'un trait d'ombre sous
-     l'élément. Ce n'est pas une ombre portée. */
-  --sirius-shadow-bevel: inset 0 -1px 0 0 rgb(0 0 0 / 0.17), inset 1px 0 0 0 rgb(0 0 0 / 0.13), inset -1px 0 0 0 rgb(0 0 0 / 0.13), inset 0 1px 0 0 rgb(204 204 204 / 0.5);
-  /* Fenêtres flottantes : le biseau, plus une ombre courte qui tombe vers le bas. */
-  --sirius-shadow-popover: var(--sirius-shadow-bevel), 0 4px 6px -2px rgb(26 26 26 / 0.2);
-  /* Ombre des cartes, relevée sur l'admin Shopify (shadow-100, 2026-10-09) :
-     un contour de 1px #ddd flouté, cinq ombres très légères empilées vers le
-     bas, et un anneau de 1px à 6 % de noir.
-     L'inspecteur affichait « initial » dans la première couche : ce sont les
-     emplacements vides du jeton Shopify (ni inset, ni étalement), retirés ici
-     car ils rendraient toute la déclaration invalide. */
-  --s-shadow-100: 0rem 0rem .0625rem #dddddd, 0rem .3125rem .3125rem -.15625rem #00000008, 0rem .1875rem .1875rem -.09375rem #00000005, 0rem .125rem .125rem -.0625rem #00000005, 0rem .0625rem .0625rem -.03125rem #00000008, 0rem .03125rem .03125rem 0rem #0000000a, 0rem 0rem 0rem .0625rem #0000000f;
-  --sirius-shadow-button: 0 1px 0 rgba(0, 0, 0, 0.05);
+  /* --- Ombres de l'admin de référence (--p-shadow-*), renommées en --s-, relevé
+     du 2026-10-09. Valeurs recopiées telles quelles. --- */
+  --s-shadow-0: none;
+  --s-shadow-100: 0rem .3125rem .3125rem -.15625rem rgba(0, 0, 0, .03), 0rem .1875rem .1875rem -.09375rem #00000005, 0rem .125rem .125rem -.0625rem #00000005, 0rem .0625rem .0625rem -.03125rem #00000008, 0rem .03125rem .03125rem 0rem #0000000a, 0rem 0rem 0rem .0625rem #0000000f;
+  --s-shadow-200: 0rem .5rem .625rem -.3125rem rgba(0, 0, 0, .08), 0rem .3125rem .3125rem -.15625rem #00000008, 0rem .1875rem .1875rem -.09375rem #00000005, 0rem .125rem .125rem -.0625rem #00000005, 0rem .0625rem .0625rem -.03125rem #00000008, 0rem .03125rem .03125rem 0rem #0000000a, 0rem 0rem 0rem .0625rem #0000000f;
+  --s-shadow-300: 0rem .5rem 1.5rem -.5rem #00000047, 0rem .5rem 1rem -.25rem #0000000d, 0rem .1875rem .375rem 0rem #0000000d, 0rem .125rem .25rem 0rem #0000000d, 0rem .0625rem .125rem 0rem #0000000d, 0rem 0rem 0rem .0625rem #0000000f;
+  --s-shadow-400: 0rem 1.25rem 2rem -.75rem #00000033, 0rem .625rem 1rem -.375rem #00000014, 0rem .1875rem .375rem 0rem #00000014, 0rem .125rem .25rem 0rem #00000014, 0rem .0625rem .125rem 0rem #0000000d, 0rem 0rem 0rem .0625rem #0000000f;
+  --s-shadow-500: 0rem 1.5rem 2.25rem -.75rem #0000001f, 0rem 1.5rem 1.5rem -.75rem #00000014, 0rem .5rem 1rem -.375rem #00000014, 0rem .1875rem .375rem 0rem #00000014, 0rem .125rem .25rem 0rem #00000014, 0rem .0625rem .125rem 0rem #0000000d, 0rem 0rem 0rem .0625rem #0000000f;
+  --s-shadow-600: 0rem 1.5rem 3.5rem -.75rem #0000003d, 0rem 1.5rem 1.5rem -.75rem #0000001f, 0rem .1875rem .375rem 0rem #0000000d, 0rem .125rem .25rem 0rem #0000000d, 0rem .0625rem .125rem 0rem #0000000d, 0rem 0rem 0rem .0625rem #00000012;
+  /* Biseau : un liseré INTÉRIEUR, gris clair en haut, plus foncé en bas. */
+  --s-shadow-bevel-100: .0625rem 0rem 0rem 0rem #00000021 inset, -.0625rem 0rem 0rem 0rem #00000021 inset, 0rem -.0625rem 0rem 0rem #0000002b inset, 0rem .0625rem 0rem 0rem #cccccc80 inset;
+  --s-shadow-popover: 0rem .125rem .125rem -.0625rem rgba(0, 0, 0, .06), 0rem .1875rem .25rem -.125rem #0000000f, 0rem .375rem .5rem -.1875rem #0000000f, 0rem .75rem 1rem -.25rem #0000000f, 0rem 0rem 0rem .0625rem #00000014;
+  --s-shadow-dialog: 0rem .125rem .1875rem -.0625rem rgba(0, 0, 0, .06), 0rem .25rem .375rem -.125rem #0000000f, 0rem .5rem .75rem -.25rem #0000000f, 0rem 1rem 1.5rem -.375rem #0000000f, 0rem 2rem 3rem -.5rem #0000000f, 0rem 0rem 0rem .0625rem #00000014;
+  --s-shadow-container: 0rem 0rem .125rem 0rem rgba(0, 0, 0, .24), 0rem .125rem .75rem 0rem #00000005, 0rem .25rem 1rem 0rem #00000005, 0rem .25rem 3rem 0rem #00000005;
+  --s-shadow-toast: 0rem .125rem .25rem -.0625rem #00000014, 0rem .25rem .5rem -.125rem #00000014, 0rem .5rem 1rem -.25rem #00000014, 0rem 1rem 2rem -.5rem #00000014, 0rem 2rem 4rem -1rem #00000014, 0rem 4rem 8rem -2rem #00000014, 0rem 0rem 0rem .0625rem #00000014;
+  --s-shadow-button: none;
+
+  /* Anciens noms, gardés pour ne rien casser : ils pointent vers ces valeurs. */
+  --sirius-shadow-card: var(--s-shadow-100);
+  --sirius-shadow-bevel: var(--s-shadow-bevel-100);
+  --sirius-shadow-popover: var(--s-shadow-popover);
+  --sirius-shadow-button: var(--s-shadow-button);
 
   /* --- Rayons de courbure ---
-     Trois étages, comme l'admin Shopify (relevé du 2026-10-09, voir
-     reference/shopify-admin-tokens.md) :
+     Trois étages, comme l'admin de référence (relevé du 2026-10-09, voir
+     reference/admin-tokens.md) :
      1. l'échelle --s-border-radius-0 à -full, des valeurs brutes ;
      2. les rôles (container, control, dialog...), qui choisissent dans
         l'échelle. Un composant n'utilise QUE des rôles ;
@@ -99,7 +141,7 @@
   --sirius-radius-item: var(--s-border-radius-option-item);
   --sirius-radius-full: var(--s-border-radius-full);
 
-  /* 1. Échelle de l'admin Shopify (--p-border-radius-*), renommée en --s-. */
+  /* 1. Échelle de l'admin de référence (--p-border-radius-*), renommée en --s-. */
   --s-border-radius-0: 0rem;
   --s-border-radius-050: .125rem;
   --s-border-radius-100: .25rem;
@@ -111,15 +153,15 @@
   --s-border-radius-750: 1.875rem;
   --s-border-radius-full: 624.9375rem;
 
-  /* 2. Rôles, mêmes valeurs que l'admin Shopify. Choix du 2026-10-09 :
-     on prend le design de Shopify pour les cartes, champs et fenêtres. */
+  /* 2. Rôles, mêmes valeurs que l'admin de référence. Choix du 2026-10-09 :
+     on prend le design de référence pour les cartes, champs et fenêtres. */
   --s-border-radius-container: var(--s-border-radius-500);     /* cartes, 20px */
   --s-border-radius-control: var(--s-border-radius-300);       /* champs, 12px */
   --s-border-radius-control-inner: var(--s-border-radius-200); /* dans un champ, 8px */
-  --s-border-radius-dialog: 1.5rem;                            /* fenêtres, 24px, hors échelle chez Shopify aussi */
+  --s-border-radius-dialog: 1.5rem;                            /* fenêtres, 24px, hors échelle dans la référence aussi */
   --s-border-radius-popover: var(--s-border-radius-400);       /* menus, 16px */
   /* Lignes de menu : 10px épouserait exactement le coin de la fenêtre
-     (16 - 6 de marge) ; Mouhamadou le veut plus prononcé, et Shopify aussi. */
+     (16 - 6 de marge) ; Mouhamadou le veut plus prononcé, comme la référence. */
   --s-border-radius-option-item: var(--s-border-radius-300);   /* 12px */
 
   /* --- Transitions --- */

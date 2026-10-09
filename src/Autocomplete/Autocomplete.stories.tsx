@@ -10,7 +10,7 @@ const meta: Meta<typeof SiriusAutocomplete> = {
     docs: {
       description: {
         component:
-          'Composant Autocomplete 1:1 conforme au standard Shopify Polaris combinant champ de recherche et popover de suggestions dynamiques.',
+          'Composant Autocomplete 1:1 conforme au standard Polaris combinant champ de recherche et popover de suggestions dynamiques.',
       },
     },
   },
@@ -29,7 +29,7 @@ const standardTags: AutocompleteOption[] = [
 ];
 
 /**
- * 1. Default (Cas 1 de la capture Shopify Polaris) :
+ * 1. Default (Cas 1 de la capture Polaris) :
  * Champ de recherche avec label « Tags », icône loupe et suggestions simples.
  */
 export const Default: Story = {
@@ -54,7 +54,7 @@ export const Default: Story = {
 };
 
 /**
- * 2. With Multiple Tags (Cas 2 de la capture Shopify Polaris) :
+ * 2. With Multiple Tags (Cas 2 de la capture Polaris) :
  * Sélection multiple avec tags/badges amovibles dans le champ et cases à cocher dans le popover.
  */
 export const WithMultipleTags: Story = {
@@ -87,7 +87,7 @@ export const WithMultipleTags: Story = {
 };
 
 /**
- * 3. With Multiple Sections (Cas 3 de la capture Shopify Polaris) :
+ * 3. With Multiple Sections (Cas 3 de la capture Polaris) :
  * Groupement des options par sections avec coche ✓ sur l'élément actif (« UPS »).
  */
 export const WithMultipleSections: Story = {
@@ -129,7 +129,7 @@ export const WithMultipleSections: Story = {
 };
 
 /**
- * 4. With Loading (Cas 4 de la capture Shopify Polaris) :
+ * 4. With Loading (Cas 4 de la capture Polaris) :
  * Affiche un indicateur de chargement circulaire au centre du popover lors d'une recherche asynchrone.
  */
 export const WithLoading: Story = {
@@ -216,7 +216,7 @@ export const WithEmptyState: Story = {
 };
 
 /**
- * 7. With Action (Cas 6 de la capture Shopify Polaris) :
+ * 7. With Action (Cas 6 de la capture Polaris) :
  * Action en tête de popover avec icône (+), titre, texte d'aide et badge « New! ».
  */
 export const WithAction: Story = {
@@ -291,7 +291,7 @@ export const WithWrappingAction: Story = {
 };
 
 /**
- * 9. With Destructive Action (Cas 7 de la capture Shopify Polaris) :
+ * 9. With Destructive Action (Cas 7 de la capture Polaris) :
  * Action destructive en en-tête sur fond rouge clair (#fdedea) avec icône corbeille rouge (#d72c0d).
  */
 export const WithDestructiveAction: Story = {

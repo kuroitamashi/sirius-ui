@@ -102,7 +102,7 @@ const demoPeople = [
 ];
 
 /**
- * 1. Default (Cas 1 de la capture Shopify Polaris) :
+ * 1. Default (Cas 1 de la capture Polaris) :
  * Rendu avec i18n par défaut en anglais affichant « Showing 2 items ».
  */
 export const Default: Story = {
@@ -114,7 +114,7 @@ export const Default: Story = {
 };
 
 /**
- * 2. With I 18 N (Cas 2 de la capture Shopify Polaris) :
+ * 2. With I 18 N (Cas 2 de la capture Polaris) :
  * Rendu avec i18n français via le dictionnaire frTranslations affichant « 2 articles affichés ».
  */
 export const WithI18N: Story = {
@@ -205,7 +205,7 @@ const DemoCustomPage: React.FC = () => {
 };
 
 /**
- * 3. With Link Component (Cas 3 de la capture Shopify Polaris) :
+ * 3. With Link Component (Cas 3 de la capture Polaris) :
  * Démontre l'injection d'un composant de lien personnalisé pour gérer la navigation sans rechargement de page.
  */
 export const WithLinkComponent: Story = {

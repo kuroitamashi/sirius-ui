@@ -13,7 +13,7 @@
   position: absolute;
   z-index: 9999;
   background-color: #ffffff;
-  color: #202223;
+  color: var(--sirius-text);
   padding: 6px 14px;
   border-radius: 8px;
   font-size: 13px;

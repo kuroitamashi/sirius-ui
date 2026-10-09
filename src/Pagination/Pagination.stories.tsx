@@ -10,7 +10,7 @@ const meta: Meta<typeof SiriusPagination> = {
     docs: {
       description: {
         component:
-          'Composant de pagination 1:1 conforme au standard Shopify Polaris, permettant de naviguer entre différentes pages avec ou sans libellé, et en mode table.',
+          'Composant de pagination 1:1 conforme au standard Polaris, permettant de naviguer entre différentes pages avec ou sans libellé, et en mode table.',
       },
     },
   },
@@ -21,7 +21,7 @@ export default meta;
 type Story = StoryObj<typeof SiriusPagination>;
 
 /**
- * 1. Default (Cas 1 de la capture Shopify Polaris) :
+ * 1. Default (Cas 1 de la capture Polaris) :
  * Contrôle segmenté compact [ < | > ] avec état désactivé / actif.
  */
 export const Default: Story = {
@@ -47,7 +47,7 @@ export const Default: Story = {
 };
 
 /**
- * 2. With Keyboard Navigation (Cas 2 de la capture Shopify Polaris) :
+ * 2. With Keyboard Navigation (Cas 2 de la capture Polaris) :
  * Navigation au clavier via flèches gauche / droite (ArrowLeft / ArrowRight) ou touches j / k.
  */
 export const WithKeyboardNavigation: Story = {
@@ -74,7 +74,7 @@ export const WithKeyboardNavigation: Story = {
 };
 
 /**
- * 3. With Label (Cas 3 de la capture Shopify Polaris) :
+ * 3. With Label (Cas 3 de la capture Polaris) :
  * Affiche deux boutons arrondis distincts avec un texte de libellé au milieu (« Results »).
  */
 export const WithLabel: Story = {
@@ -95,7 +95,7 @@ export const WithLabel: Story = {
 };
 
 /**
- * 4. With Table Type (Cas 4 de la capture Shopify Polaris) :
+ * 4. With Table Type (Cas 4 de la capture Polaris) :
  * Bandeau de pied de tableau pleine largeur avec libellé (« 1-50 of 8,450 orders »).
  */
 export const WithTableType: Story = {
@@ -124,7 +124,7 @@ export const WithTableType: Story = {
 };
 
 /**
- * 5. With Table Type And No Label (Cas 5 de la capture Shopify Polaris) :
+ * 5. With Table Type And No Label (Cas 5 de la capture Polaris) :
  * Bandeau de pied de tableau pleine largeur centrant le contrôle segmenté sans texte.
  */
 export const WithTableTypeAndNoLabel: Story = {

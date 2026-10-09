@@ -28,11 +28,11 @@
 }
 
 .sirius-spinner__track {
-  stroke: #e4e5e7;
+  stroke: var(--s-color-bg-fill-secondary);
 }
 
 .sirius-spinner__arc {
-  stroke: #202223;
+  stroke: var(--sirius-text);
 }
 
 /* --- Tones --- */
@@ -41,7 +41,7 @@
 }
 
 .sirius-spinner--subdued .sirius-spinner__arc {
-  stroke: #8c9196;
+  stroke: var(--sirius-text-faint);
 }
 
 .sirius-spinner--inherit .sirius-spinner__arc {

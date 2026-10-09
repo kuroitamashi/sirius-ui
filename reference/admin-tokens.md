@@ -1,7 +1,7 @@
-# Jetons de l'admin Shopify comparés à Sirius
+# Jetons de l'admin de référence comparés à Sirius
 
-Source : [shopify-admin-tokens.css](shopify-admin-tokens.css), 721 jetons
-`--p-*` relevés le 2026-10-09 dans la console de l'admin Shopify. Ce sont les
+Source : [admin-tokens.css](admin-tokens.css), 721 jetons
+`--p-*` relevés le 2026-10-09 dans la console de l'admin de référence. Ce sont les
 valeurs **calculées** par le navigateur, donc celles que l'admin affiche
 vraiment.
 
@@ -18,7 +18,7 @@ Légende : **=** identique, **≈** très proche, **≠** différent.
 
 ## Rayons
 
-| Usage | Shopify | Sirius | Écart |
+| Usage | Référence | Sirius | Écart |
 |---|---|---|---|
 | Boutons (`-action`) | pilule (624.9375rem) | pilule (999 px) | = |
 | Menus, popovers (`-popover`) | 1rem (16 px) | 16 px (`--sirius-radius-xl`) | = |
@@ -40,7 +40,7 @@ Légende : **=** identique, **≈** très proche, **≠** différent.
 | Forme des coins (`-corner-shape`) | superellipse(1.333) | arrondi classique | ≠ |
 
 Bilan : la direction artistique v1.0.7 (pilules, menus à 16, lignes à 12,
-Banner à 16) correspond déjà à l'admin Shopify actuel. Les écarts restants
+Banner à 16) correspond déjà à l'admin de référence actuel. Les écarts restants
 sont les cartes (16 au lieu de 20), les champs (8 au lieu de 12) et le Modal
 (12 au lieu de 24).
 
@@ -48,7 +48,7 @@ L'échelle `--p-border-radius-0` à `-full` est identique à `--s-border-radius-
 
 ## Ombres
 
-| Shopify | Sirius | Écart |
+| Référence | Sirius | Écart |
 |---|---|---|
 | `--p-shadow-bevel-100` | `--sirius-shadow-bevel` | = (mêmes opacités : 13 %, 17 %, `#cccccc80`) |
 | `--p-shadow-100` (6 couches) | `--s-shadow-100` (7 couches) | ≠ : la nôtre a en plus une première couche `0 0 1px #ddd`, venue de la capture de l'inspecteur (un autre jeton composé) |
@@ -60,7 +60,7 @@ L'échelle `--p-border-radius-0` à `-full` est identique à `--s-border-radius-
 
 ## Couleurs de base
 
-| Usage | Shopify | Sirius | Écart |
+| Usage | Référence | Sirius | Écart |
 |---|---|---|---|
 | Texte | `#101010` | `--sirius-text` `#202223` | ≠ |
 | Texte secondaire | `#4a4a4a` | `--sirius-text-subdued` `#6d7175` | ≠ |
@@ -75,14 +75,14 @@ L'échelle `--p-border-radius-0` à `-full` est identique à `--s-border-radius-
 | Surface active | `#f2f2f2` | `--sirius-surface-active` `#f1f2f4` | ≈ |
 | Primaire | noir `#101010` | vert SKS `#00824c` | ≠ voulu |
 
-Les gris Shopify sont neutres (rouge = vert = bleu). Les nôtres tirent
+Les gris de référence sont neutres (rouge = vert = bleu). Les nôtres tirent
 légèrement vers le bleu, c'est la palette de l'ancien Polaris.
 
 ## Typographie
 
-| Usage | Shopify | Sirius |
+| Usage | Référence | Sirius |
 |---|---|---|
-| Police | `ShopifyInter` | `SKS-Inter` |
+| Police | `Inter` (version maison) | `SKS-Inter` |
 | Variantes d'Inter | `font-feature-settings: "calt", "ss03", "cv09", "cv02", "cv03", "cv04"` | aucune |
 | Texte courant | 13 px / 20 px, approche -.01em | 13 px, approche variable selon le composant |
 | Titre de carte (`heading-medium`) | 13 px, graisse 500 | Card 15 px / 650, CalloutCard 13 px / 650 |
@@ -98,10 +98,10 @@ texte, approche des lettres, durées et courbes d'animation
 
 Familles sans intérêt pour SKS : `code-text-*`, `avatar-*` (couleurs),
 `video-thumbnail-*`, `ai-*` (à revoir pour Momo), `nav-*` (barre latérale
-sombre de Shopify), les drapeaux `--p-when-*`.
+sombre de la référence), les drapeaux `--p-when-*`.
 
 ## Rayons propres à une carte
 
-| Shopify | Sirius | Écart |
+| Référence | Sirius | Écart |
 |---|---|---|
 | `--sidekick-field-border-radius` : calc(750 - 100) = 26 px | `--momo-field-border-radius` (MomoField), 26 px | = |

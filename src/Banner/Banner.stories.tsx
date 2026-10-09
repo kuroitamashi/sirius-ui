@@ -39,7 +39,7 @@ export const AvecTitre: Story = {
   },
 };
 
-/** Réplique de la capture Shopify : titre, texte, une action. */
+/** Réplique de la capture de référence : titre, texte, une action. */
 export const AvecAction: Story = {
   args: {
     tone: 'info',

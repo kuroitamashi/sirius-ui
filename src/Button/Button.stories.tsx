@@ -114,7 +114,7 @@ export const IconeSeule: Story = {
 };
 
 /**
- * Boutons associant une icône Sirius et un libellé textuel (standard Shopify Polaris).
+ * Boutons associant une icône Sirius et un libellé textuel (standard Polaris).
  */
 export const AvecIconeEtTexte: Story = {
   render: () => (
@@ -158,14 +158,14 @@ export const MenuDeroulantDisclosure: Story = {
 };
 
 /**
- * Boutons scindés (Split Button standard Shopify Polaris) :
+ * Boutons scindés (Split Button standard Polaris) :
  * Conforme à la capture d'écran Polaris avec le bouton noir (Save) et le bouton blanc (Save),
  * ainsi que la déclinaison verte Sen-Kheweul Store. Le chevron ouvre un menu d'actions interactif.
  */
 export const Split: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
-      {/* 1. Bouton scindé noir (Save) - conforme capture Shopify Polaris */}
+      {/* 1. Bouton scindé noir (Save) - conforme capture Polaris */}
       <SiriusSplitButton
         variant="secondary"
         primaryAction={{
@@ -179,7 +179,7 @@ export const Split: Story = {
         ]}
       />
 
-      {/* 2. Bouton scindé blanc (Save) - conforme capture Shopify Polaris */}
+      {/* 2. Bouton scindé blanc (Save) - conforme capture Polaris */}
       <SiriusSplitButton
         variant="default"
         primaryAction={{

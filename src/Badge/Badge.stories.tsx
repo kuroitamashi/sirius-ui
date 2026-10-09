@@ -108,7 +108,7 @@ export const LibelleAutomatique: Story = {
   ),
 };
 
-/** Statuts de commande, comme dans la liste des commandes de Shopify. */
+/** Statuts de commande, comme dans la liste des commandes de référence. */
 export const AvecProgression: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>

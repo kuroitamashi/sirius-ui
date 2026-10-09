@@ -26,7 +26,7 @@ export type SiriusBadgePip = 'filled' | 'hollow' | 'slashed' | boolean;
 export type SiriusBadgeProgress = 'complete' | 'partiallyComplete' | 'incomplete';
 
 /* Les trois pastilles de progression de Polaris. Elles ne sont pas dans
-   @shopify/polaris-icons : Polaris les dessine dans son Badge. Tracés repris
+   le paquet d'icônes : Polaris les dessine dans son Badge. Tracés repris
    tels quels, cadre 20x20 comme les autres icônes. */
 const PROGRESS_PATHS: Record<SiriusBadgeProgress, { d: string; evenOdd?: boolean }> = {
   complete: {

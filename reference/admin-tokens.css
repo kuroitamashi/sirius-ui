@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Jetons de l'admin Shopify (--p-*), valeurs CALCULÉES par le navigateur
-   Relevé du 2026-10-09 par Mouhamadou, dans la console de l'admin Shopify :
+   Jetons de l'admin de référence (--p-*), valeurs CALCULÉES par le navigateur
+   Relevé du 2026-10-09 par Mouhamadou, dans la console de l'admin de référence :
 
      const s = getComputedStyle(document.documentElement);
      copy([...s].filter(p => p.startsWith('--p-')).map(p => `${p}: ${s.getPropertyValue(p).trim()};`).join('\n'))
@@ -8,10 +8,10 @@
    RÉFÉRENCE UNIQUEMENT : ce fichier n'est importé nulle part et ne doit pas
    l'être. Le sélecteur ne correspond à aucun élément, pour qu'un import par
    erreur reste sans effet. Liste recopiée telle quelle, dans l'ordre donné
-   par le navigateur. Comparaison avec Sirius : shopify-admin-tokens.md.
+   par le navigateur. Comparaison avec Sirius : admin-tokens.md.
    ========================================================================== */
 
-.reference-shopify-admin-ne-pas-importer {
+.reference-admin-ne-pas-importer {
 --p-color-code-text-function: #047b5d;
 --p-shadow-button-primary-success-inset: -.0625rem 0rem .0625rem 0rem #00000033 inset, .0625rem 0rem .0625rem 0rem #00000033 inset, 0rem .125rem 0rem 0rem #00000099 inset;
 --p-color-text-highlight-on-accent: #e6eefe;
