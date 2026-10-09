@@ -33,6 +33,7 @@ export interface SiriusTableProps<T = any> {
   data: T[];
   pagination?: SiriusTablePagination;
   emptyState?: React.ReactNode;
+  /** @deprecated Le tableau n'a plus de carte autour depuis le 2026-10-09 ; sans effet. */
   embedded?: boolean;
   className?: string;
   rowClassName?: (row: T, index: number) => string | undefined;
@@ -73,7 +74,6 @@ export function SiriusTable<T = any>({
   data,
   pagination,
   emptyState,
-  embedded = false,
   className = '',
   rowClassName,
   style,
@@ -115,7 +115,6 @@ export function SiriusTable<T = any>({
     <div
       className={[
         'sirius-table-container',
-        embedded && 'sirius-table-container--embedded',
         className,
       ]
         .filter(Boolean)

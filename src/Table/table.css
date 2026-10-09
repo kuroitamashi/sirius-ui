@@ -7,25 +7,13 @@
    48 px avec une vignette de 36 px.
    ========================================================================== */
 
-/* Sur la capture, tout repose sur une surface blanche, l'en-tête en retrait.
-   Notre fond de page est gris (#f6f6f7) : la bande d'en-tête #f7f7f7 y
-   disparaîtrait. Le tableau porte donc sa carte blanche, avec 8 px d'air. */
+/* Plus de carte autour du tableau (décidé le 2026-10-09) : il se pose à même
+   la surface blanche de la page. Sur un fond gris, la bande d'en-tête #f7f7f7
+   ne se verrait pas. */
 .sirius-table-container {
   width: 100%;
-  padding: 8px;
-  background-color: var(--sirius-surface, #ffffff);
-  border-radius: var(--s-border-radius-container);
-  box-shadow: var(--s-shadow-100);
   font-family: inherit;
   box-sizing: border-box;
-}
-
-/* Dans une carte déjà blanche : ni carte ni marge en plus */
-.sirius-table-container--embedded {
-  padding: 0;
-  background: none;
-  border-radius: 0;
-  box-shadow: none;
 }
 
 .sirius-table-scroll {
