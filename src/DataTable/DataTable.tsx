@@ -2,119 +2,94 @@
 
 import React, { useState } from 'react';
 import { Icon } from '../Icon/Icon';
+import { SiriusCheckbox } from '../Form/Checkbox';
+import { SiriusBulkActions, type SiriusBulkActionsProps } from '../BulkActions/BulkActions';
+import { SiriusSpinner } from '../Spinner/Spinner';
 import { SiriusPagination } from '../Pagination';
 import type { SiriusPaginationProps } from '../Pagination';
 import './data-table.css';
 
 export type ColumnContentType = 'text' | 'numeric';
 export type SortDirection = 'ascending' | 'descending' | 'none';
+export type DataTableRowTone = 'subdued' | 'success' | 'warning' | 'critical';
 
 export type SiriusDataTablePagination = SiriusPaginationProps;
 
-
-export interface SiriusDataTableProps {
-  /** Titre au-dessus du tableau (ex: "Sales by product") */
-  title?: React.ReactNode;
-  /** Type de contenu de chaque colonne ('text' aligné à gauche, 'numeric' aligné à droite) */
-  columnContentTypes: ColumnContentType[];
-  /** Libellés des en-têtes de colonnes */
-  headings: React.ReactNode[];
-  /** Lignes de données (tableau 2D de cellules) */
-  rows: (React.ReactNode)[][];
-  /** Ligne de totaux (tableau de valeurs pour chaque colonne) */
-  totals?: (React.ReactNode)[];
-  /** Libellé personnalisé pour la cellule de totaux (défaut: "Totals") */
-  totalsName?: { singular: string; plural: string } | string;
-  /** Place la ligne des totaux en bas du tableau plutôt qu'en haut */
-  showTotalsInFooter?: boolean;
-  /** Tableau de booléens indiquant si chaque colonne est triable */
-  sortable?: boolean[];
-  /** Direction de tri par défaut */
-  defaultSortDirection?: SortDirection;
-  /** Index de la colonne triée initialement */
-  initialSortColumnIndex?: number;
-  /** Callback déclenché lors d'un clic de tri */
-  onSort?: (columnIndex: number, direction: SortDirection) => void;
-  /** Message d'information en pied de tableau (ex: "Showing 3 of 3 results") */
-  footerContent?: React.ReactNode;
-  /** Réduit la hauteur des lignes pour une densité de données accrue */
-  increasedTableDensity?: boolean;
-  /** Active l'alternance de couleur de fond sur les lignes (rayures zébrées) */
-  hasZebraStriping?: boolean;
-  /** Fige l'en-tête de colonnes lors du défilement vertical */
-  stickyHeader?: boolean;
-  /** Hauteur maximale du conteneur lors de l'utilisation du sticky header */
-  maxHeight?: string | number;
-  /** Fige la première colonne lors du défilement horizontal */
-  fixedFirstColumns?: number;
-  /** Pagination centrée [ < | > ] en pied de tableau */
-  pagination?: SiriusDataTablePagination;
-  /** Active le survol interactif des lignes */
-  hoverable?: boolean;
-  /** Troncature automatique des cellules avec ellipse */
-  truncate?: boolean;
-  /** Classes CSS supplémentaires */
-  className?: string;
-  /** Styles inline */
-  style?: React.CSSProperties;
-}
-
 /**
- * Icône de tri officielle Polaris pour les colonnes DataTable :
- * Deux chevrons empilés (haut et bas).
- * - En tri ascendant : le chevron du haut est noir (#202223), le chevron du bas est gris clair (#c4cdd5).
- * - En tri descendant : le chevron du bas est noir (#202223), le chevron du haut est gris clair (#c4cdd5).
- * - Si colonne non activement triée : les deux chevrons sont en gris clair (#c4cdd5).
+ * Le seul tableau de Sirius, depuis le 2026-10-09 : liste de ressources
+ * (commandes, produits, clientes : on coche, on ouvre) comme tableau de
+ * chiffres (rapport des ventes : totaux, colonnes figées). Mise en page à
+ * plat de l'admin de référence : pas de carte, en-tête en bande grise.
  */
-export function DataTableSortIcon({
-  direction,
-  isSorted = false,
-}: {
-  direction?: SortDirection;
-  isSorted?: boolean;
-}) {
-  const isUpActive = isSorted && direction === 'ascending';
-  const isDownActive = isSorted && direction === 'descending';
+export interface SiriusDataTableProps {
+  /** Titre au-dessus du tableau (ex. « Ventes par produit ») */
+  title?: React.ReactNode;
+  /** Type de chaque colonne : 'text' à gauche, 'numeric' à droite en chiffres alignés */
+  columnContentTypes: ColumnContentType[];
+  /** Intitulés des colonnes */
+  headings: React.ReactNode[];
+  /** Lignes (tableau 2D de cellules) */
+  rows: React.ReactNode[][];
+  /** Ligne de totaux, une valeur par colonne */
+  totals?: React.ReactNode[];
+  /** Libellé de la cellule de totaux (défaut : « Total ») */
+  totalsName?: { singular: string; plural: string } | string;
+  /** Totaux en bas plutôt qu'en haut */
+  showTotalsInFooter?: boolean;
+  /** Colonnes triables, une valeur par colonne */
+  sortable?: boolean[];
+  defaultSortDirection?: SortDirection;
+  initialSortColumnIndex?: number;
+  /** Clic sur un intitulé triable. C'est l'écran qui trie ses lignes. */
+  onSort?: (columnIndex: number, direction: SortDirection) => void;
+  /** Texte de pied (ex. « 3 commandes sur 47 ») */
+  footerContent?: React.ReactNode;
+  /** Lignes plus serrées */
+  increasedTableDensity?: boolean;
+  /** Une ligne sur deux légèrement grisée */
+  hasZebraStriping?: boolean;
+  /** En-tête figé au défilement vertical */
+  stickyHeader?: boolean;
+  maxHeight?: string | number;
+  /** Première colonne figée au défilement horizontal */
+  fixedFirstColumns?: number;
+  pagination?: SiriusDataTablePagination;
+  /** Teinte au survol des lignes (défaut : oui) */
+  hoverable?: boolean;
+  /** Coupe les textes trop longs sur « … » */
+  truncate?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
 
-  const upColor = isUpActive ? '#202223' : '#c4cdd5';
-  const downColor = isDownActive ? '#202223' : '#c4cdd5';
-
-  return (
-    <svg
-      width="10"
-      height="14"
-      viewBox="0 0 10 14"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="sirius-data-table__sort-icon"
-      aria-hidden="true"
-    >
-      <path
-        d="M2 5L5 2L8 5"
-        stroke={upColor}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M2 9L5 12L8 9"
-        stroke={downColor}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+  /** Une case à cocher au début de chaque ligne */
+  selectable?: boolean;
+  /** Identifiant stable de chaque ligne (défaut : sa position) */
+  rowIds?: string[];
+  /** Lignes cochées (contrôlé). Sans cette prop, le tableau garde sa sélection seul. */
+  selectedIds?: string[];
+  onSelectionChange?: (ids: string[]) => void;
+  /** Barre posée sur l'en-tête dès qu'une ligne est cochée */
+  bulkActions?: Omit<SiriusBulkActionsProps, 'selectedCount' | 'totalCount' | 'onToggleAll'>;
+  /** Clic sur une ligne : ouvrir la fiche. Dès qu'une ligne est cochée, le clic coche. */
+  onRowClick?: (rowIndex: number) => void;
+  /** Fond teinté d'une ligne : grisée, réussie, à surveiller, en erreur */
+  rowTone?: (rowIndex: number) => DataTableRowTone | undefined;
+  /** Ligne grisée, ni cochable ni cliquable */
+  isRowDisabled?: (rowIndex: number) => boolean;
+  /** Bandeau « Chargement… » sous l'en-tête, lignes estompées */
+  loading?: boolean;
+  loadingLabel?: string;
+  /** Contenu affiché quand il n'y a aucune ligne */
+  emptyState?: React.ReactNode;
 }
 
 export function SiriusDataTable({
-
   title,
   columnContentTypes,
   headings,
   rows,
   totals,
-  totalsName = 'Totals',
+  totalsName = 'Total',
   showTotalsInFooter = false,
   sortable,
   defaultSortDirection = 'ascending',
@@ -131,31 +106,51 @@ export function SiriusDataTable({
   truncate = false,
   className = '',
   style,
+  selectable = false,
+  rowIds,
+  selectedIds,
+  onSelectionChange,
+  bulkActions,
+  onRowClick,
+  rowTone,
+  isRowDisabled,
+  loading = false,
+  loadingLabel = 'Chargement…',
+  emptyState,
 }: SiriusDataTableProps) {
   const [sortedIndex, setSortedIndex] = useState<number | undefined>(initialSortColumnIndex);
   const [sortDirection, setSortDirection] = useState<SortDirection>(defaultSortDirection);
 
   const handleSort = (index: number) => {
-    let nextDirection: SortDirection = 'ascending';
-    if (sortedIndex === index) {
-      nextDirection = sortDirection === 'ascending' ? 'descending' : 'ascending';
-    }
+    const next: SortDirection =
+      sortedIndex === index && sortDirection === 'ascending' ? 'descending' : 'ascending';
     setSortedIndex(index);
-    setSortDirection(nextDirection);
-    if (onSort) {
-      onSort(index, nextDirection);
-    }
+    setSortDirection(next);
+    onSort?.(index, next);
   };
 
-  const totalsLabel =
-    typeof totalsName === 'string'
-      ? totalsName
-      : totalsName?.singular ?? 'Totals';
+  // Sélection
+  const [innerSelection, setInnerSelection] = useState<string[]>([]);
+  const selection = selectedIds ?? innerSelection;
+  const setSelection = (ids: string[]) => {
+    if (selectedIds === undefined) setInnerSelection(ids);
+    onSelectionChange?.(ids);
+  };
+  const ids = rows.map((_, i) => rowIds?.[i] ?? String(i));
+  const selectableIds = ids.filter((_, i) => !isRowDisabled?.(i));
+  const selectedCount = selection.filter((id) => selectableIds.includes(id)).length;
+  const allState: boolean | 'indeterminate' =
+    selectedCount === 0 ? false : selectedCount === selectableIds.length ? true : 'indeterminate';
+  const toggle = (id: string) =>
+    setSelection(selection.includes(id) ? selection.filter((x) => x !== id) : [...selection, id]);
+  const toggleAll = (all: boolean) => setSelection(all ? selectableIds : []);
+  const selecting = selectable && selectedCount > 0;
 
-  // Rendu d'une cellule de totaux
+  const colCount = headings.length + (selectable ? 1 : 0);
+  const totalsLabel = typeof totalsName === 'string' ? totalsName : totalsName?.singular ?? 'Total';
+
   const renderTotalsRow = (isFooterPosition: boolean) => {
     if (!totals || totals.length === 0) return null;
-
     return (
       <tr
         className={[
@@ -165,42 +160,26 @@ export function SiriusDataTable({
           .filter(Boolean)
           .join(' ')}
       >
-        {totals.map((totalValue, idx) => {
-          const contentType = columnContentTypes[idx] ?? 'text';
-          const isFirst = idx === 0;
-          return (
-            <td
-              key={`total-${idx}`}
-              className={`sirius-data-table__cell--${contentType}`}
-            >
-              {isFirst ? (totalValue || totalsLabel) : totalValue}
-            </td>
-          );
-        })}
+        {selectable && <td className="sirius-data-table__cell--checkbox" />}
+        {totals.map((totalValue, idx) => (
+          <td key={`total-${idx}`} className={`sirius-data-table__cell--${columnContentTypes[idx] ?? 'text'}`}>
+            {idx === 0 ? totalValue || totalsLabel : totalValue}
+          </td>
+        ))}
       </tr>
     );
   };
 
   return (
     <div className={['sirius-data-table-wrapper', className].filter(Boolean).join(' ')} style={style}>
-      {/* Titre optionnel au-dessus du tableau (standard Polaris) */}
       {title && <h2 className="sirius-data-table__title">{title}</h2>}
 
-      {/* Carte conteneur avec bordure et coins arrondis */}
       <div
-
-
-        className={[
-          'sirius-data-table-card',
-          stickyHeader && 'sirius-data-table-card--sticky',
-        ]
+        className={['sirius-data-table-card', stickyHeader && 'sirius-data-table-card--sticky']
           .filter(Boolean)
           .join(' ')}
       >
-        <div
-          className="sirius-data-table__scroll-container"
-          style={{ maxHeight: maxHeight ? maxHeight : undefined }}
-        >
+        <div className="sirius-data-table__scroll-container" style={{ maxHeight: maxHeight || undefined }}>
           <table
             className={[
               'sirius-data-table',
@@ -212,45 +191,46 @@ export function SiriusDataTable({
             ]
               .filter(Boolean)
               .join(' ')}
-            role="table"
+            aria-busy={loading || undefined}
           >
-            <thead>
+            <thead className={selecting ? 'sirius-data-table__thead--selecting' : undefined}>
               <tr>
+                {selectable && (
+                  <th scope="col" className="sirius-data-table__cell--checkbox">
+                    <SiriusCheckbox
+                      label="Tout sélectionner"
+                      labelHidden
+                      checked={allState}
+                      disabled={selectableIds.length === 0}
+                      onChange={() => toggleAll(allState !== true)}
+                    />
+                  </th>
+                )}
                 {headings.map((heading, idx) => {
                   const contentType = columnContentTypes[idx] ?? 'text';
-                  const isColSortable = Boolean(sortable && sortable[idx]);
-                  const isCurrentlySorted = sortedIndex === idx;
-
-                  const sortAria = isColSortable
-                    ? isCurrentlySorted
-                      ? sortDirection === 'ascending'
-                        ? 'ascending'
-                        : 'descending'
-                      : 'none'
-                    : undefined;
-
+                  const isColSortable = Boolean(sortable?.[idx]);
+                  const isSorted = sortedIndex === idx;
                   return (
                     <th
                       key={idx}
                       scope="col"
-                      className={[
-                        `sirius-data-table__cell--${contentType}`,
-                        isColSortable && 'sirius-data-table__heading--sortable',
-                      ]
-                        .filter(Boolean)
-                        .join(' ')}
-                      aria-sort={sortAria as any}
-                      onClick={isColSortable ? () => handleSort(idx) : undefined}
+                      className={`sirius-data-table__cell--${contentType}`}
+                      aria-sort={isColSortable ? (isSorted ? (sortDirection as 'ascending' | 'descending') : 'none') : undefined}
                     >
-                      <span className="sirius-data-table__heading-inner">
-                        {isColSortable && (
-                          <DataTableSortIcon
-                            direction={sortDirection}
-                            isSorted={isCurrentlySorted}
-                          />
-                        )}
-                        <span>{heading}</span>
-                      </span>
+                      {isColSortable ? (
+                        <button
+                          type="button"
+                          className={['sirius-data-table__sort', isSorted && 'sirius-data-table__sort--active']
+                            .filter(Boolean)
+                            .join(' ')}
+                          onClick={() => handleSort(idx)}
+                        >
+                          {heading}
+                          <Icon name={isSorted && sortDirection === 'ascending' ? 'arrow-up' : 'arrow-down'} size={16} />
+                        </button>
+                      ) : (
+                        heading
+                      )}
                     </th>
                   );
                 })}
@@ -258,37 +238,69 @@ export function SiriusDataTable({
             </thead>
 
             <tbody>
-              {/* Totaux en haut (comportement par défaut Polaris) */}
+              {loading && (
+                <tr className="sirius-data-table__loading-row">
+                  <td colSpan={colCount}>
+                    <SiriusSpinner size="small" accessibilityLabel={loadingLabel} />
+                    <span>{loadingLabel}</span>
+                  </td>
+                </tr>
+              )}
+
               {!showTotalsInFooter && renderTotalsRow(false)}
 
-              {/* Lignes de données */}
-              {rows.map((row, rowIdx) => {
-                // Alternance zébrée : la première ligne de données (rowIdx === 0) juste sous
-                // l'en-tête ou les totaux reste BLANCHE. Les lignes impaires (1, 3, 5...) sont
-                // grisées pour éviter 2 lignes grises consécutives avec la ligne des totaux.
-                const isZebraRow = hasZebraStriping && rowIdx % 2 === 1;
+              {rows.length === 0 && (
+                <tr>
+                  <td colSpan={colCount} className="sirius-data-table__empty">
+                    {emptyState ?? 'Aucune donnée pour le moment.'}
+                  </td>
+                </tr>
+              )}
 
+              {rows.map((row, rowIdx) => {
+                const id = ids[rowIdx];
+                const disabled = isRowDisabled?.(rowIdx) ?? false;
+                const selected = selectable && selection.includes(id);
+                const tone = rowTone?.(rowIdx);
+                const clickable = !disabled && (selecting || !!onRowClick);
                 return (
                   <tr
-                    key={rowIdx}
-                    className={
-                      isZebraRow
-                        ? 'sirius-data-table__row--zebra-striped'
-                        : undefined
+                    key={id}
+                    className={[
+                      'sirius-data-table__row',
+                      // première ligne blanche, puis une sur deux grisée
+                      hasZebraStriping && rowIdx % 2 === 1 && 'sirius-data-table__row--zebra-striped',
+                      clickable && 'sirius-data-table__row--clickable',
+                      selected && 'sirius-data-table__row--selected',
+                      disabled && 'sirius-data-table__row--disabled',
+                      tone && `sirius-data-table__row--${tone}`,
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                    aria-selected={selectable ? selected : undefined}
+                    aria-disabled={disabled || undefined}
+                    onClick={
+                      clickable ? () => (selecting ? toggle(id) : onRowClick?.(rowIdx)) : undefined
                     }
                   >
+                    {selectable && (
+                      // la case ne doit jamais ouvrir la ligne
+                      <td className="sirius-data-table__cell--checkbox" onClick={(e) => e.stopPropagation()}>
+                        <SiriusCheckbox
+                          label="Sélectionner la ligne"
+                          labelHidden
+                          checked={selected}
+                          disabled={disabled}
+                          onChange={() => toggle(id)}
+                        />
+                      </td>
+                    )}
                     {row.map((cell, cellIdx) => {
                       const contentType = columnContentTypes[cellIdx] ?? 'text';
-                      const isTruncated = truncate && contentType === 'text';
                       return (
-                        <td
-                          key={cellIdx}
-                          className={`sirius-data-table__cell--${contentType}`}
-                        >
-                          {isTruncated ? (
-                            <span className="sirius-data-table__truncate-text">
-                              {cell}
-                            </span>
+                        <td key={cellIdx} className={`sirius-data-table__cell--${contentType}`}>
+                          {truncate && contentType === 'text' ? (
+                            <span className="sirius-data-table__truncate-text">{cell}</span>
                           ) : (
                             cell
                           )}
@@ -299,33 +311,29 @@ export function SiriusDataTable({
                 );
               })}
 
-              {/* Totaux en bas (si showTotalsInFooter est actif) */}
               {showTotalsInFooter && renderTotalsRow(true)}
             </tbody>
           </table>
+
+          {selecting && (
+            <div className="sirius-data-table__bulk">
+              <SiriusBulkActions
+                {...bulkActions}
+                selectedCount={selectedCount}
+                totalCount={selectableIds.length}
+                onToggleAll={toggleAll}
+              />
+            </div>
+          )}
         </div>
 
-        {/* Pied de tableau : Message de comptage */}
         {footerContent && (
-          <div
-            className={[
-              'sirius-data-table__footer',
-              hasZebraStriping && 'sirius-data-table__footer--white',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-          >
+          <div className="sirius-data-table__footer">
             <p className="sirius-data-table__footer-text">{footerContent}</p>
           </div>
         )}
 
-        {/* Pied de tableau : Contrôle de pagination Sirius */}
-        {pagination && (
-          <SiriusPagination
-            type="table"
-            {...pagination}
-          />
-        )}
+        {pagination && <SiriusPagination type="table" {...pagination} />}
       </div>
     </div>
   );

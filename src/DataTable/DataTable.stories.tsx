@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
 import { SiriusDataTable, type ColumnContentType, type SortDirection } from './DataTable';
+import { SiriusBadge } from '../Badge/Badge';
+import { SiriusThumbnail } from '../Thumbnail/Thumbnail';
 
 const standardColumnContentTypes: ColumnContentType[] = [
   'text',
@@ -462,4 +464,107 @@ export const WithPagination: Story = {
       />
     );
   },
+};
+
+/* --------------------------------------------------------------------------
+   Listes de ressources : ce que faisait SiriusTable, fusionné ici le 2026-10-09
+   -------------------------------------------------------------------------- */
+
+const fcfa = (n: number) => `${n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} FCFA`;
+
+const commandes = [
+  { numero: '#1042', cliente: 'Awa Diop', paiement: 'wave', statut: 'payee', total: 24000 },
+  { numero: '#1043', cliente: 'Modou Fall', paiement: 'orange_money', statut: 'a_traiter', total: 8500 },
+  { numero: '#1044', cliente: 'Fatou Sow', paiement: 'cash_on_delivery', statut: 'en_attente', total: 14900 },
+  { numero: '#1045', cliente: 'Ousmane Ndiaye', paiement: 'wave', statut: 'payee', total: 14900 },
+  { numero: '#1046', cliente: 'Aminata Ba', paiement: 'orange_money', statut: 'a_traiter', total: 32500 },
+];
+const commandesProps = {
+  columnContentTypes: ['text', 'text', 'text', 'text', 'numeric'] as ColumnContentType[],
+  headings: ['Commande', 'Cliente', 'Paiement', 'Statut', 'Total'],
+  rows: commandes.map((c) => [
+    c.numero,
+    c.cliente,
+    <SiriusBadge key="p" tone={c.paiement as 'wave'} kind={c.paiement} />,
+    <SiriusBadge key="s" kind={c.statut} />,
+    fcfa(c.total),
+  ]),
+  rowIds: commandes.map((c) => c.numero),
+};
+
+/** Liste de commandes : cases à cocher, barre d'actions groupées sur l'en-tête,
+    clic sur une ligne pour l'ouvrir (ou la cocher dès qu'une sélection existe). */
+export const Commandes: Story = {
+  render: () => (
+    <SiriusDataTable
+      {...commandesProps}
+      selectable
+      onRowClick={(i) => alert(`Ouvrir ${commandes[i].numero}`)}
+      bulkActions={{
+        promotedActions: [{ content: 'Marquer comme préparées' }, { content: 'Imprimer les bons' }],
+        actions: [{ content: 'Archiver' }, { content: 'Annuler les commandes', destructive: true }],
+      }}
+    />
+  ),
+};
+
+const produits = [
+  { nom: 'Sandales en cuir de Ngaye', statut: 'actif', stock: 0, variantes: 3, categorie: 'Sandales', canaux: 4, type: 'chaussures' },
+  { nom: 'Boubou bazin riche brodé', statut: 'actif', stock: 49, categorie: 'Boubous', canaux: 3, type: 'vêtements' },
+  { nom: 'Robe wax Ankara', statut: 'actif', stock: 100, variantes: 5, categorie: 'Robes', canaux: 3, type: 'vêtements' },
+  { nom: 'Masque LED visage', statut: 'brouillon', stock: 20, canaux: 1, type: 'beauté' },
+  { nom: 'Thiouraye de Diourbel', statut: 'actif', stock: 18, categorie: 'Parfums', canaux: 3, type: 'beauté' },
+  { nom: 'Sac en raphia tressé', statut: 'archive', stock: 50, canaux: 1, type: 'accessoires' },
+];
+const badgeStatut: Record<string, React.ReactNode> = {
+  actif: <SiriusBadge tone="success">Actif</SiriusBadge>,
+  brouillon: <SiriusBadge tone="info">Brouillon</SiriusBadge>,
+  archive: <SiriusBadge tone="neutral">Archivé</SiriusBadge>,
+};
+
+/** Liste des produits telle que l'admin de référence l'affiche : vignette,
+    statut, stock en rouge à zéro. Une ligne fait 48 px avec la vignette. */
+export const Produits: Story = {
+  render: () => (
+    <SiriusDataTable
+      selectable
+      columnContentTypes={['text', 'text', 'text', 'text', 'text', 'numeric', 'text']}
+      headings={['', 'Produit', 'Statut', 'Stock', 'Catégorie', 'Canaux', 'Type de produit']}
+      rows={produits.map((p) => [
+        <SiriusThumbnail key="v" alt={p.nom} />,
+        <span key="n" style={{ fontWeight: 550 }}>{p.nom}</span>,
+        badgeStatut[p.statut],
+        <span key="s">
+          <span style={p.stock === 0 ? { color: 'var(--s-color-text-critical-accent)' } : undefined}>{p.stock} en stock</span>
+          {p.variantes ? ` pour ${p.variantes} variantes` : ''}
+        </span>,
+        p.categorie ?? '',
+        p.canaux,
+        p.type,
+      ])}
+      bulkActions={{
+        promotedActions: [{ content: 'Modifier les produits' }, { content: 'Mettre en ligne' }],
+        actions: [{ content: 'Archiver' }, { content: 'Supprimer les produits', destructive: true }],
+      }}
+    />
+  ),
+};
+
+export const LignesTeintees: Story = {
+  render: () => (
+    <SiriusDataTable
+      {...commandesProps}
+      selectable
+      rowTone={(i) => (['success', 'warning', 'critical', 'subdued', undefined] as const)[i]}
+      isRowDisabled={(i) => i === 4}
+    />
+  ),
+};
+
+export const Chargement: Story = {
+  render: () => <SiriusDataTable {...commandesProps} loading loadingLabel="Chargement des commandes…" />,
+};
+
+export const Vide: Story = {
+  render: () => <SiriusDataTable {...commandesProps} rows={[]} emptyState="Aucune commande pour le moment." />,
 };

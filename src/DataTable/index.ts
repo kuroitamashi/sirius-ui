@@ -4,4 +4,5 @@ export type {
   SiriusDataTablePagination,
   ColumnContentType,
   SortDirection,
+  DataTableRowTone,
 } from './DataTable';

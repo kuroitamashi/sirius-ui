@@ -1,6 +1,11 @@
 /* ==========================================================================
-   Sirius DataTable
-   Reproduction 1:1 pixel-perfect du composant DataTable de Polaris
+   Sirius DataTable : le seul tableau de Sirius
+   Mise en page à plat de l'admin de référence (capture et relevés du
+   2026-10-09) : pas de carte autour, le tableau se pose sur la surface
+   blanche de la page. L'en-tête est une bande grise #f7f7f7 de 32 px aux
+   bouts arrondis de 8 px, intitulés 12 px graisse 550. Lignes de 33 px
+   (48 px avec une vignette de 36 px), texte 13 px, trait #f2f2f2 entre deux
+   lignes. Survol #f7f7f7, ligne cochée #f2f2f2.
    ========================================================================== */
 
 .sirius-data-table-wrapper {
@@ -10,32 +15,29 @@
 }
 
 .sirius-data-table__title {
-  margin: 0 0 16px 0;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-  color: var(--sirius-text, #202223);
-  letter-spacing: -0.01em;
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 20px;
+  color: var(--sirius-text);
 }
 
 .sirius-data-table-card {
-  background-color: var(--sirius-surface, #ffffff);
-  border: 1px solid var(--sirius-border-subdued, #e1e3e5);
-  border-radius: 8px;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  width: 100%;
   position: relative;
+  width: 100%;
 }
 
 .sirius-data-table__scroll-container {
+  position: relative;
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 /* --------------------------------------------------------------------------
-   Table & Cellules
+   Tableau et cellules
+   Le trait entre deux lignes est une ombre intérieure : avec border-collapse,
+   une bordure se partage entre deux cellules et laisse des demi-pixels.
    -------------------------------------------------------------------------- */
 .sirius-data-table {
   width: 100%;
@@ -43,27 +45,46 @@
   border-spacing: 0;
   font-family: inherit;
   font-size: 13px;
+  font-weight: 450;
   line-height: 20px;
-  color: var(--sirius-text, #202223);
+  color: var(--sirius-text);
   text-align: left;
 }
 
 .sirius-data-table th,
 .sirius-data-table td {
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--sirius-border-subdued, #e1e3e5);
+  height: 33px;
+  padding: 6px;
   vertical-align: middle;
+  /* une cellule ne passe jamais à la ligne : sur téléphone, le tableau défile
+     de côté plutôt que de doubler la hauteur des lignes */
+  white-space: nowrap;
   box-sizing: border-box;
 }
 
-/* Densité accrue (mode compact) */
-.sirius-data-table--dense th,
-.sirius-data-table--dense td {
-  padding: 7px 16px;
-  font-size: 12.5px;
+.sirius-data-table th:first-child,
+.sirius-data-table td:first-child {
+  padding-left: 12px;
+}
+.sirius-data-table th:last-child,
+.sirius-data-table td:last-child {
+  padding-right: 12px;
 }
 
-/* Alignements */
+/* un badge de 20 px posé sur la ligne de base gonflait la ligne : calé en
+   haut, il remplit exactement la ligne de texte */
+.sirius-data-table th > *,
+.sirius-data-table td > * {
+  vertical-align: top;
+}
+
+.sirius-data-table--dense th,
+.sirius-data-table--dense td {
+  height: 28px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
 .sirius-data-table__cell--text {
   text-align: left;
 }
@@ -74,255 +95,217 @@
 }
 
 /* --------------------------------------------------------------------------
-   En-tête de colonnes (thead)
-   Standard Polaris : fond blanc (#ffffff), texte gris secondaire (#5c5f62)
+   En-tête : la bande grise est peinte cellule par cellule, la première et la
+   dernière arrondissent ses bouts
    -------------------------------------------------------------------------- */
 .sirius-data-table thead th {
-  background-color: #ffffff;
-  font-weight: 500;
-  font-size: 13px;
-  color: var(--sirius-text, #202223);
-  border-bottom: 1px solid var(--sirius-border-subdued, #e1e3e5);
-  white-space: nowrap;
+  height: 32px;
+  background-color: var(--s-color-bg-surface-secondary);
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--s-color-text-secondary);
 }
+.sirius-data-table thead th:first-child { border-radius: 8px 0 0 8px; }
+.sirius-data-table thead th:last-child { border-radius: 0 8px 8px 0; }
 
-
-/* Colonnes triables : aucun style au survol, seul le chevron actif change de position au clic */
-.sirius-data-table__heading--sortable {
+/* Intitulé triable : tout l'intitulé est cliquable, la flèche n'apparaît
+   qu'au survol ou sur la colonne triée */
+.sirius-data-table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
   cursor: pointer;
-  user-select: none;
+}
+.sirius-data-table__cell--numeric .sirius-data-table__sort {
+  flex-direction: row-reverse;
+}
+.sirius-data-table__sort svg {
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+.sirius-data-table__sort:hover,
+.sirius-data-table__sort--active {
+  color: var(--sirius-text);
+}
+.sirius-data-table__sort:hover svg,
+.sirius-data-table__sort--active svg {
+  opacity: 1;
 }
 
-.sirius-data-table__heading-inner {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.sirius-data-table__cell--numeric .sirius-data-table__heading-inner {
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.sirius-data-table__sort-icon {
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-
-/* Sticky Header : s'ancre en haut de page sans barre de défilement interne */
-.sirius-data-table-card--sticky {
-  overflow: visible;
-}
-
+/* En-tête figé */
 .sirius-data-table-card--sticky .sirius-data-table__scroll-container {
   overflow: visible;
 }
-
 .sirius-data-table--sticky thead th {
   position: sticky;
   top: 0;
   z-index: var(--s-z-index-sticky);
-  background-color: #ffffff;
-  box-shadow: 0 1px 0 var(--sirius-border-subdued, #e1e3e5);
 }
 
-
 /* --------------------------------------------------------------------------
-   Ligne de Totaux (Totals)
-   Standard Polaris : fond gris clair tamisé (#f7f7f8), texte gras (#202223)
+   Cases à cocher et actions groupées
    -------------------------------------------------------------------------- */
-.sirius-data-table__row--totals {
-  background-color: var(--sirius-surface-subdued);
-  font-weight: 600;
+.sirius-data-table .sirius-data-table__cell--checkbox {
+  width: 1px;
+  padding-right: 8px;
+}
+.sirius-data-table__cell--checkbox .sirius-field {
+  width: auto;
+  margin-top: 1px;
+}
+.sirius-data-table__cell--checkbox .sirius-checkbox-wrap {
+  display: flex;
 }
 
-.sirius-data-table__row--totals td {
-  background-color: var(--sirius-surface-subdued);
-  border-bottom: 1px solid var(--sirius-border-subdued, #e1e3e5);
-  color: var(--sirius-text, #202223);
-  font-weight: 600;
-  font-size: 13px;
+/* La barre d'actions recouvre l'en-tête, qui garde ses largeurs de colonnes */
+.sirius-data-table__thead--selecting tr {
+  visibility: hidden;
 }
-
-.sirius-data-table__row--totals-footer td {
-  border-top: 1px solid var(--sirius-border-subdued, #e1e3e5);
-  border-bottom: none;
+.sirius-data-table__bulk {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 32px;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.sirius-data-table__bulk > * {
+  flex: 1;
+  min-height: 32px;
 }
 
 /* --------------------------------------------------------------------------
-   Corps du tableau & Lignes de données
+   Lignes
    -------------------------------------------------------------------------- */
 .sirius-data-table tbody tr {
-  background-color: #ffffff;
   transition: background-color 0.1s ease;
 }
 
-.sirius-data-table tbody tr:not(.sirius-data-table__row--totals) td {
-  color: var(--sirius-text, #202223);
-  font-size: 13px;
-  font-weight: 400;
+.sirius-data-table tbody tr + tr > td {
+  box-shadow: inset 0 1px 0 var(--s-color-border-secondary);
 }
 
-/* Suppression de la bordure basse de la toute dernière ligne pour épouser le border-radius de la carte */
-.sirius-data-table tbody tr:last-child td {
-  border-bottom: none;
+.sirius-data-table--hoverable tbody .sirius-data-table__row:hover {
+  background-color: var(--s-color-bg-surface-hover);
 }
 
-/* Si les totaux sont en footer, l'avant-dernière ligne a besoin de sa bordure */
-.sirius-data-table tbody:has(.sirius-data-table__row--totals-footer) tr:nth-last-child(2) td {
-  border-bottom: 1px solid var(--sirius-border-subdued, #e1e3e5);
+.sirius-data-table__row--clickable {
+  cursor: pointer;
 }
 
-.sirius-data-table--hoverable tbody tr:not(.sirius-data-table__row--totals):hover {
-  background-color: #f7f8f9;
+.sirius-data-table__row--selected,
+.sirius-data-table--hoverable tbody .sirius-data-table__row--selected:hover {
+  background-color: var(--s-color-bg-surface-selected);
 }
 
-/* Rayures zébrées : couleur identique aux Totaux (#f7f7f8), alternant avec rowIdx 0 blanc */
-.sirius-data-table--zebra tbody tr.sirius-data-table__row--zebra-striped {
-  background-color: var(--sirius-surface-subdued, #f7f7f8);
+.sirius-data-table--zebra tbody .sirius-data-table__row--zebra-striped {
+  background-color: var(--s-color-bg-surface-secondary);
 }
 
-.sirius-data-table--zebra.sirius-data-table--hoverable tbody tr.sirius-data-table__row--zebra-striped:hover {
-  background-color: var(--sirius-surface-active);
+/* Tons : le fond dit l'état, le texte reste lisible */
+.sirius-data-table__row--subdued { color: var(--s-color-text-secondary); }
+.sirius-data-table tbody .sirius-data-table__row--success { background-color: var(--s-color-bg-surface-success); }
+.sirius-data-table tbody .sirius-data-table__row--warning { background-color: var(--s-color-bg-surface-warning); }
+.sirius-data-table tbody .sirius-data-table__row--critical { background-color: var(--s-color-bg-surface-critical); }
+
+.sirius-data-table__row--disabled {
+  color: var(--sirius-text-faint);
+  cursor: default;
+}
+.sirius-data-table--hoverable tbody .sirius-data-table__row--disabled:hover {
+  background-color: transparent;
+}
+
+/* Totaux : en gras, sans fond, comme une ligne de plus */
+.sirius-data-table__row--totals td {
+  font-weight: 650;
+}
+
+/* Chargement : une ligne sous l'en-tête, les autres estompées */
+.sirius-data-table__loading-row td {
+  color: var(--s-color-text-secondary);
+}
+.sirius-data-table__loading-row td > span:last-child {
+  margin-left: 8px;
+}
+.sirius-data-table[aria-busy='true'] .sirius-data-table__row {
+  opacity: 0.5;
+}
+
+.sirius-data-table td.sirius-data-table__empty {
+  height: auto;
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--s-color-text-secondary);
+  white-space: normal;
 }
 
 /* Liens dans les lignes.
    Vise la classe, jamais le <a> nu : une cellule contient aussi des liens qui
    ne doivent PAS ressembler à des liens (nom de produit, entrées d'un menu
-   d'actions), et une règle sur `a` les repeignait en bleu souligné au survol,
-   obligeant chaque consommateur à la combattre. Pour un vrai lien de cellule :
-   className="sirius-data-table__link". */
+   d'actions). Pour un vrai lien de cellule : className="sirius-data-table__link". */
 .sirius-data-table .sirius-data-table__link {
-  color: var(--sirius-interactive, #005bd3);
+  color: var(--s-color-text-link);
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.1s ease, text-decoration 0.1s ease;
+  font-weight: 550;
 }
-
 .sirius-data-table .sirius-data-table__link:hover {
   text-decoration: underline;
-  color: var(--sirius-interactive-hover, #004299);
+  color: var(--s-color-text-link-hover);
 }
 
-/* Troncature de texte avec ellipse : appliqué au span intérieur, pas au td */
+/* Troncature : appliquée au span intérieur, pas à la cellule */
 .sirius-data-table__truncate-text {
   max-width: 240px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-block;
-  vertical-align: middle;
 }
 
 /* --------------------------------------------------------------------------
-   Colonnes figées (Fixed First Columns)
+   Première colonne figée : elle garde le fond de sa ligne
    -------------------------------------------------------------------------- */
 .sirius-data-table--fixed-first th:first-child,
 .sirius-data-table--fixed-first td:first-child {
   position: sticky;
   left: 0;
-  box-shadow: 2px 0 4px -2px rgba(0, 0, 0, 0.08);
+  z-index: 1;
+  background-color: inherit;
 }
-
+.sirius-data-table--fixed-first tbody tr {
+  background-color: #ffffff;
+}
 .sirius-data-table--fixed-first thead th:first-child {
-  background-color: #ffffff;
-  z-index: 15;
-}
-
-.sirius-data-table--fixed-first .sirius-data-table__row--totals td:first-child {
-  background-color: var(--sirius-surface-subdued);
-  z-index: 10;
-}
-
-.sirius-data-table--fixed-first tbody tr:not(.sirius-data-table__row--totals) td:first-child {
-  background-color: #ffffff;
-  z-index: 5;
-}
-
-.sirius-data-table--fixed-first.sirius-data-table--zebra tbody tr.sirius-data-table__row--zebra-striped td:first-child {
-  background-color: var(--sirius-surface-subdued, #f7f7f8);
+  background-color: var(--s-color-bg-surface-secondary);
+  z-index: 2;
 }
 
 /* --------------------------------------------------------------------------
-   Pied de tableau (Footer & Pagination)
-   Standard Polaris : fond gris clair tamisé (#f7f7f8) identique aux Totaux
-   Pour les tableaux zébrés : fond blanc
+   Pied : texte de comptage, puis pagination
    -------------------------------------------------------------------------- */
 .sirius-data-table__footer {
-  padding: 12px 16px;
-  border-top: 1px solid var(--sirius-border-subdued, #e1e3e5);
-  background-color: var(--sirius-surface-subdued, #f7f7f8);
+  padding: 12px 12px 0;
+  box-shadow: inset 0 1px 0 var(--s-color-border-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Pour le tableau zebra, le footer est blanc (pas gris) */
-.sirius-data-table__footer--white {
-  background-color: var(--sirius-surface, #ffffff);
 }
 
 .sirius-data-table__footer-text {
   font-size: 13px;
-  color: var(--sirius-text-subdued, #6d7175);
+  color: var(--s-color-text-secondary);
   margin: 0;
   line-height: 20px;
 }
 
-
-.sirius-data-table__pagination {
-  padding: 10px 16px;
-  border-top: 1px solid var(--sirius-border-subdued, #e1e3e5);
-  background-color: var(--sirius-surface-subdued, #f7f7f8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.sirius-data-table-card > .sirius-pagination--table {
+  background: none;
+  border-top: 0;
+  box-shadow: inset 0 1px 0 var(--s-color-border-secondary);
 }
-
-
-/* Pagination connectée standard Polaris [ < | > ] */
-.sirius-data-table__pagination-group {
-  display: inline-flex;
-  border-radius: var(--sirius-radius-base, 6px);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
-}
-
-.sirius-data-table__pagination-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  background: #ffffff;
-  border: 1px solid var(--sirius-border-hover);
-  color: var(--sirius-text, #202223);
-  cursor: pointer;
-  outline: none;
-  transition: background-color 0.1s ease, border-color 0.1s ease;
-  padding: 0;
-}
-
-.sirius-data-table__pagination-btn:first-child {
-  border-top-left-radius: var(--sirius-radius-base, 6px);
-  border-bottom-left-radius: var(--sirius-radius-base, 6px);
-  border-right: none;
-}
-
-.sirius-data-table__pagination-btn:last-child {
-  border-top-right-radius: var(--sirius-radius-base, 6px);
-  border-bottom-right-radius: var(--sirius-radius-base, 6px);
-}
-
-.sirius-data-table__pagination-btn:hover:not(:disabled) {
-  background-color: #f6f7f8;
-  border-color: #b5b8bb;
-}
-
-.sirius-data-table__pagination-btn:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-  background-color: #ffffff;
-}
-
