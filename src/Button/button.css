@@ -17,7 +17,7 @@
      dans tout le système, plus de prop à oublier. Icône seule = cercle. */
   border-radius: 999px;
   font-family: inherit;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 13px;
   line-height: 1.25;
   /* Hauteur pilotée par min-height, pas par le padding : sans ça un bouton
@@ -132,7 +132,7 @@
   /* padding horizontal seul : un bouton nu reste à la hauteur de tous les
      autres, il ne perd que son fond et sa bordure */
   padding-inline: 8px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .sirius-btn--plain:hover:not(:disabled) {
